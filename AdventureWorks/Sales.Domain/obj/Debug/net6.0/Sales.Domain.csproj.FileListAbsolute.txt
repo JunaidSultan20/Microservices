@@ -1,0 +1,12 @@
+D:\Projects\AdventureWorks\Sales.Domain\bin\Debug\net6.0\Sales.Domain.deps.json
+D:\Projects\AdventureWorks\Sales.Domain\bin\Debug\net6.0\Sales.Domain.dll
+D:\Projects\AdventureWorks\Sales.Domain\bin\Debug\net6.0\Sales.Domain.pdb
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\Sales.Domain.csproj.AssemblyReference.cache
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\Sales.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\Sales.Domain.AssemblyInfoInputs.cache
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\Sales.Domain.AssemblyInfo.cs
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\Sales.Domain.csproj.CoreCompileInputs.cache
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\Sales.Domain.dll
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\refint\Sales.Domain.dll
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\Sales.Domain.pdb
+D:\Projects\AdventureWorks\Sales.Domain\obj\Debug\net6.0\ref\Sales.Domain.dll

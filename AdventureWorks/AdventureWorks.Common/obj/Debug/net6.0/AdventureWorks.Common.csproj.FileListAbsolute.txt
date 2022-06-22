@@ -1,0 +1,12 @@
+D:\Projects\AdventureWorks\AdventureWorks.Common\bin\Debug\net6.0\AdventureWorks.Common.deps.json
+D:\Projects\AdventureWorks\AdventureWorks.Common\bin\Debug\net6.0\AdventureWorks.Common.dll
+D:\Projects\AdventureWorks\AdventureWorks.Common\bin\Debug\net6.0\AdventureWorks.Common.pdb
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\AdventureWorks.Common.csproj.AssemblyReference.cache
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\AdventureWorks.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\AdventureWorks.Common.AssemblyInfoInputs.cache
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\AdventureWorks.Common.AssemblyInfo.cs
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\AdventureWorks.Common.csproj.CoreCompileInputs.cache
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\AdventureWorks.Common.dll
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\refint\AdventureWorks.Common.dll
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\AdventureWorks.Common.pdb
+D:\Projects\AdventureWorks\AdventureWorks.Common\obj\Debug\net6.0\ref\AdventureWorks.Common.dll

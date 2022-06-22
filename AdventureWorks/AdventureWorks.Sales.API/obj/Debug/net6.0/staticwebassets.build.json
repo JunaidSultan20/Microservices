@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "Gt7CvEKysBTKUJITBTwMfZa/a+DLeieQXQJwB5hH1tc=",
+  "Source": "AdventureWorks.Sales.API",
+  "BasePath": "_content/AdventureWorks.Sales.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

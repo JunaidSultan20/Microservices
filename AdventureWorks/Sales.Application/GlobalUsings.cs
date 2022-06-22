@@ -1,0 +1,16 @@
+﻿global using System.Linq.Expressions;
+global using Sales.Domain.Entities;
+global using Sales.Application.Contracts.Repositories;
+global using System.Net;
+global using AdventureWorks.Common.Response;
+global using AdventureWorks.Common.Services.Contracts;
+global using AutoMapper;
+global using MediatR;
+global using Microsoft.AspNetCore.Http;
+global using Sales.Application.Contracts.UnitOfWork;
+global using Sales.Application.DTOs;
+global using Sales.Application.Features.Customers.Queries;
+global using AdventureWorks.Common.Parameters;
+global using System.Reflection;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Configuration;

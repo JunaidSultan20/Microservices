@@ -1,0 +1,17 @@
+D:\Projects\AdventureWorks\Sales.Application\bin\Debug\net6.0\Sales.Application.deps.json
+D:\Projects\AdventureWorks\Sales.Application\bin\Debug\net6.0\Sales.Application.dll
+D:\Projects\AdventureWorks\Sales.Application\bin\Debug\net6.0\Sales.Application.pdb
+D:\Projects\AdventureWorks\Sales.Application\bin\Debug\net6.0\AdventureWorks.Common.dll
+D:\Projects\AdventureWorks\Sales.Application\bin\Debug\net6.0\Sales.Domain.dll
+D:\Projects\AdventureWorks\Sales.Application\bin\Debug\net6.0\AdventureWorks.Common.pdb
+D:\Projects\AdventureWorks\Sales.Application\bin\Debug\net6.0\Sales.Domain.pdb
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\Sales.Application.csproj.AssemblyReference.cache
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\Sales.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\Sales.Application.AssemblyInfoInputs.cache
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\Sales.Application.AssemblyInfo.cs
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\Sales.Application.csproj.CoreCompileInputs.cache
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\Sales.Application.csproj.CopyComplete
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\Sales.Application.dll
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\refint\Sales.Application.dll
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\Sales.Application.pdb
+D:\Projects\AdventureWorks\Sales.Application\obj\Debug\net6.0\ref\Sales.Application.dll

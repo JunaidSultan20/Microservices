@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  adventureworks.gateway.api:
+    image: ${DOCKER_REGISTRY-}adventureworksgatewayapi
+    build:
+      context: .
+      dockerfile: AdventureWorks.Gateway.API/Dockerfile
+
+  adventureworks.sales.api:
+    image: ${DOCKER_REGISTRY-}adventureworkssalesapi
+    build:
+      context: .
+      dockerfile: AdventureWorks.Sales.API/Dockerfile

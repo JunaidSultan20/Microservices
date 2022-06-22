@@ -1,0 +1,69 @@
+name: dockercompose4656335781798388365
+services:
+  adventureworks.gateway.api:
+    build:
+      context: D:\Projects\AdventureWorks
+      dockerfile: AdventureWorks.Gateway.API/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:543;http://+:90
+    image: adventureworksgatewayapi
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 90
+      published: "5001"
+      protocol: tcp
+    - mode: ingress
+      target: 543
+      published: "5000"
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\Junaid Sultan\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid Sultan\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  adventureworks.sales.api:
+    build:
+      context: D:\Projects\AdventureWorks
+      dockerfile: AdventureWorks.Sales.API/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: adventureworkssalesapi
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: "4001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "4000"
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\Junaid Sultan\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid Sultan\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  default:
+    name: dockercompose4656335781798388365_default
