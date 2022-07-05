@@ -1,10 +1,15 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.AddEventSourceLogger();
 builder.Configuration.AddJsonFile($"ocelot.{builder.Environment.EnvironmentName}.json", false, true);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -23,10 +28,10 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction() || app.Env
 
 app.UseHttpsRedirection();
 
-app.UseOcelot().Wait();
-
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseOcelot().Wait();
 
 app.Run();

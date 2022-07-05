@@ -11,9 +11,11 @@
           "MediatR.Extensions.Microsoft.DependencyInjection": "10.0.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.6",
           "Microsoft.AspNetCore.Mvc.Versioning": "5.0.0",
-          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.14.0",
+          "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer": "5.0.0",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.16.1",
           "Sales.Application": "1.0.0",
           "Sales.Infrastructure": "1.0.0",
+          "Services.Core": "1.0.0",
           "Swashbuckle.AspNetCore": "6.3.1"
         },
         "runtime": {
@@ -60,6 +62,17 @@
           "lib/netstandard1.5/Castle.Core.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.4.1.0"
+          }
+        }
+      },
+      "Consul/1.6.10.6": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Consul.dll": {
+            "assemblyVersion": "1.6.10.6",
+            "fileVersion": "1.6.10.6"
           }
         }
       },
@@ -121,6 +134,17 @@
           "lib/net5.0/Microsoft.AspNetCore.Mvc.Versioning.dll": {
             "assemblyVersion": "5.0.0.0",
             "fileVersion": "5.0.7710.5690"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer/5.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc.Versioning": "5.0.0"
+        },
+        "runtime": {
+          "lib/net5.0/Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.7710.5714"
           }
         }
       },
@@ -556,7 +580,7 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.14.0": {},
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.16.1": {},
       "Microsoft.Win32.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
@@ -1567,6 +1591,7 @@
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.5",
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "6.0.0",
           "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
@@ -1610,6 +1635,17 @@
         "runtime": {
           "Sales.Infrastructure.dll": {}
         }
+      },
+      "Services.Core/1.0.0": {
+        "dependencies": {
+          "Consul": "1.6.10.6",
+          "Microsoft.Extensions.Configuration.Binder": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection": "6.0.0",
+          "Microsoft.Extensions.Hosting": "6.0.1"
+        },
+        "runtime": {
+          "Services.Core.dll": {}
+        }
       }
     }
   },
@@ -1639,6 +1675,13 @@
       "sha512": "sha512-zanbjWC0Y05gbx4eGXkzVycOQqVOFVeCjVsDSyuao9P4mtN1w3WxxTo193NGC7j3o2u3AJRswaoC6hEbnGACnQ==",
       "path": "castle.core/4.4.1",
       "hashPath": "castle.core.4.4.1.nupkg.sha512"
+    },
+    "Consul/1.6.10.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rt0uQw8f8wtRDwp1B5NIemC094jbkOv3b3Jzy9HOc0FIAJhMEaSRpcZCzjLGKMvPAfw7TKxy07CiYMNXvbMARA==",
+      "path": "consul/1.6.10.6",
+      "hashPath": "consul.1.6.10.6.nupkg.sha512"
     },
     "MediatR/10.0.1": {
       "type": "package",
@@ -1688,6 +1731,13 @@
       "sha512": "sha512-mN9IARvNpHMBD2/oGmp5Bxp1Dg45Hfcp+LWaAyTtL2HisWLMOIcf0Ox1qW9IvCvdbHM+2A9dWEInhiqBsNxsJA==",
       "path": "microsoft.aspnetcore.mvc.versioning/5.0.0",
       "hashPath": "microsoft.aspnetcore.mvc.versioning.5.0.0.nupkg.sha512"
+    },
+    "Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-GZH7F1iDtJKw23qkqQaAnBh9Rw+GVUq5SK0ldfAqMh+2syFRtzPkvQUl0V+qe2wuP0QRr1zG82G812ZN8AU6ig==",
+      "path": "microsoft.aspnetcore.mvc.versioning.apiexplorer/5.0.0",
+      "hashPath": "microsoft.aspnetcore.mvc.versioning.apiexplorer.5.0.0.nupkg.sha512"
     },
     "Microsoft.CSharp/4.7.0": {
       "type": "package",
@@ -2018,12 +2068,12 @@
       "path": "microsoft.openapi/1.2.3",
       "hashPath": "microsoft.openapi.1.2.3.nupkg.sha512"
     },
-    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.14.0": {
+    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.16.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yORzATlNmCp4kEwkxznLZ3maTaUJc5yTcu3aPufY8Tq4141/bRRWsa91u8I24MR3BTCCJlZO98xuQWB4arlKCw==",
-      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.14.0",
-      "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.14.0.nupkg.sha512"
+      "sha512": "sha512-LbhMLd8inAwC5UvmzCfgT869zCmuXNNF1ICaBPROtB5TfGoMEpk9zEiTfa/e3PKOla/uz42WujhspNrv7d35AQ==",
+      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.16.1",
+      "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.16.1.nupkg.sha512"
     },
     "Microsoft.Win32.Primitives/4.3.0": {
       "type": "package",
@@ -2776,6 +2826,11 @@
       "sha512": ""
     },
     "Sales.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Services.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -2,6 +2,8 @@ D:\Projects\AdventureWorks\bin\Debug\AdventureWorks.Gateway.API.deps.json
 D:\Projects\AdventureWorks\bin\Debug\AdventureWorks.Gateway.API.runtimeconfig.json
 D:\Projects\AdventureWorks\bin\Debug\appsettings.Development.json
 D:\Projects\AdventureWorks\bin\Debug\appsettings.json
+D:\Projects\AdventureWorks\bin\Debug\ocelot.Development.json
+D:\Projects\AdventureWorks\bin\Debug\ocelot.Docker.json
 D:\Projects\AdventureWorks\bin\Debug\ocelot.json
 D:\Projects\AdventureWorks\bin\Debug\AdventureWorks.Gateway.API.exe
 D:\Projects\AdventureWorks\bin\Debug\AdventureWorks.Sales.API.deps.json
@@ -16,6 +18,7 @@ D:\Projects\AdventureWorks\bin\Debug\Ocelot.dll
 D:\Projects\AdventureWorks\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
 D:\Projects\AdventureWorks\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\Projects\AdventureWorks\bin\Debug\Microsoft.AspNetCore.Mvc.Versioning.dll
+D:\Projects\AdventureWorks\bin\Debug\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
 D:\Projects\AdventureWorks\bin\Debug\MediatR.dll
 D:\Projects\AdventureWorks\bin\Debug\AdventureWorks.Common.dll
 D:\Projects\AdventureWorks\bin\Debug\Sales.Application.dll
@@ -55,4 +58,3 @@ D:\Projects\AdventureWorks\bin\Debug\Sales.Domain.pdb
 D:\Projects\AdventureWorks\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
 D:\Projects\AdventureWorks\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 D:\Projects\AdventureWorks\obj\Debug\docker-compose.dcproj.CopyComplete
-D:\Projects\AdventureWorks\bin\Debug\ocelot.Development.json

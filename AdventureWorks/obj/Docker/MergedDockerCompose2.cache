@@ -4,21 +4,28 @@ services:
     build:
       context: D:\Projects\AdventureWorks
       dockerfile: AdventureWorks.Gateway.API/Dockerfile
+    container_name: gateway.api
+    depends_on:
+      adventureworks.sales.api:
+        condition: service_started
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: https://+:543;http://+:90
+      ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
+    hostname: gateway.api
     image: adventureworksgatewayapi
     networks:
-      default: null
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.4
     ports:
     - mode: ingress
-      target: 90
+      target: 80
       published: "5001"
       protocol: tcp
     - mode: ingress
-      target: 543
+      target: 443
       published: "5000"
       protocol: tcp
+    restart: on-failure
     volumes:
     - type: bind
       source: C:\Users\Junaid Sultan\AppData\Roaming/Microsoft/UserSecrets
@@ -36,12 +43,19 @@ services:
     build:
       context: D:\Projects\AdventureWorks
       dockerfile: AdventureWorks.Sales.API/Dockerfile
+    container_name: sales.api
+    depends_on:
+      adventureworksredis:
+        condition: service_started
+      consul:
+        condition: service_started
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: https://+:443;http://+:80
+      ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
     image: adventureworkssalesapi
     networks:
-      default: null
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.5
     ports:
     - mode: ingress
       target: 80
@@ -51,6 +65,7 @@ services:
       target: 443
       published: "4000"
       protocol: tcp
+    restart: on-failure
     volumes:
     - type: bind
       source: C:\Users\Junaid Sultan\AppData\Roaming/Microsoft/UserSecrets
@@ -64,6 +79,46 @@ services:
       read_only: true
       bind:
         create_host_path: true
+  adventureworksredis:
+    container_name: adventureworksredis
+    expose:
+    - "6379"
+    image: redis:latest
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.2
+    ports:
+    - mode: ingress
+      target: 6379
+      published: "6379"
+      protocol: tcp
+  consul:
+    command:
+    - consul
+    - agent
+    - -dev
+    - -log-level=warn
+    - -ui
+    - -client=0.0.0.0
+    container_name: consul
+    expose:
+    - "8500"
+    hostname: consul
+    image: consul:latest
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.3
+    ports:
+    - mode: ingress
+      target: 8500
+      published: "8500"
+      protocol: tcp
 networks:
-  default:
-    name: dockercompose4656335781798388365_default
+  adventureworksnetwork:
+    name: dockercompose4656335781798388365_adventureworksnetwork
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.10.0.0/16
+        gateway: 172.10.0.1

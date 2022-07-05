@@ -1,11 +1,14 @@
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\appsettings.Development.json
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\appsettings.json
+D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.Development.json
+D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.Docker.json
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.json
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.exe
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.deps.json
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.runtimeconfig.json
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.pdb
+D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Consul.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\FluentValidation.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Microsoft.AspNetCore.MiddlewareAnalysis.dll
@@ -15,6 +18,7 @@ D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Microsoft
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Ocelot.dll
+D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Ocelot.Provider.Consul.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -34,4 +38,3 @@ D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\refint\Ad
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.pdb
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.genruntimeconfig.cache
 D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\ref\AdventureWorks.Gateway.API.dll
-D:\Projects\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.Development.json

@@ -1,14 +1,57 @@
-version: '3.4'
+version: '3.9'
 
 services:
-  adventureworks.gateway.api:
-    image: ${DOCKER_REGISTRY-}adventureworksgatewayapi
-    build:
-      context: .
-      dockerfile: AdventureWorks.Gateway.API/Dockerfile
+    consul:
+        image: consul:latest
+        command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
+        hostname: consul
+        container_name: consul
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.3
 
-  adventureworks.sales.api:
-    image: ${DOCKER_REGISTRY-}adventureworkssalesapi
-    build:
-      context: .
-      dockerfile: AdventureWorks.Sales.API/Dockerfile
+    adventureworksredis:
+        container_name: adventureworksredis
+        image: redis:latest
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.2
+
+    adventureworks.gateway.api:
+        container_name: gateway.api
+        image: ${DOCKER_REGISTRY-}adventureworksgatewayapi
+        restart: on-failure
+        hostname: gateway.api
+        build:
+            context: .
+            dockerfile: AdventureWorks.Gateway.API/Dockerfile
+        depends_on:
+            - adventureworks.sales.api
+            #- consul
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.4
+
+    adventureworks.sales.api:
+        container_name: sales.api
+        image: ${DOCKER_REGISTRY-}adventureworkssalesapi
+        restart: on-failure
+        #hostname: sales.api
+        build:
+            context: .
+            dockerfile: AdventureWorks.Sales.API/Dockerfile
+        depends_on:
+            - adventureworksredis
+            - consul
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.5
+
+networks:
+    adventureworksnetwork:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.10.0.0/16
+                  gateway: 172.10.0.1

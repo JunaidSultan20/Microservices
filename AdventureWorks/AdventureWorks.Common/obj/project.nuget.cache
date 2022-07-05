@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MSHhQy+lmty5J4XbyLOaLOUinu5Q7xPGZESRbXrtjSbz1zlLpH8b/NCXwc2Zq5/OTwwrGS0EAd7YjYHYESbMSQ==",
+  "dgSpecHash": "jdme9JKQsF/FxePWqxpQBqXfSFEiYBznCiD40M7vmiqhjy3QJ1X9lGIuF3OBHmj1wYMtYODj6tuw71oM7O3fkw==",
   "success": true,
   "projectFilePath": "D:\\Projects\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
   "expectedPackageFiles": [
@@ -8,8 +8,11 @@
     "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.caching.stackexchangeredis\\6.0.5\\microsoft.extensions.caching.stackexchangeredis.6.0.5.nupkg.sha512",
+    "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
     "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\6.0.0\\microsoft.extensions.fileproviders.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\6.0.0\\microsoft.extensions.hosting.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
     "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\Junaid Sultan\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",

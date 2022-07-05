@@ -5,24 +5,38 @@
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 4000
+          "Host": "sales.api",
+          "Port": 443
         }
       ],
       "UpstreamPathTemplate": "/gateway/customer?{everything}",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      },
+      "DownstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      }
     },
     {
       "DownstreamPathTemplate": "/api/customer/{id:int}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 4000
+          "Host": "sales.api",
+          "Port": 443
         }
       ],
       "UpstreamPathTemplate": "/gateway/customer/{id:int}",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": [ "GET" ],
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      },
+      "DownstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      }
     }
   ],
   "RateLimitOptions": {
@@ -30,5 +44,8 @@
     "Period": "10s",
     "PeriodTimespan": 10,
     "Limit": 3
+  },
+  "GlobalConfiguration": {
+    "BaseUrl": "localhost:5000"
   }
 }

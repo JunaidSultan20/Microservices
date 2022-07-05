@@ -8,12 +8,24 @@
     ".NETCoreApp,Version=v6.0": {
       "AdventureWorks.Gateway.API/1.0.0": {
         "dependencies": {
-          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.14.0",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.16.1",
           "Ocelot": "18.0.0",
+          "Ocelot.Provider.Consul": "18.0.0",
           "Swashbuckle.AspNetCore": "6.3.1"
         },
         "runtime": {
           "AdventureWorks.Gateway.API.dll": {}
+        }
+      },
+      "Consul/1.6.10.4": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Consul.dll": {
+            "assemblyVersion": "1.6.10.4",
+            "fileVersion": "1.6.10.4"
+          }
         }
       },
       "FluentValidation/10.3.6": {
@@ -82,7 +94,7 @@
           }
         }
       },
-      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.14.0": {},
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.16.1": {},
       "Newtonsoft.Json/13.0.1": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
@@ -111,6 +123,18 @@
         },
         "runtime": {
           "lib/net6.0/Ocelot.dll": {
+            "assemblyVersion": "18.0.0.0",
+            "fileVersion": "18.0.0.0"
+          }
+        }
+      },
+      "Ocelot.Provider.Consul/18.0.0": {
+        "dependencies": {
+          "Consul": "1.6.10.4",
+          "Ocelot": "18.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Ocelot.Provider.Consul.dll": {
             "assemblyVersion": "18.0.0.0",
             "fileVersion": "18.0.0.0"
           }
@@ -162,6 +186,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Consul/1.6.10.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5L3O7XirEx3bJ03OjMVdi/hdRLpkH/gRilgMZzk55Is5ttJ4GamwW+aONfFVneTKRKBpcCw/gIH5qoz4zomi1g==",
+      "path": "consul/1.6.10.4",
+      "hashPath": "consul.1.6.10.4.nupkg.sha512"
     },
     "FluentValidation/10.3.6": {
       "type": "package",
@@ -226,12 +257,12 @@
       "path": "microsoft.openapi/1.2.3",
       "hashPath": "microsoft.openapi.1.2.3.nupkg.sha512"
     },
-    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.14.0": {
+    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.16.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yORzATlNmCp4kEwkxznLZ3maTaUJc5yTcu3aPufY8Tq4141/bRRWsa91u8I24MR3BTCCJlZO98xuQWB4arlKCw==",
-      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.14.0",
-      "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.14.0.nupkg.sha512"
+      "sha512": "sha512-LbhMLd8inAwC5UvmzCfgT869zCmuXNNF1ICaBPROtB5TfGoMEpk9zEiTfa/e3PKOla/uz42WujhspNrv7d35AQ==",
+      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.16.1",
+      "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.16.1.nupkg.sha512"
     },
     "Newtonsoft.Json/13.0.1": {
       "type": "package",
@@ -253,6 +284,13 @@
       "sha512": "sha512-HAde/NLh+q1Szm54p218hKrd4ceYdNZ2UrfcTBbxJpSmPtXq0ER95otSLP+fnrFLT2UULUdkRL4noDZmG1A4AQ==",
       "path": "ocelot/18.0.0",
       "hashPath": "ocelot.18.0.0.nupkg.sha512"
+    },
+    "Ocelot.Provider.Consul/18.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-52TZfrblsnSuy6kWhoiPmZw+oBl0OG7DWdg2AmsMnKmDBu+vtb7KmLQZI0gFH1nyjx5uHhYK2yXfUQFBDBf2LA==",
+      "path": "ocelot.provider.consul/18.0.0",
+      "hashPath": "ocelot.provider.consul.18.0.0.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.3.1": {
       "type": "package",

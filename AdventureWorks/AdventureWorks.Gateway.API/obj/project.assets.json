@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "Consul/1.6.10.4": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/Consul.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Consul.dll": {}
+        }
+      },
       "FluentValidation/10.3.6": {
         "type": "package",
         "compile": {
@@ -109,7 +121,7 @@
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {}
         }
       },
-      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.14.0": {
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.16.1": {
         "type": "package",
         "build": {
           "build/Microsoft.VisualStudio.Azure.Containers.Tools.Targets.props": {},
@@ -150,6 +162,19 @@
         },
         "runtime": {
           "lib/net6.0/Ocelot.dll": {}
+        }
+      },
+      "Ocelot.Provider.Consul/18.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Consul": "1.6.10.4",
+          "Ocelot": "18.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Ocelot.Provider.Consul.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Ocelot.Provider.Consul.dll": {}
         }
       },
       "Swashbuckle.AspNetCore/6.3.1": {
@@ -215,6 +240,19 @@
     }
   },
   "libraries": {
+    "Consul/1.6.10.4": {
+      "sha512": "5L3O7XirEx3bJ03OjMVdi/hdRLpkH/gRilgMZzk55Is5ttJ4GamwW+aONfFVneTKRKBpcCw/gIH5qoz4zomi1g==",
+      "type": "package",
+      "path": "consul/1.6.10.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "consul.1.6.10.4.nupkg.sha512",
+        "consul.nuspec",
+        "lib/net461/Consul.dll",
+        "lib/netstandard2.0/Consul.dll"
+      ]
+    },
     "FluentValidation/10.3.6": {
       "sha512": "iMd370ZDx6ydm8t7bIFdRbSKX0e42lpvCtifUSbTSXOk5iKjmgl7HU0PXBhIWQAyIRi3gCwfMI9luj8H6K+byw==",
       "type": "package",
@@ -441,10 +479,10 @@
         "microsoft.openapi.nuspec"
       ]
     },
-    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.14.0": {
-      "sha512": "yORzATlNmCp4kEwkxznLZ3maTaUJc5yTcu3aPufY8Tq4141/bRRWsa91u8I24MR3BTCCJlZO98xuQWB4arlKCw==",
+    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.16.1": {
+      "sha512": "LbhMLd8inAwC5UvmzCfgT869zCmuXNNF1ICaBPROtB5TfGoMEpk9zEiTfa/e3PKOla/uz42WujhspNrv7d35AQ==",
       "type": "package",
-      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.14.0",
+      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.16.1",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -472,12 +510,13 @@
         "build/ToolsTarget.props",
         "build/ToolsTarget.targets",
         "icon.png",
-        "microsoft.visualstudio.azure.containers.tools.targets.1.14.0.nupkg.sha512",
+        "microsoft.visualstudio.azure.containers.tools.targets.1.16.1.nupkg.sha512",
         "microsoft.visualstudio.azure.containers.tools.targets.nuspec",
         "tools/Microsoft.VisualStudio.Containers.Tools.Common.dll",
         "tools/Microsoft.VisualStudio.Containers.Tools.Shared.dll",
         "tools/Microsoft.VisualStudio.Containers.Tools.Tasks.dll",
         "tools/Newtonsoft.Json.dll",
+        "tools/System.Security.Principal.Windows.dll",
         "tools/cs/Microsoft.VisualStudio.Containers.Tools.Common.resources.dll",
         "tools/cs/Microsoft.VisualStudio.Containers.Tools.Shared.resources.dll",
         "tools/cs/Microsoft.VisualStudio.Containers.Tools.Tasks.resources.dll",
@@ -578,6 +617,18 @@
         "lib/net6.0/Ocelot.dll",
         "ocelot.18.0.0.nupkg.sha512",
         "ocelot.nuspec"
+      ]
+    },
+    "Ocelot.Provider.Consul/18.0.0": {
+      "sha512": "52TZfrblsnSuy6kWhoiPmZw+oBl0OG7DWdg2AmsMnKmDBu+vtb7KmLQZI0gFH1nyjx5uHhYK2yXfUQFBDBf2LA==",
+      "type": "package",
+      "path": "ocelot.provider.consul/18.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Ocelot.Provider.Consul.dll",
+        "ocelot.provider.consul.18.0.0.nupkg.sha512",
+        "ocelot.provider.consul.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.3.1": {
@@ -690,8 +741,9 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.14.0",
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.16.1",
       "Ocelot >= 18.0.0",
+      "Ocelot.Provider.Consul >= 18.0.0",
       "Swashbuckle.AspNetCore >= 6.3.1"
     ]
   },
@@ -736,9 +788,13 @@
         "dependencies": {
           "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
             "target": "Package",
-            "version": "[1.14.0, )"
+            "version": "[1.16.1, )"
           },
           "Ocelot": {
+            "target": "Package",
+            "version": "[18.0.0, )"
+          },
+          "Ocelot.Provider.Consul": {
             "target": "Package",
             "version": "[18.0.0, )"
           },

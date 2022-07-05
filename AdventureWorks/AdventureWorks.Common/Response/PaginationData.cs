@@ -45,7 +45,7 @@ public class PaginationData
         TotalPages = (int)Math.Ceiling(totalRecords.Value / (double)pageSize.Value);
         HasPrevious = CurrentPage > 1;
         HasNext = CurrentPage < TotalPages;
-        PreviousPageLink = pageNumber > 1 ? $"{url}?PageNumber={pageNumber - 1}&PageSize={pageSize}" : null;
-        NextPageLink = pageNumber != TotalPages ? $"{url}?PageNumber={pageNumber + 1}&PageSize={pageSize}" : null;
+        PreviousPageLink = pageNumber > 1 ? $"{url}?pageNumber={pageNumber - 1}&pageSize={pageSize}" : null;
+        NextPageLink = pageNumber != TotalPages ? $"{url}?pageNumber={pageNumber + 1}&pageSize={pageSize}" : null;
     }
 }

@@ -3,16 +3,26 @@ using System.Text.Json;
 using AdventureWorks.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Sales.Application;
 using Sales.Infrastructure;
+using Services.Core;
+using Services.Core.ServiceDiscovery;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
+//const string serviceName = "sales.api";
+
 // Add services to the container.
 
+builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.AddEventSourceLogger();
+//builder.Services.AddConsul(configuration.GetServiceConfig());
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSalesApplicationLayer(configuration);
 builder.Services.AddSalesInfrastructureLayer(configuration);
@@ -20,6 +30,7 @@ builder.Services.AddCommonLayer();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+builder.Services.AddResponseCaching();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -38,8 +49,18 @@ builder.Services.AddApiVersioning(options =>
     options.AssumeDefaultVersionWhenUnspecified = true;
     options.DefaultApiVersion = new ApiVersion(1, 0);
     options.ReportApiVersions = true;
-    options.ApiVersionReader = ApiVersionReader.Combine(new HeaderApiVersionReader("X-Api-Version"),
-        new QueryStringApiVersionReader("api-version"));
+    options.ApiVersionReader = ApiVersionReader.Combine(new HeaderApiVersionReader("X-Version"),
+        new QueryStringApiVersionReader("ver"));
+});
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
 
 var app = builder.Build();
@@ -68,5 +89,12 @@ app.UseAuthorization();
 app.UseHealthChecks("/health");
 
 app.MapControllers();
+
+//app.MapGet("/", async context =>
+//{
+//    await context.Response.WriteAsync(serviceName);
+//});
+
+app.UseResponseCaching();
 
 app.Run();

@@ -907,6 +907,7 @@
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.5",
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "6.0.0",
           "Newtonsoft.Json": "13.0.1"
         },
         "compile": {

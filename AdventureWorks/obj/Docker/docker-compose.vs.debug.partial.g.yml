@@ -1,9 +1,8 @@
-version: '3.4'
+version: '3.9'
 
 services:
   adventureworks.gateway.api:
     image: adventureworksgatewayapi:dev
-    container_name: AdventureWorks.Gateway.API
     build:
       target: base
       labels:
@@ -30,7 +29,6 @@ services:
     tty: true
   adventureworks.sales.api:
     image: adventureworkssalesapi:dev
-    container_name: AdventureWorks.Sales.API
     build:
       target: base
       labels:

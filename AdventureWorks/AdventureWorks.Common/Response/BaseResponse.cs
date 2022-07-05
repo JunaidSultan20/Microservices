@@ -10,6 +10,8 @@ public class BaseResponse<TEntity>
 
     public TEntity? Result { get; set; }
 
+    public IReadOnlyList<Links>? Links { get; set; }
+
     public ApiException? ApiException { get; set; }
 
     public List<string>? Errors { get; set; }

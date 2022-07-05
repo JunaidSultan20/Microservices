@@ -9,11 +9,13 @@ D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWo
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AutoMapper.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Castle.Core.dll
+D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Consul.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.Contracts.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -64,6 +66,8 @@ D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWo
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Application.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Domain.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Infrastructure.dll
+D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Services.Core.dll
+D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Services.Core.pdb
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Application.pdb
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Infrastructure.pdb
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Common.pdb

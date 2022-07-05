@@ -4,23 +4,29 @@ using System.Text.Json;
 using AdventureWorks.Common.Helpers;
 using AdventureWorks.Common.Parameters;
 using AdventureWorks.Common.Response;
+using AdventureWorks.Common.Services.Contracts;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Sales.Application.DTOs;
 using Sales.Application.Features.Customers.Queries;
 
 namespace AdventureWorks.Sales.API.Controllers;
 
+[ApiVersion("1.0")]
 [Route("api/[controller]")]
 [ApiController]
 public class CustomerController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly IUrlService _urlService;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CustomerController(IMediator mediator)
+    public CustomerController(IMediator mediator, IUrlService urlService, IHttpContextAccessor httpContextAccessor)
     {
         _mediator = mediator;
+        _urlService = urlService;
+        _httpContextAccessor = httpContextAccessor ?? throw new Exception("Argument Null Exception",
+            new ArgumentNullException(nameof(httpContextAccessor)));
     }
 
     /// <summary>
@@ -28,8 +34,9 @@ public class CustomerController : ControllerBase
     /// </summary>
     /// <param name="paginationParameters"></param>
     /// <returns></returns>
-    [HttpGet]
+    [HttpGet(Name = "GetCustomerList", Order = 0)]
     [ProducesResponseType(typeof(PaginationResponse<IEnumerable<ExpandoObject>>), (int)HttpStatusCode.OK)]
+    
     public async Task<ActionResult<PaginationResponse<IEnumerable<ExpandoObject>>>> GetAllCustomers([FromQuery] PaginationParameters paginationParameters)
     {
         PaginationResponse<IEnumerable<CustomerDto>> response =
@@ -51,11 +58,14 @@ public class CustomerController : ControllerBase
     /// </summary>
     /// <param name="id">Customer Id.</param>
     /// <returns></returns>
-    [HttpGet("{id:int}")]
+    [HttpGet("{id:int:min(1)}", Name = "GetCustomerById", Order = 1)]
     [ProducesResponseType(typeof(BaseResponse<CustomerDto>), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<BaseResponse<CustomerDto>>> GetById([FromRoute] int id)
     {
         BaseResponse<CustomerDto> response = await _mediator.Send(new GetCustomerByIdQuery(id));
+        if (response.StatusCode == HttpStatusCode.NotFound)
+            return NotFound(response);
+        response.Links = CreateCustomerLinks(id, null);
         return Ok(response);
     }
 
@@ -65,7 +75,7 @@ public class CustomerController : ControllerBase
     /// <param name="minId"></param>
     /// <param name="maxId"></param>
     /// <returns></returns>
-    [HttpGet("customerRange")]
+    [HttpGet("customerRange", Name = "GetCustomerByIdRange", Order = 2)]
     [ProducesResponseType(typeof(BaseResponse<IEnumerable<CustomerDto>>), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<BaseResponse<IEnumerable<CustomerDto>>>> GetCustomerByIdRange(
         [FromQuery] int minId, [FromQuery] int maxId)
@@ -74,4 +84,45 @@ public class CustomerController : ControllerBase
             await _mediator.Send(new GetCustomersByIdRangeQuery(minId, maxId));
         return Ok(response);
     }
+
+    [HttpDelete("{id:int:min(1):required}", Name = "DeleteCustomerById", Order = 4)]
+    [ProducesResponseType(typeof(BaseResponse<object>), (int)HttpStatusCode.NoContent)]
+    public async Task<ActionResult<BaseResponse<object>>> DeleteCustomerById([FromRoute] int id)
+    {
+        BaseResponse<object> response = await _mediator.Send(new DeleteCustomerByIdQuery(id));
+        if (response.StatusCode == HttpStatusCode.NotFound)
+            return BadRequest(response);
+        return StatusCode((int)HttpStatusCode.NoContent, response);
+    }
+
+    #region Links Helper Region
+
+    private IReadOnlyList<Links> CreateCustomerLinks(int id, string? fields)
+    {
+        List<Links> links = new List<Links>();
+        if (!string.IsNullOrWhiteSpace(fields))
+        {
+            links.Add(new Links(Url.Link("GetCustomerById", new { id, fields }), "self", "GET"));
+        }
+        else
+        {
+            links.Add(new Links(Url.Link("GetCustomerById", new { id }), "self", "GET"));
+        }
+
+        links.Add(new Links(Url.Link("DeleteCustomerById", new { id }), "delete_customer", "DELETE"));
+
+        links.Add(new Links(Url.Link("UpdateCustomerById", new { id }), "update_customer", "PUT"));
+
+        string remoteIpAddress = string.Empty;
+        if (_httpContextAccessor.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
+            remoteIpAddress = _httpContextAccessor.HttpContext.Request.Headers["X-Forwarded-For"];
+        links.ForEach(item =>
+        {
+            item.Href = item?.Href?.Replace("sales.api", remoteIpAddress);
+            item.Href = item?.Href?.Replace("/api", "/gateway");
+        });
+        return links;
+    }
+
+    #endregion
 }

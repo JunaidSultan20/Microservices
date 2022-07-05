@@ -1,23 +1,43 @@
-version: '3.4'
+version: '3.9'
 
 services:
-  adventureworks.gateway.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:543;http://+:90
-    ports:
-      - "5001:90"
-      - "5000:543"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-  adventureworks.sales.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "4001:80"
-      - "4000:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    consul:
+        ports:
+            - "8500:8500"
+        expose:
+            - "8500"
+
+    adventureworksredis:
+        ports:
+            - "6379:6379"
+        expose:
+            - "6379"
+
+    adventureworks.gateway.api:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://0.0.0.0:443;http://0.0.0.0:80
+        ports:
+            - "5001:80"
+            - "5000:443"
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+    adventureworks.sales.api:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_URLS=https://0.0.0.0:443;http://0.0.0.0:80
+            #- ServiceConfig__Id=adventureworks.sales.api:4000
+            #- ServiceConfig__Name=adventureworks.sales.api
+            #- ServiceConfig__DiscoveryAddress=http://consul:8500
+            #- ServiceConfig__Address=http://localhost
+            #- ServiceConfig__Port=4001
+            #- ServiceConfig__HealthCheckEndPoint=healthcheck
+        hostname: https://localhost
+        ports:
+            - "4001:80"
+            - "4000:443"
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

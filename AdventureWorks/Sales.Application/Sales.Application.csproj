@@ -9,8 +9,6 @@
   <ItemGroup>
     <Folder Include="Contracts\UnitOfWork\" />
     <Folder Include="Contracts\Repositories\" />
-    <Folder Include="Features\Customers\Handlers\" />
-    <Folder Include="Features\Customers\" />
     <Folder Include="Features\Customers\Queries\" />
     <Folder Include="DTOs\" />
     <Folder Include="Mappings\" />

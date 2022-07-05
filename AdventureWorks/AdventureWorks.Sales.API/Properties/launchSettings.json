@@ -16,7 +16,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:4000;http://localhost:4001",
+      "applicationUrl": "https://localhost:4100;http://localhost:4101",
       "dotnetRunMessages": true
     },
     "IIS Express": {
@@ -32,8 +32,7 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "publishAllPorts": true,
-      "useSSL": true//,
-      //"sslPort": 4100
+      "useSSL": true
     }
   }
 }
