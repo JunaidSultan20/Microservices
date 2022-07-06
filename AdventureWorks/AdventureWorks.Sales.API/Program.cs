@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Sales.Application;
 using Sales.Infrastructure;
-using Services.Core;
-using Services.Core.ServiceDiscovery;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;

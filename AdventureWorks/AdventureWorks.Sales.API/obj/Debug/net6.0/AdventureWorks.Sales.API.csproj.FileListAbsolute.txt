@@ -66,8 +66,6 @@ D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWo
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Application.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Domain.dll
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Infrastructure.dll
-D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Services.Core.dll
-D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Services.Core.pdb
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Application.pdb
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Infrastructure.pdb
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Common.pdb

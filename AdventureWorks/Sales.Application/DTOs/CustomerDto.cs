@@ -8,4 +8,5 @@ public class CustomerDto
     public int? TerritoryId { get; set; }
     public string? AccountNumber { get; set; }
     public DateTime? ModifiedDate { get; set; }
+    public IReadOnlyList<Links>? Links { get; set; } = null;
 }

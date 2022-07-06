@@ -36,8 +36,8 @@ public class CustomerController : ControllerBase
     /// <returns></returns>
     [HttpGet(Name = "GetCustomerList", Order = 0)]
     [ProducesResponseType(typeof(PaginationResponse<IEnumerable<ExpandoObject>>), (int)HttpStatusCode.OK)]
-    
-    public async Task<ActionResult<PaginationResponse<IEnumerable<ExpandoObject>>>> GetAllCustomers([FromQuery] PaginationParameters paginationParameters)
+    public async Task<ActionResult<PaginationResponse<IEnumerable<ExpandoObject>>>> GetAllCustomers(
+        [FromQuery] PaginationParameters paginationParameters)
     {
         PaginationResponse<IEnumerable<CustomerDto>> response =
             await _mediator.Send(new GetAllCustomersQuery(paginationParameters));
@@ -46,9 +46,23 @@ public class CustomerController : ControllerBase
             return NotFound(response);
 
         Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(response.PaginationData));
-        PaginationResponse<IEnumerable<ExpandoObject>> shapedResponse =
-            new PaginationResponse<IEnumerable<ExpandoObject>>(response.StatusCode, response.Message,
-                response?.Result?.ShapeData(paginationParameters.Fields), response?.PaginationData);
+
+        response?.Result?.ToList().ForEach(item => item.Links = CreateCustomerLinks(item.Id, paginationParameters.Fields));
+
+        //PaginationResponse<IEnumerable<ExpandoObject>> shapedResponse =
+        //    new PaginationResponse<IEnumerable<ExpandoObject>>(response.StatusCode, response.Message,
+        //        response?.Result?.ShapeData(paginationParameters.Fields), response?.PaginationData);
+
+        var shapedData = response?.Result?.ShapeData(paginationParameters.Fields).Select(customer =>
+        {
+            var customerDictionary = customer as IDictionary<string, object>;
+            var customerLinks = CreateCustomerLinks((int)customerDictionary["Id"], paginationParameters.Fields);
+            customerDictionary.Add("links", customerLinks);
+            return customerDictionary;
+        });
+
+        PaginationResponse<IEnumerable<IDictionary<string, object>>> shapedResponse =
+            new PaginationResponse<IEnumerable<IDictionary<string, object>>>(response.StatusCode, response.Message, shapedData, response?.PaginationData);
 
         return Ok(shapedResponse);
     }
@@ -65,7 +79,7 @@ public class CustomerController : ControllerBase
         BaseResponse<CustomerDto> response = await _mediator.Send(new GetCustomerByIdQuery(id));
         if (response.StatusCode == HttpStatusCode.NotFound)
             return NotFound(response);
-        response.Links = CreateCustomerLinks(id, null);
+        response.Links = CreateCustomerLinks(response.Result.Id, null);
         return Ok(response);
     }
 
@@ -85,6 +99,11 @@ public class CustomerController : ControllerBase
         return Ok(response);
     }
 
+    /// <summary>
+    /// Delete customer by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [HttpDelete("{id:int:min(1):required}", Name = "DeleteCustomerById", Order = 4)]
     [ProducesResponseType(typeof(BaseResponse<object>), (int)HttpStatusCode.NoContent)]
     public async Task<ActionResult<BaseResponse<object>>> DeleteCustomerById([FromRoute] int id)
@@ -114,7 +133,8 @@ public class CustomerController : ControllerBase
         links.Add(new Links(Url.Link("UpdateCustomerById", new { id }), "update_customer", "PUT"));
 
         string remoteIpAddress = string.Empty;
-        if (_httpContextAccessor.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
+        if (_httpContextAccessor.HttpContext is not null &&
+            _httpContextAccessor.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
             remoteIpAddress = _httpContextAccessor.HttpContext.Request.Headers["X-Forwarded-For"];
         links.ForEach(item =>
         {
@@ -123,6 +143,5 @@ public class CustomerController : ControllerBase
         });
         return links;
     }
-
     #endregion
 }

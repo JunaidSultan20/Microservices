@@ -1,6 +1,4 @@
-﻿using AdventureWorks.Common.Helpers;
-
-namespace Sales.Application.Features.Customers.Handlers;
+﻿namespace Sales.Application.Features.Customers.Handlers;
 
 public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery, BaseResponse<CustomerDto>>
 {
@@ -20,10 +18,7 @@ public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery,
     {
         Customer? result = await _unitOfWork.ICustomerRepository.GetByIdAsync(request.Id);
         if (result != null)
-        {
-            IReadOnlyList<Links> links = LinksHelper.CreateLinks(request.Id, null, _urlService);
-            return new BaseResponse<CustomerDto>(HttpStatusCode.OK, null, _mapper.Map<CustomerDto>(result)){Links = links};
-        }
+            return new BaseResponse<CustomerDto>(HttpStatusCode.OK, null, _mapper.Map<CustomerDto>(result));
         return new BaseResponse<CustomerDto>(HttpStatusCode.NotFound, null, null);
     }
 }
