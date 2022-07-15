@@ -7,6 +7,7 @@ using AdventureWorks.Common.Response;
 using AdventureWorks.Common.Services.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using Sales.Application.DTOs;
 using Sales.Application.Features.Customers.Queries;
 
@@ -20,26 +21,34 @@ public class CustomerController : ControllerBase
     private readonly IMediator _mediator;
     private readonly IUrlService _urlService;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IWebHostEnvironment _environment;
 
-    public CustomerController(IMediator mediator, IUrlService urlService, IHttpContextAccessor httpContextAccessor)
+    public CustomerController(IMediator mediator, IUrlService urlService, IHttpContextAccessor httpContextAccessor, IWebHostEnvironment environment)
     {
-        _mediator = mediator;
-        _urlService = urlService;
+        _mediator = mediator ?? throw new Exception("Argument Null Exception", new ArgumentNullException(nameof(mediator)));
+        _urlService = urlService ?? throw new Exception("Argument Null Exception", new ArgumentNullException(nameof(urlService)));
         _httpContextAccessor = httpContextAccessor ?? throw new Exception("Argument Null Exception",
             new ArgumentNullException(nameof(httpContextAccessor)));
+        _environment = environment ?? throw new Exception("Argument Null Exception", new ArgumentNullException(nameof(environment)));
     }
 
     /// <summary>
     /// Returns the customers list with data shaping and caching options.
     /// </summary>
     /// <param name="paginationParameters"></param>
+    /// <param name="mediaType"></param>
     /// <returns></returns>
     [HttpGet(Name = "GetCustomerList", Order = 0)]
     [ProducesResponseType(typeof(PaginationResponse<IEnumerable<ExpandoObject>>), (int)HttpStatusCode.OK)]
     public async Task<ActionResult<PaginationResponse<IEnumerable<ExpandoObject>>>> GetAllCustomers(
-        [FromQuery] PaginationParameters paginationParameters)
+        [FromQuery] PaginationParameters paginationParameters, [FromHeader(Name = "Accept")] string mediaType)
     {
-        PaginationResponse<IEnumerable<CustomerDto>> response =
+        if (!MediaTypeHeaderValue.TryParse(mediaType, out MediaTypeHeaderValue parsedMediaType))
+            return BadRequest(
+                new BaseResponse<PaginationResponse<IEnumerable<ExpandoObject>>>(HttpStatusCode.BadRequest,
+                    "Bad Request", null).Errors = new List<string> { "Invalid media type provided" });
+
+        PaginationResponse<IEnumerable<CustomerWithLinksDto>> response =
             await _mediator.Send(new GetAllCustomersQuery(paginationParameters));
 
         if (response.StatusCode == HttpStatusCode.NotFound)
@@ -47,11 +56,12 @@ public class CustomerController : ControllerBase
 
         Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(response.PaginationData));
 
-        response?.Result?.ToList().ForEach(item => item.Links = CreateCustomerLinks(item.Id, paginationParameters.Fields));
+        if (parsedMediaType.MediaType.Equals("application/vnd.api.hateoas+json"))
+            response?.Result?.ToList().ForEach(item => item.Links = CreateCustomerLinks(item.Id, paginationParameters.Fields));
 
-        //PaginationResponse<IEnumerable<ExpandoObject>> shapedResponse =
-        //    new PaginationResponse<IEnumerable<ExpandoObject>>(response.StatusCode, response.Message,
-        //        response?.Result?.ShapeData(paginationParameters.Fields), response?.PaginationData);
+        PaginationResponse<IEnumerable<ExpandoObject>> shapedResponse =
+            new PaginationResponse<IEnumerable<ExpandoObject>>(response.StatusCode, response.Message,
+                response?.Result?.ShapeData(paginationParameters.Fields), response?.PaginationData);
 
         var shapedData = response?.Result?.ShapeData(paginationParameters.Fields).Select(customer =>
         {
@@ -61,8 +71,8 @@ public class CustomerController : ControllerBase
             return customerDictionary;
         });
 
-        PaginationResponse<IEnumerable<IDictionary<string, object>>> shapedResponse =
-            new PaginationResponse<IEnumerable<IDictionary<string, object>>>(response.StatusCode, response.Message, shapedData, response?.PaginationData);
+        //PaginationResponse<IEnumerable<IDictionary<string, object>>> shapedResponse =
+        //    new PaginationResponse<IEnumerable<IDictionary<string, object>>>(response.StatusCode, response.Message, shapedData, response?.PaginationData);
 
         return Ok(shapedResponse);
     }
@@ -136,11 +146,23 @@ public class CustomerController : ControllerBase
         if (_httpContextAccessor.HttpContext is not null &&
             _httpContextAccessor.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
             remoteIpAddress = _httpContextAccessor.HttpContext.Request.Headers["X-Forwarded-For"];
-        links.ForEach(item =>
+
+        if (_environment.EnvironmentName.Equals("Local"))
         {
-            item.Href = item?.Href?.Replace("sales.api", remoteIpAddress);
-            item.Href = item?.Href?.Replace("/api", "/gateway");
-        });
+            links.ForEach(item =>
+            {
+                item.Href = item?.Href?.Replace("localhost:4100", remoteIpAddress);
+                item.Href = item?.Href?.Replace("/api", "/gateway");
+            });
+        }
+        else
+        {
+            links.ForEach(item =>
+            {
+                item.Href = item?.Href?.Replace("sales.api", remoteIpAddress);
+                item.Href = item?.Href?.Replace("/api", "/gateway");
+            });
+        }
         return links;
     }
     #endregion

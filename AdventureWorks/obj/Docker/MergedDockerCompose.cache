@@ -1,8 +1,8 @@
-name: dockercompose4656335781798388365
+name: dockercompose17471837253201897951
 services:
   adventureworks.gateway.api:
     build:
-      context: D:\Projects\AdventureWorks
+      context: D:\Visual Studio Projects\AdventureWorks
       dockerfile: AdventureWorks.Gateway.API/Dockerfile
     container_name: gateway.api
     depends_on:
@@ -28,20 +28,20 @@ services:
     restart: on-failure
     volumes:
     - type: bind
-      source: C:\Users\Junaid Sultan\AppData\Roaming/Microsoft/UserSecrets
+      source: C:\Users\Junaid\AppData\Roaming/Microsoft/UserSecrets
       target: /root/.microsoft/usersecrets
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid Sultan\AppData\Roaming/ASP.NET/Https
+      source: C:\Users\Junaid\AppData\Roaming/ASP.NET/Https
       target: /root/.aspnet/https
       read_only: true
       bind:
         create_host_path: true
   adventureworks.sales.api:
     build:
-      context: D:\Projects\AdventureWorks
+      context: D:\Visual Studio Projects\AdventureWorks
       dockerfile: AdventureWorks.Sales.API/Dockerfile
     container_name: sales.api
     depends_on:
@@ -69,13 +69,13 @@ services:
     restart: on-failure
     volumes:
     - type: bind
-      source: C:\Users\Junaid Sultan\AppData\Roaming/Microsoft/UserSecrets
+      source: C:\Users\Junaid\AppData\Roaming/Microsoft/UserSecrets
       target: /root/.microsoft/usersecrets
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid Sultan\AppData\Roaming/ASP.NET/Https
+      source: C:\Users\Junaid\AppData\Roaming/ASP.NET/Https
       target: /root/.aspnet/https
       read_only: true
       bind:
@@ -116,7 +116,7 @@ services:
       protocol: tcp
 networks:
   adventureworksnetwork:
-    name: dockercompose4656335781798388365_adventureworksnetwork
+    name: dockercompose17471837253201897951_adventureworksnetwork
     driver: bridge
     ipam:
       driver: default

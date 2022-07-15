@@ -86,3 +86,181 @@ D:\Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\refint\Adve
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.pdb
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.genruntimeconfig.cache
 D:\Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\ref\AdventureWorks.Sales.API.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\appsettings.Development.json
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\appsettings.Docker.json
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\appsettings.json
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.exe
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.deps.json
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.runtimeconfig.json
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.pdb
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AutoMapper.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Castle.Core.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.Contracts.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.UserSecrets.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Hosting.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Pipelines.Sockets.Unofficial.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\StackExchange.Redis.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Runtime.Caching.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.PerformanceCounter.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Common.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Application.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Domain.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Infrastructure.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Application.pdb
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Infrastructure.pdb
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Common.pdb
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Domain.pdb
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.csproj.AssemblyReference.cache
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.AssemblyInfoInputs.cache
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.AssemblyInfo.cs
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.csproj.CoreCompileInputs.cache
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.MvcApplicationPartsAssemblyInfo.cs
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.MvcApplicationPartsAssemblyInfo.cache
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\staticwebassets.build.json
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\staticwebassets.development.json
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\scopedcss\bundle\AdventureWorks.Sales.API.styles.css
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.csproj.CopyComplete
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\refint\AdventureWorks.Sales.API.dll
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.pdb
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.genruntimeconfig.cache
+D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\ref\AdventureWorks.Sales.API.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\appsettings.Development.json
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\appsettings.Docker.json
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\appsettings.json
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\appsettings.Local.json
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.exe
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.deps.json
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.runtimeconfig.json
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.pdb
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AutoMapper.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Castle.Core.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.Contracts.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.UserSecrets.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Extensions.Hosting.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Pipelines.Sockets.Unofficial.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\StackExchange.Redis.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Diagnostics.PerformanceCounter.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Runtime.Caching.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\System.Windows.Extensions.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.PerformanceCounter.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Common.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Application.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Domain.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Infrastructure.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Application.pdb
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Infrastructure.pdb
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Common.pdb
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Sales.Domain.pdb
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.csproj.AssemblyReference.cache
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.AssemblyInfoInputs.cache
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.AssemblyInfo.cs
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.csproj.CoreCompileInputs.cache
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.MvcApplicationPartsAssemblyInfo.cs
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.MvcApplicationPartsAssemblyInfo.cache
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\staticwebassets.build.json
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\staticwebassets.development.json
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\scopedcss\bundle\AdventureWorks.Sales.API.styles.css
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.csproj.CopyComplete
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\refint\AdventureWorks.Sales.API.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.pdb
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.genruntimeconfig.cache
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\ref\AdventureWorks.Sales.API.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

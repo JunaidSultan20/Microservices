@@ -10,6 +10,7 @@ public class BaseResponse<TEntity>
 
     public TEntity? Result { get; set; }
 
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public IReadOnlyList<Links>? Links { get; set; }
 
     public ApiException? ApiException { get; set; }

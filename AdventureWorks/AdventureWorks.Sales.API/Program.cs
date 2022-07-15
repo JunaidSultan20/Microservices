@@ -1,10 +1,12 @@
 using System.Reflection;
 using System.Text.Json;
 using AdventureWorks.Common;
+using AdventureWorks.Sales.API.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Sales.Application;
 using Sales.Infrastructure;
@@ -27,7 +29,9 @@ builder.Services.AddSalesInfrastructureLayer(configuration);
 builder.Services.AddCommonLayer();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddControllers().AddJsonOptions(options =>
-    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+});
 builder.Services.AddResponseCaching();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -60,6 +64,19 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
+
+//builder.Services.Configure<MvcOptions>(options =>
+//{
+//    var newtonsoftJsonOutputFormatter =
+//        options.OutputFormatters.OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
+
+//    if (newtonsoftJsonOutputFormatter != null)
+//    {
+//        newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.api.hateoas+json");
+//    }
+//});
+
+builder.Services.AddCustomMediaTypes();
 
 var app = builder.Build();
 

@@ -1,6 +1,6 @@
 ﻿namespace Sales.Application.Features.Customers.Queries;
 
-public class GetAllCustomersQuery : IRequest<PaginationResponse<IEnumerable<CustomerDto>>>
+public class GetAllCustomersQuery : IRequest<PaginationResponse<IEnumerable<CustomerWithLinksDto>>>
 {
     public int? PageNumber { get; set; }
 

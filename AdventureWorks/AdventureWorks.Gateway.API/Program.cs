@@ -1,6 +1,5 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Provider.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +19,7 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction() || app.Environment.IsStaging() || 
-    app.Environment.EnvironmentName.Equals("Docker"))
+    app.Environment.EnvironmentName.Equals("Docker") || app.Environment.EnvironmentName.Equals("Local"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();

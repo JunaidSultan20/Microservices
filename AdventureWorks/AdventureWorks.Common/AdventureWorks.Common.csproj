@@ -17,6 +17,7 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Enumerations\" />
+    <Folder Include="Attributes\" />
     <Folder Include="Response\" />
     <Folder Include="Parameters\" />
     <Folder Include="Services\Contracts\" />

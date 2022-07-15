@@ -1,6 +1,6 @@
 ﻿namespace Sales.Application.Features.Customers.Handlers;
 
-public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery, PaginationResponse<IEnumerable<CustomerDto>>>
+public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery, PaginationResponse<IEnumerable<CustomerWithLinksDto>>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -15,11 +15,11 @@ public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery,
         _urlService = urlService;
     }
 
-    public async Task<PaginationResponse<IEnumerable<CustomerDto>>> Handle(GetAllCustomersQuery request,
+    public async Task<PaginationResponse<IEnumerable<CustomerWithLinksDto>>> Handle(GetAllCustomersQuery request,
         CancellationToken cancellationToken = default)
     {
-        PaginationResponse<IEnumerable<CustomerDto>> customersPagination =
-            await _cacheService.GetAsync<PaginationResponse<IEnumerable<CustomerDto>>>(
+        PaginationResponse<IEnumerable<CustomerWithLinksDto>> customersPagination =
+            await _cacheService.GetAsync<PaginationResponse<IEnumerable<CustomerWithLinksDto>>>(
                 $"customersListP{request.PageNumber}S{request.PageSize}");
 
         if (customersPagination != null)
@@ -33,7 +33,7 @@ public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery,
 
         if (!result.Any())
         {
-            return customersPagination = new PaginationResponse<IEnumerable<CustomerDto>>(HttpStatusCode.NotFound,
+            return customersPagination = new PaginationResponse<IEnumerable<CustomerWithLinksDto>>(HttpStatusCode.NotFound,
                 "No Customer Record Exists In Database.", null, null);
         }
 
@@ -47,8 +47,8 @@ public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery,
             new BaseResponse<IEnumerable<CustomerDto>>(HttpStatusCode.OK, null,
                 _mapper.Map<IEnumerable<CustomerDto>>(result));
 
-        customersPagination = new PaginationResponse<IEnumerable<CustomerDto>>(HttpStatusCode.OK, null,
-            _mapper.Map<IEnumerable<CustomerDto>>(result), paginationData);
+        customersPagination = new PaginationResponse<IEnumerable<CustomerWithLinksDto>>(HttpStatusCode.OK, null,
+            _mapper.Map<IEnumerable<CustomerWithLinksDto>>(result), paginationData);
 
         await _cacheService.SetAsync($"customersListP{request.PageNumber}S{request.PageSize}", customersPagination);
         return customersPagination;

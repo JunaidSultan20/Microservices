@@ -1,8 +1,4 @@
-﻿using AdventureWorks.Common.Services.Contracts;
-using AdventureWorks.Common.Services.Implementation;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace AdventureWorks.Common;
+﻿namespace AdventureWorks.Common;
 
 public static class ServiceExtensions
 {

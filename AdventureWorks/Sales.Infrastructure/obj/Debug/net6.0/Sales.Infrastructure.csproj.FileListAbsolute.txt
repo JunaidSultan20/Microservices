@@ -17,3 +17,41 @@ D:\Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastru
 D:\Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\refint\Sales.Infrastructure.dll
 D:\Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.pdb
 D:\Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\ref\Sales.Infrastructure.dll
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.deps.json
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.dll
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.pdb
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\AdventureWorks.Common.dll
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Application.dll
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Domain.dll
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Application.pdb
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Domain.pdb
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\AdventureWorks.Common.pdb
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.AssemblyReference.cache
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.AssemblyInfoInputs.cache
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.AssemblyInfo.cs
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.CopyComplete
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.dll
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\refint\Sales.Infrastructure.dll
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.pdb
+D:\Visual Studio Projects\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\ref\Sales.Infrastructure.dll
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.deps.json
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.dll
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.pdb
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\AdventureWorks.Common.dll
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Application.dll
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Domain.dll
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Application.pdb
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Domain.pdb
+D:\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\AdventureWorks.Common.pdb
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.AssemblyReference.cache
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.AssemblyInfoInputs.cache
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.AssemblyInfo.cs
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.CoreCompileInputs.cache
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.CopyComplete
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.dll
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\refint\Sales.Infrastructure.dll
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.pdb
+D:\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\ref\Sales.Infrastructure.dll

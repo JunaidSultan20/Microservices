@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {}
+    "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj": {
+    "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
+        "projectUniqueName": "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
         "projectName": "AdventureWorks.Common",
-        "projectPath": "D:\\Projects\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
-        "packagesPath": "C:\\Users\\Junaid Sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\AdventureWorks\\AdventureWorks.Common\\obj\\",
+        "projectPath": "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
+        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
+        "outputPath": "D:\\AdventureWorks\\AdventureWorks.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Junaid Sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -76,21 +76,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
+    "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\AdventureWorks\\Sales.Application\\Sales.Application.csproj",
+        "projectUniqueName": "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj",
         "projectName": "Sales.Application",
-        "projectPath": "D:\\Projects\\AdventureWorks\\Sales.Application\\Sales.Application.csproj",
-        "packagesPath": "C:\\Users\\Junaid Sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\AdventureWorks\\Sales.Application\\obj\\",
+        "projectPath": "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj",
+        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
+        "outputPath": "D:\\AdventureWorks\\Sales.Application\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Junaid Sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -104,11 +104,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\Projects\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj": {
-                "projectPath": "D:\\Projects\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj"
+              "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj": {
+                "projectPath": "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj"
               },
-              "D:\\Projects\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
-                "projectPath": "D:\\Projects\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj"
+              "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
+                "projectPath": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj"
               }
             }
           }
@@ -171,21 +171,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
+    "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
+        "projectUniqueName": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
         "projectName": "Sales.Domain",
-        "projectPath": "D:\\Projects\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
-        "packagesPath": "C:\\Users\\Junaid Sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\AdventureWorks\\Sales.Domain\\obj\\",
+        "projectPath": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
+        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
+        "outputPath": "D:\\AdventureWorks\\Sales.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Junaid Sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -231,7 +231,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
