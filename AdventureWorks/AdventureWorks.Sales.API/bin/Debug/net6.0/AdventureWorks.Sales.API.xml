@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdventureWorks.Sales.API</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "M:AdventureWorks.Sales.API.Controllers.CustomerController.GetAllCustomers(AdventureWorks.Common.Parameters.PaginationParameters,System.String)" -->
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetById(System.Int32)">
+            <summary>
+            Returns the customer by id provided through route.
+            </summary>
+            <param name="id">Customer Id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerByIdRange(System.Int32,System.Int32)">
+            <summary>
+            Get customer by customer id range.
+            </summary>
+            <param name="minId"></param>
+            <param name="maxId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.UpdateCustomerById(System.Int32,Sales.Application.DTOs.CustomerDto)">
+            <summary>
+            Updates customer by id.
+            </summary>
+            <param name="id"></param>
+            <param name="customer"></param>
+            <returns>Returns the updated customer record.</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.DeleteCustomerById(System.Int32)">
+            <summary>
+            Delete customer by id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

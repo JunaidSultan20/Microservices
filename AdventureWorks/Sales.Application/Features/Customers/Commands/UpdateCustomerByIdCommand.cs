@@ -1,0 +1,13 @@
+﻿namespace Sales.Application.Features.Customers.Commands;
+
+public class UpdateCustomerByIdCommand : IRequest<BaseResponse<CustomerDto>>
+{
+    public int Id { get; set; }
+    public CustomerDto Customer { get; set; }
+
+    public UpdateCustomerByIdCommand(int id, CustomerDto customer)
+    {
+        Id = id;
+        Customer = customer;
+    }
+}

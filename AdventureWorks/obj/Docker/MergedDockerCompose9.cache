@@ -1,0 +1,217 @@
+name: dockercompose13774452479767697142
+services:
+  adventureworks.gateway.api:
+    build:
+      context: D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks
+      dockerfile: AdventureWorks.Gateway.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: AdventureWorks.Gateway.API
+      target: base
+    container_name: gateway.api
+    depends_on:
+      adventureworks.sales.api:
+        condition: service_started
+    entrypoint:
+    - tail
+    - -f
+    - /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    hostname: gateway.api
+    image: adventureworksgatewayapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/AdventureWorks.Gateway.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.4
+    ports:
+    - mode: ingress
+      target: 80
+      published: "5001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "5000"
+      protocol: tcp
+    restart: on-failure
+    tty: true
+    volumes:
+    - type: bind
+      source: D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API
+      target: /app
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid\vsdbg\vs2017u5
+      target: /remote_debugger
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\dotnet\sdk\NuGetFallbackFolder
+      target: /root/.nuget/fallbackpackages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid\.nuget\packages\
+      target: /root/.nuget/packages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks
+      target: /src
+      bind:
+        create_host_path: true
+  adventureworks.sales.api:
+    build:
+      context: D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks
+      dockerfile: AdventureWorks.Sales.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: AdventureWorks.Sales.API
+      target: base
+    container_name: sales.api
+    depends_on:
+      adventureworksredis:
+        condition: service_started
+      consul:
+        condition: service_started
+    entrypoint:
+    - tail
+    - -f
+    - /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    hostname: https://localhost
+    image: adventureworkssalesapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/AdventureWorks.Sales.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.5
+    ports:
+    - mode: ingress
+      target: 80
+      published: "4001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "4000"
+      protocol: tcp
+    restart: on-failure
+    tty: true
+    volumes:
+    - type: bind
+      source: D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Sales.API
+      target: /app
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid\vsdbg\vs2017u5
+      target: /remote_debugger
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Program Files\dotnet\sdk\NuGetFallbackFolder
+      target: /root/.nuget/fallbackpackages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Junaid\.nuget\packages\
+      target: /root/.nuget/packages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks
+      target: /src
+      bind:
+        create_host_path: true
+  adventureworksredis:
+    container_name: adventureworksredis
+    expose:
+    - "6379"
+    image: redis:latest
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.2
+    ports:
+    - mode: ingress
+      target: 6379
+      published: "6379"
+      protocol: tcp
+  consul:
+    command:
+    - consul
+    - agent
+    - -dev
+    - -log-level=warn
+    - -ui
+    - -client=0.0.0.0
+    container_name: consul
+    expose:
+    - "8500"
+    hostname: consul
+    image: consul:latest
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.3
+    ports:
+    - mode: ingress
+      target: 8500
+      published: "8500"
+      protocol: tcp
+networks:
+  adventureworksnetwork:
+    name: dockercompose13774452479767697142_adventureworksnetwork
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.10.0.0/16
+        gateway: 172.10.0.1

@@ -119,3 +119,44 @@ D:\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gat
 D:\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.genruntimeconfig.cache
 D:\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\ref\AdventureWorks.Gateway.API.dll
 D:\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.Local.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\appsettings.Development.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\appsettings.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.Development.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.Docker.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\ocelot.Local.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.exe
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.deps.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.runtimeconfig.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\AdventureWorks.Gateway.API.pdb
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Consul.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\FluentValidation.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Microsoft.AspNetCore.MiddlewareAnalysis.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Microsoft.Extensions.DiagnosticAdapter.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Ocelot.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Ocelot.Provider.Consul.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.csproj.AssemblyReference.cache
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.GeneratedMSBuildEditorConfig.editorconfig
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.AssemblyInfoInputs.cache
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.AssemblyInfo.cs
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.csproj.CoreCompileInputs.cache
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.MvcApplicationPartsAssemblyInfo.cs
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.MvcApplicationPartsAssemblyInfo.cache
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\staticwebassets.build.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\staticwebassets.development.json
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\scopedcss\bundle\AdventureWorks.Gateway.API.styles.css
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.csproj.CopyComplete
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\refint\AdventureWorks.Gateway.API.dll
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.pdb
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\AdventureWorks.Gateway.API.genruntimeconfig.cache
+D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API\obj\Debug\net6.0\ref\AdventureWorks.Gateway.API.dll

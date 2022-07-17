@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using Sales.Application.DTOs;
+using Sales.Application.Features.Customers.Commands;
 using Sales.Application.Features.Customers.Queries;
 
 namespace AdventureWorks.Sales.API.Controllers;
@@ -37,9 +38,11 @@ public class CustomerController : ControllerBase
     /// </summary>
     /// <param name="paginationParameters"></param>
     /// <param name="mediaType"></param>
-    /// <returns></returns>
+    /// <returns>Returns list of customers with pagination and optional shaped data & links.</returns>
     [HttpGet(Name = "GetCustomerList", Order = 0)]
     [ProducesResponseType(typeof(PaginationResponse<IEnumerable<ExpandoObject>>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(PaginationResponse<IEnumerable<CustomerWithLinksDto>>), (int)HttpStatusCode.NotFound)]
+    [ProducesErrorResponseType(typeof(PaginationResponse<IEnumerable<CustomerWithLinksDto>>))]
     public async Task<ActionResult<PaginationResponse<IEnumerable<ExpandoObject>>>> GetAllCustomers(
         [FromQuery] PaginationParameters paginationParameters, [FromHeader(Name = "Accept")] string mediaType)
     {
@@ -63,16 +66,13 @@ public class CustomerController : ControllerBase
             new PaginationResponse<IEnumerable<ExpandoObject>>(response.StatusCode, response.Message,
                 response?.Result?.ShapeData(paginationParameters.Fields), response?.PaginationData);
 
-        var shapedData = response?.Result?.ShapeData(paginationParameters.Fields).Select(customer =>
-        {
-            var customerDictionary = customer as IDictionary<string, object>;
-            var customerLinks = CreateCustomerLinks((int)customerDictionary["Id"], paginationParameters.Fields);
-            customerDictionary.Add("links", customerLinks);
-            return customerDictionary;
-        });
-
-        //PaginationResponse<IEnumerable<IDictionary<string, object>>> shapedResponse =
-        //    new PaginationResponse<IEnumerable<IDictionary<string, object>>>(response.StatusCode, response.Message, shapedData, response?.PaginationData);
+        //var shapedData = response?.Result?.ShapeData(paginationParameters.Fields).Select(customer =>
+        //{
+        //    var customerDictionary = customer as IDictionary<string, object>;
+        //    var customerLinks = CreateCustomerLinks((int)customerDictionary["Id"], paginationParameters.Fields);
+        //    customerDictionary.Add("links", customerLinks);
+        //    return customerDictionary;
+        //});
 
         return Ok(shapedResponse);
     }
@@ -110,14 +110,42 @@ public class CustomerController : ControllerBase
     }
 
     /// <summary>
+    /// Updates customer by id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="customer"></param>
+    /// <returns>Returns the updated customer record.</returns>
+    /// <exception cref="Exception"></exception>
+    [HttpPut("{id:int:min(1):required}", Name = "UpdateCustomerById", Order = 4)]
+    [ProducesResponseType(typeof(BaseResponse<CustomerDto>), (int)HttpStatusCode.NoContent)]
+    [ProducesResponseType(typeof(BaseResponse<CustomerDto>), (int)HttpStatusCode.NotFound)]
+    [ProducesErrorResponseType(typeof(BaseResponse<CustomerDto>))]
+    public async Task<ActionResult<BaseResponse<CustomerDto>>> UpdateCustomerById([FromRoute] int id,
+        [FromBody] CustomerDto customer)
+    {
+        if (customer is null)
+            throw new Exception("Argument Null Exception", new ArgumentNullException(nameof(customer)));
+        BaseResponse<CustomerDto> response = await _mediator.Send(new UpdateCustomerByIdCommand(id, customer));
+        return response.StatusCode switch
+        {
+            HttpStatusCode.NotFound => NotFound(response),
+            HttpStatusCode.NoContent => StatusCode((int) HttpStatusCode.NoContent, response),
+            _ => BadRequest(response)
+        };
+    }
+
+    /// <summary>
     /// Delete customer by id.
     /// </summary>
     /// <param name="id"></param>
-    /// <returns></returns>
-    [HttpDelete("{id:int:min(1):required}", Name = "DeleteCustomerById", Order = 4)]
+    /// <returns>Returns base response of object type.</returns>
+    /// <exception cref="Exception"></exception>
+    [HttpDelete("{id:int:min(1):required}", Name = "DeleteCustomerById", Order = 5)]
     [ProducesResponseType(typeof(BaseResponse<object>), (int)HttpStatusCode.NoContent)]
     public async Task<ActionResult<BaseResponse<object>>> DeleteCustomerById([FromRoute] int id)
     {
+        if (id < 1)
+            throw new Exception("Id can not be less than 1", new ArgumentOutOfRangeException(nameof(id)));
         BaseResponse<object> response = await _mediator.Send(new DeleteCustomerByIdQuery(id));
         if (response.StatusCode == HttpStatusCode.NotFound)
             return BadRequest(response);
@@ -126,43 +154,76 @@ public class CustomerController : ControllerBase
 
     #region Links Helper Region
 
-    private IReadOnlyList<Links> CreateCustomerLinks(int id, string? fields)
+    //private IReadOnlyList<Links> CreateCustomerLinks(int id, string? fields)
+    //{
+    //    List<Links> links = new List<Links>();
+    //    if (!string.IsNullOrWhiteSpace(fields))
+    //    {
+    //        links.Add(new Links(Url.Link("GetCustomerById", new { id, fields }), "self", "GET"));
+    //    }
+    //    else
+    //    {
+    //        links.Add(new Links(Url.Link("GetCustomerById", new { id }), "self", "GET"));
+    //    }
+
+    //    links.Add(new Links(Url.Link("DeleteCustomerById", new { id }), "delete_customer", "DELETE"));
+
+    //    links.Add(new Links(Url.Link("UpdateCustomerById", new { id }), "update_customer", "PUT"));
+
+    //    string remoteIpAddress = string.Empty;
+    //    if (_httpContextAccessor.HttpContext is not null &&
+    //        _httpContextAccessor.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
+    //        remoteIpAddress = _httpContextAccessor.HttpContext.Request.Headers["X-Forwarded-For"];
+
+    //    if (_environment.EnvironmentName.Equals("Local"))
+    //    {
+    //        links.ForEach(item =>
+    //        {
+    //            item.Href = item?.Href?.Replace("localhost:4100", remoteIpAddress);
+    //            item.Href = item?.Href?.Replace("/api", "/gateway");
+    //        });
+    //    }
+    //    else
+    //    {
+    //        links.ForEach(item =>
+    //        {
+    //            item.Href = item?.Href?.Replace("sales.api", remoteIpAddress);
+    //            item.Href = item?.Href?.Replace("/api", "/gateway");
+    //        });
+    //    }
+    //    return links;
+    //}
+
+    private IReadOnlyList<Links> CreateCustomerLinks(int id, string fields)
     {
-        List<Links> links = new List<Links>();
-        if (!string.IsNullOrWhiteSpace(fields))
-        {
-            links.Add(new Links(Url.Link("GetCustomerById", new { id, fields }), "self", "GET"));
-        }
-        else
-        {
-            links.Add(new Links(Url.Link("GetCustomerById", new { id }), "self", "GET"));
-        }
-
-        links.Add(new Links(Url.Link("DeleteCustomerById", new { id }), "delete_customer", "DELETE"));
-
-        links.Add(new Links(Url.Link("UpdateCustomerById", new { id }), "update_customer", "PUT"));
-
+        Links link;
         string remoteIpAddress = string.Empty;
         if (_httpContextAccessor.HttpContext is not null &&
             _httpContextAccessor.HttpContext.Request.Headers.ContainsKey("X-Forwarded-For"))
             remoteIpAddress = _httpContextAccessor.HttpContext.Request.Headers["X-Forwarded-For"];
 
-        if (_environment.EnvironmentName.Equals("Local"))
+        List<Links> links = new List<Links>();
+        if (!string.IsNullOrWhiteSpace(fields))
         {
-            links.ForEach(item =>
-            {
-                item.Href = item?.Href?.Replace("localhost:4100", remoteIpAddress);
-                item.Href = item?.Href?.Replace("/api", "/gateway");
-            });
+            link = new Links(Url.RouteUrl("GetCustomerById", new { id, fields }), "self", "GET");
+            link.Href = link.Href?.Replace("/api", $"{_httpContextAccessor.HttpContext.Request.Scheme}://{remoteIpAddress}/gateway");
+            links.Add(link);
         }
         else
         {
-            links.ForEach(item =>
-            {
-                item.Href = item?.Href?.Replace("sales.api", remoteIpAddress);
-                item.Href = item?.Href?.Replace("/api", "/gateway");
-            });
+            link = new Links(Url.RouteUrl("GetCustomerById", new { id }), "self", "GET");
+            link.Href = link.Href?.Replace("/api", $"{_httpContextAccessor.HttpContext.Request.Scheme}://{remoteIpAddress}/gateway");
+            links.Add(link);
         }
+
+        link = new Links(Url.RouteUrl("DeleteCustomerById", new { id }), "delete_customer", "DELETE");
+        link.Href = link.Href?.Replace("/api", $"{_httpContextAccessor.HttpContext.Request.Scheme}://{remoteIpAddress}/gateway");
+        links.Add(link);
+
+        link = new Links(Url.Link("UpdateCustomerById", new { id }), "update_customer", "PUT");
+        link.Href = link.Href?.Replace("/api", $"{_httpContextAccessor.HttpContext.Request.Scheme}://{remoteIpAddress}/gateway");
+        links.Add(link);
+
         return links;
     }
     #endregion
