@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj": {}
+    "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj": {}
   },
   "projects": {
-    "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj": {
+    "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
+        "projectUniqueName": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
         "projectName": "AdventureWorks.Common",
-        "projectPath": "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
-        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\AdventureWorks\\AdventureWorks.Common\\obj\\",
+        "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj",
+        "packagesPath": "C:\\Users\\Junaid\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Common\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Junaid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -76,21 +79,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj": {
+    "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj",
+        "projectUniqueName": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj",
         "projectName": "AdventureWorks.Sales.API",
-        "projectPath": "D:\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj",
-        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\AdventureWorks\\AdventureWorks.Sales.API\\obj\\",
+        "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj",
+        "packagesPath": "C:\\Users\\Junaid\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Sales.API\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Junaid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -104,11 +110,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
-                "projectPath": "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj"
+              "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
+                "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj"
               },
-              "D:\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj": {
-                "projectPath": "D:\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj"
+              "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj": {
+                "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj"
               }
             }
           }
@@ -174,21 +180,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
+    "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj",
+        "projectUniqueName": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj",
         "projectName": "Sales.Application",
-        "projectPath": "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj",
-        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\AdventureWorks\\Sales.Application\\obj\\",
+        "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj",
+        "packagesPath": "C:\\Users\\Junaid\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Junaid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -202,11 +211,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj": {
-                "projectPath": "D:\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj"
+              "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj": {
+                "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Common\\AdventureWorks.Common.csproj"
               },
-              "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
-                "projectPath": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj"
+              "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
+                "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj"
               }
             }
           }
@@ -269,21 +278,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
+    "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
+        "projectUniqueName": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
         "projectName": "Sales.Domain",
-        "projectPath": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
-        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\AdventureWorks\\Sales.Domain\\obj\\",
+        "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
+        "packagesPath": "C:\\Users\\Junaid\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Junaid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -329,21 +341,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj": {
+    "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj",
+        "projectUniqueName": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj",
         "projectName": "Sales.Infrastructure",
-        "projectPath": "D:\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\AdventureWorks\\Sales.Infrastructure\\obj\\",
+        "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Junaid\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Junaid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -357,11 +372,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
-                "projectPath": "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj"
+              "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
+                "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj"
               },
-              "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
-                "projectPath": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj"
+              "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
+                "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj"
               }
             }
           }
@@ -408,7 +423,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

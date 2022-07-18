@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {}
+    "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {}
   },
   "projects": {
-    "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
+    "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
+        "projectUniqueName": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
         "projectName": "Sales.Domain",
-        "projectPath": "D:\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
-        "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
-        "outputPath": "D:\\AdventureWorks\\Sales.Domain\\obj\\",
+        "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\Sales.Domain.csproj",
+        "packagesPath": "C:\\Users\\Junaid\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Junaid\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -60,7 +63,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
