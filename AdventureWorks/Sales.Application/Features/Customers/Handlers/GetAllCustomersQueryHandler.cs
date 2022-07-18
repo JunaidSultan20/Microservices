@@ -1,4 +1,6 @@
-﻿namespace Sales.Application.Features.Customers.Handlers;
+﻿using Microsoft.Extensions.Logging;
+
+namespace Sales.Application.Features.Customers.Handlers;
 
 public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery, PaginationResponse<IEnumerable<CustomerWithLinksDto>>>
 {
@@ -6,13 +8,15 @@ public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery,
     private readonly IMapper _mapper;
     private readonly ICacheService _cacheService;
     private readonly IUrlService _urlService;
+    private readonly ILogger<GetAllCustomersQueryHandler> _logger;
 
-    public GetAllCustomersQueryHandler(IUnitOfWork unitOfWork, IMapper mapper, ICacheService cacheService, IUrlService urlService)
+    public GetAllCustomersQueryHandler(IUnitOfWork unitOfWork, IMapper mapper, ICacheService cacheService, IUrlService urlService, ILogger<GetAllCustomersQueryHandler> logger)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _cacheService = cacheService;
         _urlService = urlService;
+        _logger = logger;
     }
 
     public async Task<PaginationResponse<IEnumerable<CustomerWithLinksDto>>> Handle(GetAllCustomersQuery request,
@@ -24,6 +28,7 @@ public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery,
 
         if (customersPagination != null)
         {
+            _logger.LogInformation("Result returned from Redis cache");
             return customersPagination;
         }
 

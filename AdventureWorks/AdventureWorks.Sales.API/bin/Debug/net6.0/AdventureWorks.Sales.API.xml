@@ -4,8 +4,14 @@
         <name>AdventureWorks.Sales.API</name>
     </assembly>
     <members>
-        <!-- Badly formed XML comment ignored for member "M:AdventureWorks.Sales.API.Controllers.CustomerController.GetAllCustomers(AdventureWorks.Common.Parameters.PaginationParameters,System.String)" -->
-        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetById(System.Int32)">
+        <member name="T:AdventureWorks.Sales.API.Controllers.CustomerController">
+            <inheritdoc />
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.#ctor(MediatR.IMediator,AdventureWorks.Common.Services.Contracts.IUrlService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <inheritdoc />
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerList(AdventureWorks.Common.Parameters.PaginationParameters,System.String)" -->
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerById(System.Int32)">
             <summary>
             Returns the customer by id provided through route.
             </summary>
@@ -34,7 +40,29 @@
             Delete customer by id.
             </summary>
             <param name="id"></param>
+            <returns>Returns base response of object type.</returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:AdventureWorks.Sales.API.Controllers.RootController">
+            <inheritdoc />
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Controllers.RootController.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <inheritdoc />
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Controllers.RootController.GetRoot">
+            <summary>
+            Root method to return url for all endpoints in the API.
+            </summary>
             <returns></returns>
+        </member>
+        <member name="T:AdventureWorks.Sales.API.Filters.RequestHeaderFilter">
+            <inheritdoc />
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Filters.RequestHeaderFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Filters.RequestHeaderFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <inheritdoc />
         </member>
     </members>
 </doc>

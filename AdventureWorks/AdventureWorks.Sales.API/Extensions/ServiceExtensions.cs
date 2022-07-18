@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
+﻿using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace AdventureWorks.Sales.API.Extensions;
 
+/// <summary>
+/// Custom service extensions class.
+/// </summary>
 public static class ServiceExtensions
 {
+    /// <summary>
+    /// Custom media type service extension.
+    /// </summary>
+    /// <param name="services"></param>
     public static void AddCustomMediaTypes(this IServiceCollection services)
     {
         services.Configure<MvcOptions>(config =>

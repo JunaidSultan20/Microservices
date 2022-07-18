@@ -48,6 +48,18 @@
           "lib/netstandard1.5/Castle.Core.dll": {}
         }
       },
+      "Marvin.Cache.Headers/6.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/Marvin.Cache.Headers.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Marvin.Cache.Headers.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "MediatR/10.0.1": {
         "type": "package",
         "dependencies": {
@@ -2724,6 +2736,21 @@
         "lib/netstandard1.5/Castle.Core.dll",
         "lib/netstandard1.5/Castle.Core.xml",
         "readme.txt"
+      ]
+    },
+    "Marvin.Cache.Headers/6.1.0": {
+      "sha512": "XHUeOdMfZrtRHXsWiqRUrebBl4U2SGew8Cr7Y/tHaGfiY/fbajnq4vRt5ktlkUnMebcpfvl8RJjAglu1KxWwYQ==",
+      "type": "package",
+      "path": "marvin.cache.headers/6.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net5.0/Marvin.Cache.Headers.dll",
+        "lib/net6.0/Marvin.Cache.Headers.dll",
+        "lib/netcoreapp3.1/Marvin.Cache.Headers.dll",
+        "marvin.cache.headers.6.1.0.nupkg.sha512",
+        "marvin.cache.headers.nuspec"
       ]
     },
     "MediatR/10.0.1": {
@@ -8762,6 +8789,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Marvin.Cache.Headers >= 6.1.0",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 10.0.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.7",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 6.0.7",
@@ -8774,23 +8802,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Junaid\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\junaid.sultan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj",
+      "projectUniqueName": "D:\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj",
       "projectName": "AdventureWorks.Sales.API",
-      "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj",
-      "packagesPath": "C:\\Users\\Junaid\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Sales.API\\obj\\",
+      "projectPath": "D:\\AdventureWorks\\AdventureWorks.Sales.API\\AdventureWorks.Sales.API.csproj",
+      "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
+      "outputPath": "D:\\AdventureWorks\\AdventureWorks.Sales.API\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Junaid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8804,11 +8828,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
-              "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Application\\Sales.Application.csproj"
+            "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj": {
+              "projectPath": "D:\\AdventureWorks\\Sales.Application\\Sales.Application.csproj"
             },
-            "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj": {
-              "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj"
+            "D:\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj": {
+              "projectPath": "D:\\AdventureWorks\\Sales.Infrastructure\\Sales.Infrastructure.csproj"
             }
           }
         }
@@ -8823,6 +8847,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Marvin.Cache.Headers": {
+            "target": "Package",
+            "version": "[6.1.0, )"
+          },
           "MediatR.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[10.0.1, )"
@@ -8870,7 +8898,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

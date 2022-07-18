@@ -37,6 +37,25 @@
             "DownstreamHeaderTransform": {
                 "X-Forwarded-For": "{BaseUrl}"
             }
+        },
+        {
+            "DownstreamPathTemplate": "/api/",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 4100
+                }
+            ],
+            "UpstreamPathTemplate": "/gateway/",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DangerousAcceptAnyServerCertificateValidator": true,
+            "UpstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}"
+            },
+            "DownstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}"
+            }
         }
     ],
     "RateLimitOptions": {
