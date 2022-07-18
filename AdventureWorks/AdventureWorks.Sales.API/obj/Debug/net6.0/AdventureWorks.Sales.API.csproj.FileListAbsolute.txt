@@ -357,3 +357,5 @@ D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Sal
 D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\ref\AdventureWorks.Sales.API.dll
 D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.xml
 D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.xml
+D:\AdventureWorks\AdventureWorks.Sales.API\bin\Debug\net6.0\AdventureWorks.Sales.API.xml
+D:\AdventureWorks\AdventureWorks.Sales.API\obj\Debug\net6.0\AdventureWorks.Sales.API.xml

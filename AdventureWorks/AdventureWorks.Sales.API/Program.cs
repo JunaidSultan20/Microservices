@@ -2,11 +2,11 @@ using System.Reflection;
 using System.Text.Json;
 using AdventureWorks.Common;
 using AdventureWorks.Sales.API.Extensions;
+using AdventureWorks.Sales.API.Filters;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Sales.Application;
 using Sales.Infrastructure;
@@ -18,6 +18,7 @@ IConfiguration configuration = builder.Configuration;
 
 // Add services to the container.
 
+builder.Services.AddResponseCaching();
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
@@ -28,7 +29,14 @@ builder.Services.AddSalesApplicationLayer(configuration);
 builder.Services.AddSalesInfrastructureLayer(configuration);
 builder.Services.AddCommonLayer();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-builder.Services.AddControllers().AddJsonOptions(options =>
+builder.Services.AddControllers(options =>
+{
+    options.CacheProfiles.Add("120SecondsCacheProfile", new CacheProfile()
+    {
+        Duration = 120,
+        Location = ResponseCacheLocation.Any
+    });
+}).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
@@ -65,18 +73,8 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
 });
 
-//builder.Services.Configure<MvcOptions>(options =>
-//{
-//    var newtonsoftJsonOutputFormatter =
-//        options.OutputFormatters.OfType<NewtonsoftJsonOutputFormatter>()?.FirstOrDefault();
-
-//    if (newtonsoftJsonOutputFormatter != null)
-//    {
-//        newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add("application/vnd.api.hateoas+json");
-//    }
-//});
-
 builder.Services.AddCustomMediaTypes();
+builder.Services.AddScoped<RequestHeaderFilter>();
 
 var app = builder.Build();
 
@@ -95,6 +93,8 @@ app.UseDeveloperExceptionPage();
 
 app.UseStaticFiles();
 
+app.UseResponseCaching();
+
 app.UseHttpsRedirection();
 
 //app.UseAuthentication();
@@ -109,7 +109,5 @@ app.MapControllers();
 //{
 //    await context.Response.WriteAsync(serviceName);
 //});
-
-app.UseResponseCaching();
 
 app.Run();

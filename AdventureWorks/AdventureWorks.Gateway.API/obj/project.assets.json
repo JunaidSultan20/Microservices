@@ -748,23 +748,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Junaid\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\junaid.sultan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Gateway.API\\AdventureWorks.Gateway.API.csproj",
+      "projectUniqueName": "D:\\AdventureWorks\\AdventureWorks.Gateway.API\\AdventureWorks.Gateway.API.csproj",
       "projectName": "AdventureWorks.Gateway.API",
-      "projectPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Gateway.API\\AdventureWorks.Gateway.API.csproj",
-      "packagesPath": "C:\\Users\\Junaid\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio Projects\\GitHub\\Microservices\\AdventureWorks\\AdventureWorks.Gateway.API\\obj\\",
+      "projectPath": "D:\\AdventureWorks\\AdventureWorks.Gateway.API\\AdventureWorks.Gateway.API.csproj",
+      "packagesPath": "C:\\Users\\junaid.sultan\\.nuget\\packages\\",
+      "outputPath": "D:\\AdventureWorks\\AdventureWorks.Gateway.API\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Junaid\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\junaid.sultan\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -825,7 +821,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

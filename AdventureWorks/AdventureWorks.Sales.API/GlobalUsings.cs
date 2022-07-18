@@ -1,0 +1,14 @@
+﻿global using System.Dynamic;
+global using System.Net;
+global using System.Text.Json;
+global using AdventureWorks.Common.Helpers;
+global using AdventureWorks.Common.Parameters;
+global using AdventureWorks.Common.Response;
+global using AdventureWorks.Common.Services.Contracts;
+global using MediatR;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Net.Http.Headers;
+global using Sales.Application.DTOs;
+global using Sales.Application.Features.Customers.Commands;
+global using Sales.Application.Features.Customers.Queries;
+global using Microsoft.AspNetCore.Mvc.Filters;
