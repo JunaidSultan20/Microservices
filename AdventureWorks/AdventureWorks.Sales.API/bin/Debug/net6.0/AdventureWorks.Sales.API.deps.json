@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "AdventureWorks.Sales.API/1.0.0": {
         "dependencies": {
+          "Marvin.Cache.Headers": "6.1.0",
           "MediatR.Extensions.Microsoft.DependencyInjection": "10.0.1",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.7",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.7",
@@ -62,6 +63,14 @@
           "lib/netstandard1.5/Castle.Core.dll": {
             "assemblyVersion": "4.0.0.0",
             "fileVersion": "4.4.1.0"
+          }
+        }
+      },
+      "Marvin.Cache.Headers/6.1.0": {
+        "runtime": {
+          "lib/net6.0/Marvin.Cache.Headers.dll": {
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "6.1.0.0"
           }
         }
       },
@@ -1689,6 +1698,13 @@
       "sha512": "sha512-zanbjWC0Y05gbx4eGXkzVycOQqVOFVeCjVsDSyuao9P4mtN1w3WxxTo193NGC7j3o2u3AJRswaoC6hEbnGACnQ==",
       "path": "castle.core/4.4.1",
       "hashPath": "castle.core.4.4.1.nupkg.sha512"
+    },
+    "Marvin.Cache.Headers/6.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XHUeOdMfZrtRHXsWiqRUrebBl4U2SGew8Cr7Y/tHaGfiY/fbajnq4vRt5ktlkUnMebcpfvl8RJjAglu1KxWwYQ==",
+      "path": "marvin.cache.headers/6.1.0",
+      "hashPath": "marvin.cache.headers.6.1.0.nupkg.sha512"
     },
     "MediatR/10.0.1": {
       "type": "package",

@@ -10,7 +10,14 @@
         <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.#ctor(MediatR.IMediator,AdventureWorks.Common.Services.Contracts.IUrlService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <inheritdoc />
         </member>
-        <!-- Badly formed XML comment ignored for member "M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerList(AdventureWorks.Common.Parameters.PaginationParameters,System.String)" -->
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerList(AdventureWorks.Common.Parameters.PaginationParameters,System.String)">
+            <summary>
+            Returns the customers list with data shaping and caching options.
+            </summary>
+            <param name="paginationParameters"></param>
+            <param name="mediaType"></param>
+            <returns>Returns list of customers with pagination and optional shaped data with links.</returns>
+        </member>
         <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerById(System.Int32)">
             <summary>
             Returns the customer by id provided through route.
@@ -54,6 +61,17 @@
             Root method to return url for all endpoints in the API.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:AdventureWorks.Sales.API.Extensions.ServiceExtensions">
+            <summary>
+            Custom service extensions class.
+            </summary>
+        </member>
+        <member name="M:AdventureWorks.Sales.API.Extensions.ServiceExtensions.AddCustomMediaTypes(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Custom media type service extension.
+            </summary>
+            <param name="services"></param>
         </member>
         <member name="T:AdventureWorks.Sales.API.Filters.RequestHeaderFilter">
             <inheritdoc />

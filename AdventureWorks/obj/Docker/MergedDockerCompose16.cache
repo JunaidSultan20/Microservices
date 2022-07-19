@@ -1,0 +1,128 @@
+networks:
+  adventureworksnetwork:
+    driver: bridge
+    ipam:
+      config:
+      - gateway: 172.10.0.1
+        subnet: 172.10.0.0/16
+      driver: default
+services:
+  adventureworks.gateway.api:
+    build:
+      context: D:\Git\Microservices\AdventureWorks
+      dockerfile: AdventureWorks.Gateway.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: AdventureWorks.Gateway.API
+      target: base
+    container_name: gateway.api
+    depends_on:
+      adventureworks.sales.api:
+        condition: service_started
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    hostname: gateway.api
+    image: adventureworksgatewayapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/AdventureWorks.Gateway.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.4
+    ports:
+    - published: 5001
+      target: 80
+    - published: 5000
+      target: 443
+    restart: on-failure
+    tty: true
+    volumes:
+    - D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Gateway.API:/app:rw
+    - C:\Users\Junaid\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\junaid.sultan\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\junaid.sultan\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Junaid\.nuget\packages:/root/.nuget/packages:ro
+    - D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks:/src:rw
+  adventureworks.sales.api:
+    build:
+      context: D:\Git\Microservices\AdventureWorks
+      dockerfile: AdventureWorks.Sales.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: AdventureWorks.Sales.API
+      target: base
+    container_name: sales.api
+    depends_on:
+      adventureworksredis:
+        condition: service_started
+      consul:
+        condition: service_started
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+    hostname: https://localhost
+    image: adventureworkssalesapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/AdventureWorks.Sales.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.5
+    ports:
+    - published: 4001
+      target: 80
+    - published: 4000
+      target: 443
+    restart: on-failure
+    tty: true
+    volumes:
+    - D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\AdventureWorks.Sales.API:/app:rw
+    - C:\Users\Junaid\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\junaid.sultan\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\junaid.sultan\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages:ro
+    - C:\Users\Junaid\.nuget\packages:/root/.nuget/packages:ro
+    - D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks:/src:rw
+  adventureworksredis:
+    container_name: adventureworksredis
+    expose:
+    - '6379'
+    image: redis:latest
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.2
+    ports:
+    - published: 6379
+      target: 6379
+  consul:
+    command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
+    container_name: consul
+    expose:
+    - '8500'
+    hostname: consul
+    image: consul:latest
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.3
+    ports:
+    - published: 8500
+      target: 8500
+version: '3.9'

@@ -74,3 +74,22 @@ D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\Sales.Infrastructu
 D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\refint\Sales.Infrastructure.dll
 D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.pdb
 D:\Visual Studio Projects\GitHub\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\ref\Sales.Infrastructure.dll
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.deps.json
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.dll
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Infrastructure.pdb
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\AdventureWorks.Common.dll
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Application.dll
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Domain.dll
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Application.pdb
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\Sales.Domain.pdb
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\bin\Debug\net6.0\AdventureWorks.Common.pdb
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.AssemblyReference.cache
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.AssemblyInfoInputs.cache
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.AssemblyInfo.cs
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.csproj.CopyComplete
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.dll
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\refint\Sales.Infrastructure.dll
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\Sales.Infrastructure.pdb
+D:\Git\Microservices\AdventureWorks\Sales.Infrastructure\obj\Debug\net6.0\ref\Sales.Infrastructure.dll

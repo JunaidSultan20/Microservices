@@ -1,0 +1,12 @@
+D:\Git\Microservices\AdventureWorks\Identity.Domain\bin\Debug\net6.0\Identity.Domain.deps.json
+D:\Git\Microservices\AdventureWorks\Identity.Domain\bin\Debug\net6.0\Identity.Domain.dll
+D:\Git\Microservices\AdventureWorks\Identity.Domain\bin\Debug\net6.0\Identity.Domain.pdb
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\Identity.Domain.csproj.AssemblyReference.cache
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\Identity.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\Identity.Domain.AssemblyInfoInputs.cache
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\Identity.Domain.AssemblyInfo.cs
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\Identity.Domain.csproj.CoreCompileInputs.cache
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\Identity.Domain.dll
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\refint\Identity.Domain.dll
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\Identity.Domain.pdb
+D:\Git\Microservices\AdventureWorks\Identity.Domain\obj\Debug\net6.0\ref\Identity.Domain.dll

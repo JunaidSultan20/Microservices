@@ -1,0 +1,16 @@
+﻿global using Identity.Domain.Entities;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Identity.Infrastructure.EntityConfiguration;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Net;
+global using System.Security.Claims;
+global using System.Text;
+global using AdventureWorks.Common.Response;
+global using Identity.Application.Contracts;
+global using Identity.Application.DTOs;
+global using Identity.Domain.Settings;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.Extensions.Options;
+global using Microsoft.IdentityModel.Tokens;
