@@ -7,23 +7,21 @@
         <member name="T:AdventureWorks.Sales.API.Controllers.CustomerController">
             <inheritdoc />
         </member>
-        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.#ctor(MediatR.IMediator,AdventureWorks.Common.Services.Contracts.IUrlService,Microsoft.AspNetCore.Http.IHttpContextAccessor,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.#ctor(MediatR.IMediator,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
             <inheritdoc />
         </member>
-        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerList(AdventureWorks.Common.Parameters.PaginationParameters,System.String)">
-            <summary>
-            Returns the customers list with data shaping and caching options.
-            </summary>
-            <param name="paginationParameters"></param>
-            <param name="mediaType"></param>
-            <returns>Returns list of customers with pagination and optional shaped data with links.</returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerList(AdventureWorks.Common.Parameters.PaginationParameters,System.String)" -->
         <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerById(System.Int32)">
             <summary>
             Returns the customer by id provided through route.
             </summary>
-            <param name="id">Customer Id.</param>
-            <returns></returns>
+            <param name="id">Customer id for which customer is to be fetched.</param>
+            <remarks>Sample Request:
+            GET api/customer/1
+            </remarks>
+            <returns>An ActionResult of type BaseResponse</returns>
+            <resposne code="200">Returns the matched customer</resposne>
+            <response code="404">If no user exists against the id provided</response>
         </member>
         <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerByIdRange(System.Int32,System.Int32)">
             <summary>

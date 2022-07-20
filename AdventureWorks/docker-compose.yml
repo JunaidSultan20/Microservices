@@ -47,6 +47,18 @@ services:
             adventureworksnetwork:
                 ipv4_address: 172.10.0.5
 
+    adventureworks.identity.api:
+        container_name: identity.api
+        image: ${DOCKER_REGISTRY-}adventureworksidentityapi
+        restart: on-failure
+        hostname: identity.api
+        build:
+            context: .
+            dockerfile: AdventureWorks.Identity.API/Dockerfile
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.6
+
 networks:
     adventureworksnetwork:
         driver: bridge
@@ -55,3 +67,4 @@ networks:
             config:
                 - subnet: 172.10.0.0/16
                   gateway: 172.10.0.1
+

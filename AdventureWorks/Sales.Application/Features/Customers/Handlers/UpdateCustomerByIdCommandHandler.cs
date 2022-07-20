@@ -1,4 +1,4 @@
-﻿using Sales.Application.Features.Customers.Commands;
+﻿using Sales.Application.Features.Customers.Commands.UpdateCustomer;
 
 namespace Sales.Application.Features.Customers.Handlers;
 
@@ -20,13 +20,13 @@ public class UpdateCustomerByIdCommandHandler : IRequestHandler<UpdateCustomerBy
         if (customer == null)
             return new BaseResponse<CustomerDto>(HttpStatusCode.NotFound,
                 $"No customer found against id: {request.Id}", null);
-        _mapper.Map<CustomerDto, Customer>(request.Customer, customer);
+        _mapper.Map<UpdateCustomerDto, Customer>(request.Customer, customer);
         await _unitOfWork.ICustomerRepository.UpdateAsync(customer);
         int result = await _unitOfWork.Commit();
         if (result > 0)
             return new BaseResponse<CustomerDto>(HttpStatusCode.NoContent,
                 $"Customer updated with id: {request.Id}", _mapper.Map<CustomerDto>(customer));
         return new BaseResponse<CustomerDto>(HttpStatusCode.BadRequest,
-            $"Unable to update customer with id: {request.Id}", request.Customer);
+            $"Unable to update customer with id: {request.Id}", null);
     }
 }

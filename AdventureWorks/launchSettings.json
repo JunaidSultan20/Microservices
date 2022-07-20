@@ -8,7 +8,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "adventureworks.gateway.api": "StartDebugging",
-        "adventureworks.sales.api": "StartDebugging"
+        "adventureworks.sales.api": "StartDebugging",
+        "adventureworks.identity.api": "StartDebugging" 
       }
     }
   }

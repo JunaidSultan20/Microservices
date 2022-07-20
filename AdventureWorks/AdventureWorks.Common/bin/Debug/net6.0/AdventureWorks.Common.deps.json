@@ -9,7 +9,7 @@
       "AdventureWorks.Common/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.5",
+          "Microsoft.Extensions.Caching.StackExchangeRedis": "6.0.7",
           "Microsoft.Extensions.DependencyInjection": "6.0.0",
           "Microsoft.Extensions.Hosting.Abstractions": "6.0.0",
           "Newtonsoft.Json": "13.0.1"
@@ -52,7 +52,7 @@
           }
         }
       },
-      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.5": {
+      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.7": {
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "6.0.0",
           "Microsoft.Extensions.Options": "6.0.0",
@@ -60,8 +60,8 @@
         },
         "runtime": {
           "lib/net6.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll": {
-            "assemblyVersion": "6.0.5.0",
-            "fileVersion": "6.0.522.21802"
+            "assemblyVersion": "6.0.7.0",
+            "fileVersion": "6.0.722.32205"
           }
         }
       },
@@ -352,12 +352,12 @@
       "path": "microsoft.extensions.caching.abstractions/6.0.0",
       "hashPath": "microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.5": {
+    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lqx+DaZdeV6FUqCc1GXgBoew142SuKzez91I6mPA6g8RlZtlA9yI/S8efkKkk2pQVAh9EVervzqgNGly8q2Y9g==",
-      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.5",
-      "hashPath": "microsoft.extensions.caching.stackexchangeredis.6.0.5.nupkg.sha512"
+      "sha512": "sha512-ost2Q2Hl+sxYTrIL5yfIEbhlxibeAjwNHFX10yjSZrYHr18fnkcVW77CXR47NdNLVqR/tkTKSwyH/NRS6D1R7A==",
+      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.7",
+      "hashPath": "microsoft.extensions.caching.stackexchangeredis.6.0.7.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration.Abstractions/6.0.0": {
       "type": "package",

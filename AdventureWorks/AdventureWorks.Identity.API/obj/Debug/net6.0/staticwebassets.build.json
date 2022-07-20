@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "p77pBXMIqYegzrVpMRdCrHXtJxieq/7RS9YrvWxTLjM=",
+  "Source": "AdventureWorks.Identity.API",
+  "BasePath": "_content/AdventureWorks.Identity.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

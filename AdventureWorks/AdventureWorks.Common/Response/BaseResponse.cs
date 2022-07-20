@@ -1,24 +1,58 @@
 ﻿namespace AdventureWorks.Common.Response;
 
+/// <summary>
+/// Generic BaseResponse
+/// </summary>
+/// <typeparam name="TEntity"></typeparam>
 public class BaseResponse<TEntity>
 {
+    /// <summary>
+    /// Returns the status code of the request
+    /// </summary>
     public HttpStatusCode StatusCode { get; set; }
 
+    /// <summary>
+    /// Message description
+    /// </summary>
     public string? Message { get; set; }
 
+    /// <summary>
+    /// Success/Fail indicator
+    /// </summary>
     public bool? IsSuccessful { get; set; }
 
+    /// <summary>
+    /// TEntity of result type
+    /// </summary>
     public TEntity? Result { get; set; }
 
+    /// <summary>
+    /// Links for HATEOAS
+    /// </summary>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public IReadOnlyList<Links>? Links { get; set; }
 
+    /// <summary>
+    /// Api exception details
+    /// </summary>
     public ApiException? ApiException { get; set; }
 
+    /// <summary>
+    /// List of errors
+    /// </summary>
     public List<string>? Errors { get; set; }
 
+    /// <summary>
+    /// Default constructor
+    /// </summary>
     public BaseResponse() { }
 
+    /// <summary>
+    /// Constructor with status code, message and result parameters
+    /// </summary>
+    /// <param name="statusCode"></param>
+    /// <param name="message"></param>
+    /// <param name="result"></param>
     public BaseResponse(HttpStatusCode statusCode, string? message, TEntity? result)
     {
         switch (statusCode)

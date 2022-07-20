@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
@@ -33,15 +35,25 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    //options.SwaggerDoc("AdventureWorksSalesOpenAPISpecification", new OpenApiInfo
+    //{
+    //    Title = "AdventureWorks.Sales API",
+    //    Version = "1"
+    //});
+    options.ResolveConflictingActions(resolver => resolver.First());
+    var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlCommentPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+    options.IncludeXmlComments(xmlCommentPath);
+});
 builder.Services.AddHealthChecks();
 builder.Services.AddApiVersioning(options =>
 {
     options.AssumeDefaultVersionWhenUnspecified = true;
     options.DefaultApiVersion = new ApiVersion(1, 0);
     options.ReportApiVersions = true;
-    options.ApiVersionReader = ApiVersionReader.Combine(new HeaderApiVersionReader("X-Version"),
-        new QueryStringApiVersionReader("ver"));
+    options.ApiVersionReader = ApiVersionReader.Combine(new HeaderApiVersionReader("X-Version"));
 });
 builder.Services.AddVersionedApiExplorer(options =>
 {
@@ -72,12 +84,28 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventureWorks.Sales API V1");
+        //options.DefaultModelExpandDepth(2);
+        //options.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model);
+        //options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+        //options.EnableDeepLinking();
+        //options.DisplayOperationId();
+    });
 }
 
 app.UseSwagger();
 
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventureWorks.Sales API V1");
+    options.DefaultModelExpandDepth(2);
+    //options.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model);
+    //options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+    //options.EnableDeepLinking();
+    //options.DisplayOperationId();
+});
 
 app.UseDeveloperExceptionPage();
 

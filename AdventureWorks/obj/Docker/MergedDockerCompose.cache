@@ -1,8 +1,8 @@
-name: dockercompose17471837253201897951
+name: dockercompose1297127735244507517
 services:
   adventureworks.gateway.api:
     build:
-      context: D:\Visual Studio Projects\AdventureWorks
+      context: D:\Git\Microservices\AdventureWorks
       dockerfile: AdventureWorks.Gateway.API/Dockerfile
     container_name: gateway.api
     depends_on:
@@ -28,20 +28,56 @@ services:
     restart: on-failure
     volumes:
     - type: bind
-      source: C:\Users\Junaid\AppData\Roaming/Microsoft/UserSecrets
+      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
       target: /root/.microsoft/usersecrets
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid\AppData\Roaming/ASP.NET/Https
+      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  adventureworks.identity.api:
+    build:
+      context: D:\Git\Microservices\AdventureWorks
+      dockerfile: AdventureWorks.Identity.API/Dockerfile
+    container_name: identity.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
+    hostname: identity.api
+    image: adventureworksidentityapi
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.6
+    ports:
+    - mode: ingress
+      target: 80
+      published: "6001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "6000"
+      protocol: tcp
+    restart: on-failure
+    volumes:
+    - type: bind
+      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
       target: /root/.aspnet/https
       read_only: true
       bind:
         create_host_path: true
   adventureworks.sales.api:
     build:
-      context: D:\Visual Studio Projects\AdventureWorks
+      context: D:\Git\Microservices\AdventureWorks
       dockerfile: AdventureWorks.Sales.API/Dockerfile
     container_name: sales.api
     depends_on:
@@ -69,13 +105,13 @@ services:
     restart: on-failure
     volumes:
     - type: bind
-      source: C:\Users\Junaid\AppData\Roaming/Microsoft/UserSecrets
+      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
       target: /root/.microsoft/usersecrets
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid\AppData\Roaming/ASP.NET/Https
+      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
       target: /root/.aspnet/https
       read_only: true
       bind:
@@ -116,7 +152,7 @@ services:
       protocol: tcp
 networks:
   adventureworksnetwork:
-    name: dockercompose17471837253201897951_adventureworksnetwork
+    name: dockercompose1297127735244507517_adventureworksnetwork
     driver: bridge
     ipam:
       driver: default

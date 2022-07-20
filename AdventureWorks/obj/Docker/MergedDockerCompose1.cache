@@ -1,8 +1,8 @@
-name: dockercompose17471837253201897951
+name: dockercompose1297127735244507517
 services:
   adventureworks.gateway.api:
     build:
-      context: D:\Visual Studio Projects\AdventureWorks
+      context: D:\Git\Microservices\AdventureWorks
       dockerfile: AdventureWorks.Gateway.API/Dockerfile
       labels:
         com.microsoft.created-by: visual-studio
@@ -21,12 +21,11 @@ services:
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
       ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
       DOTNET_USE_POLLING_FILE_WATCHER: "1"
-      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+      NUGET_FALLBACK_PACKAGES: ""
     hostname: gateway.api
     image: adventureworksgatewayapi:dev
     labels:
-      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
-        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/AdventureWorks.Gateway.API.dll"'
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net6.0/AdventureWorks.Gateway.API.dll"'
       com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
         dotnet); then kill $$PID; fi"
       com.microsoft.visualstudio.debuggee.program: dotnet
@@ -47,47 +46,116 @@ services:
     tty: true
     volumes:
     - type: bind
-      source: D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Gateway.API
+      source: D:\Git\Microservices\AdventureWorks\AdventureWorks.Gateway.API
       target: /app
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid\vsdbg\vs2017u5
+      source: C:\Users\junaid.sultan\vsdbg\vs2017u5
       target: /remote_debugger
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid\AppData\Roaming/ASP.NET/Https
+      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
       target: /root/.aspnet/https
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid\AppData\Roaming/Microsoft/UserSecrets
+      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
       target: /root/.microsoft/usersecrets
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Program Files\dotnet\sdk\NuGetFallbackFolder
-      target: /root/.nuget/fallbackpackages
-      read_only: true
-      bind:
-        create_host_path: true
-    - type: bind
-      source: C:\Users\Junaid\.nuget\packages\
+      source: C:\Users\junaid.sultan\.nuget\packages\
       target: /root/.nuget/packages
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: D:\Visual Studio Projects\AdventureWorks
+      source: D:\Git\Microservices\AdventureWorks
+      target: /src
+      bind:
+        create_host_path: true
+  adventureworks.identity.api:
+    build:
+      context: D:\Git\Microservices\AdventureWorks
+      dockerfile: AdventureWorks.Identity.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: AdventureWorks.Identity.API
+      target: base
+    container_name: identity.api
+    entrypoint:
+    - tail
+    - -f
+    - /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
+      DOTNET_USE_POLLING_FILE_WATCHER: "1"
+      NUGET_FALLBACK_PACKAGES: ""
+    hostname: identity.api
+    image: adventureworksidentityapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net6.0/AdventureWorks.Identity.API.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    networks:
+      adventureworksnetwork:
+        ipv4_address: 172.10.0.6
+    ports:
+    - mode: ingress
+      target: 80
+      published: "6001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "6000"
+      protocol: tcp
+    restart: on-failure
+    tty: true
+    volumes:
+    - type: bind
+      source: D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API
+      target: /app
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\junaid.sultan\vsdbg\vs2017u5
+      target: /remote_debugger
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\junaid.sultan\.nuget\packages\
+      target: /root/.nuget/packages
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: D:\Git\Microservices\AdventureWorks
       target: /src
       bind:
         create_host_path: true
   adventureworks.sales.api:
     build:
-      context: D:\Visual Studio Projects\AdventureWorks
+      context: D:\Git\Microservices\AdventureWorks
       dockerfile: AdventureWorks.Sales.API/Dockerfile
       labels:
         com.microsoft.created-by: visual-studio
@@ -108,12 +176,11 @@ services:
       ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
       ASPNETCORE_URLS: https://0.0.0.0:443;http://0.0.0.0:80
       DOTNET_USE_POLLING_FILE_WATCHER: "1"
-      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages
+      NUGET_FALLBACK_PACKAGES: ""
     hostname: https://localhost
     image: adventureworkssalesapi:dev
     labels:
-      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
-        --additionalProbingPath /root/.nuget/fallbackpackages  "/app/bin/Debug/net6.0/AdventureWorks.Sales.API.dll"'
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net6.0/AdventureWorks.Sales.API.dll"'
       com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
         dotnet); then kill $$PID; fi"
       com.microsoft.visualstudio.debuggee.program: dotnet
@@ -134,41 +201,35 @@ services:
     tty: true
     volumes:
     - type: bind
-      source: D:\Visual Studio Projects\AdventureWorks\AdventureWorks.Sales.API
+      source: D:\Git\Microservices\AdventureWorks\AdventureWorks.Sales.API
       target: /app
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid\vsdbg\vs2017u5
+      source: C:\Users\junaid.sultan\vsdbg\vs2017u5
       target: /remote_debugger
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid\AppData\Roaming/ASP.NET/Https
+      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
       target: /root/.aspnet/https
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Users\Junaid\AppData\Roaming/Microsoft/UserSecrets
+      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
       target: /root/.microsoft/usersecrets
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: C:\Program Files\dotnet\sdk\NuGetFallbackFolder
-      target: /root/.nuget/fallbackpackages
-      read_only: true
-      bind:
-        create_host_path: true
-    - type: bind
-      source: C:\Users\Junaid\.nuget\packages\
+      source: C:\Users\junaid.sultan\.nuget\packages\
       target: /root/.nuget/packages
       read_only: true
       bind:
         create_host_path: true
     - type: bind
-      source: D:\Visual Studio Projects\AdventureWorks
+      source: D:\Git\Microservices\AdventureWorks
       target: /src
       bind:
         create_host_path: true
@@ -208,7 +269,7 @@ services:
       protocol: tcp
 networks:
   adventureworksnetwork:
-    name: dockercompose17471837253201897951_adventureworksnetwork
+    name: dockercompose1297127735244507517_adventureworksnetwork
     driver: bridge
     ipam:
       driver: default

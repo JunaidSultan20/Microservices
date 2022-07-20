@@ -39,7 +39,7 @@
           "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.dll": {}
         }
       },
-      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.5": {
+      "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.7": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "6.0.0",
@@ -448,10 +448,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.5": {
-      "sha512": "lqx+DaZdeV6FUqCc1GXgBoew142SuKzez91I6mPA6g8RlZtlA9yI/S8efkKkk2pQVAh9EVervzqgNGly8q2Y9g==",
+    "Microsoft.Extensions.Caching.StackExchangeRedis/6.0.7": {
+      "sha512": "ost2Q2Hl+sxYTrIL5yfIEbhlxibeAjwNHFX10yjSZrYHr18fnkcVW77CXR47NdNLVqR/tkTKSwyH/NRS6D1R7A==",
       "type": "package",
-      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.5",
+      "path": "microsoft.extensions.caching.stackexchangeredis/6.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -463,7 +463,7 @@
         "lib/net6.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Caching.StackExchangeRedis.xml",
-        "microsoft.extensions.caching.stackexchangeredis.6.0.5.nupkg.sha512",
+        "microsoft.extensions.caching.stackexchangeredis.6.0.7.nupkg.sha512",
         "microsoft.extensions.caching.stackexchangeredis.nuspec"
       ]
     },
@@ -1167,7 +1167,7 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.AspNetCore.Http.Abstractions >= 2.2.0",
-      "Microsoft.Extensions.Caching.StackExchangeRedis >= 6.0.5",
+      "Microsoft.Extensions.Caching.StackExchangeRedis >= 6.0.7",
       "Microsoft.Extensions.DependencyInjection >= 6.0.0",
       "Microsoft.Extensions.Hosting.Abstractions >= 6.0.0",
       "Newtonsoft.Json >= 13.0.1"
@@ -1218,7 +1218,7 @@
           },
           "Microsoft.Extensions.Caching.StackExchangeRedis": {
             "target": "Package",
-            "version": "[6.0.5, )"
+            "version": "[6.0.7, )"
           },
           "Microsoft.Extensions.DependencyInjection": {
             "target": "Package",
