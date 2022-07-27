@@ -17,15 +17,12 @@ namespace Identity.Application.Features.Account.Handler;
 public class LoginQueryHandler : IRequestHandler<LoginQuery, BaseResponse<LoginDto>>
 {
     private readonly UserManager<User?> _userManager;
-    private readonly RoleManager<Role?> _roleManager;
     private readonly JwtConfig _jwtConfig;
 
     public LoginQueryHandler(UserManager<User?> userManager, RoleManager<Role?> roleManager, IOptions<JwtConfig> options)
     {
         _userManager = userManager ??
                        throw new Exception("Argument Null Exception", new ArgumentNullException(nameof(userManager)));
-        _roleManager = roleManager ??
-                       throw new Exception("Argument Null Exception", new ArgumentNullException(nameof(roleManager)));
         _jwtConfig = options.Value;
     }
 
@@ -85,6 +82,6 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, BaseResponse<LoginD
             }
         }
 
-        return new BaseResponse<LoginDto>(HttpStatusCode.Unauthorized, "Unauthorized Attempt", null);
+        return new BaseResponse<LoginDto>(HttpStatusCode.Unauthorized, "Unauthorized Attempt");
     }
 }

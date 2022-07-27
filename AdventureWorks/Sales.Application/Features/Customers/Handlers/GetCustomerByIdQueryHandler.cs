@@ -1,4 +1,6 @@
-﻿namespace Sales.Application.Features.Customers.Handlers;
+﻿using Sales.Application.DTOs.Customer;
+
+namespace Sales.Application.Features.Customers.Handlers;
 
 public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery, BaseResponse<CustomerDto>>
 {
@@ -19,6 +21,6 @@ public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery,
         Customer? result = await _unitOfWork.ICustomerRepository.GetByIdAsync(request.Id);
         if (result != null)
             return new BaseResponse<CustomerDto>(HttpStatusCode.OK, null, _mapper.Map<CustomerDto>(result));
-        return new BaseResponse<CustomerDto>(HttpStatusCode.NotFound, null, null);
+        return new BaseResponse<CustomerDto>(HttpStatusCode.NotFound, $"No record found against id: {request.Id}");
     }
 }

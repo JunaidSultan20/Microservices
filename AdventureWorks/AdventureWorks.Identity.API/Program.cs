@@ -5,9 +5,10 @@ using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
-// Add services to the container.
 
-builder.Services.AddIdentityApplicationLayer();
+// Add services to the container.
+builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
+builder.Services.AddIdentityApplicationLayer(configuration);
 builder.Services.AddIdentityInfrastructureLayer(configuration);
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddControllers();

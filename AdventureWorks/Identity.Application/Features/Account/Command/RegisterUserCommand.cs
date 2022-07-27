@@ -8,8 +8,5 @@ public class RegisterUserCommand : IRequest<BaseResponse<UserDto>>
 {
     internal RegistrationDto? RegistrationDto { get; }
 
-    public RegisterUserCommand(RegistrationDto registrationDto)
-    {
-        RegistrationDto = registrationDto;
-    }
+    public RegisterUserCommand(RegistrationDto registrationDto) => RegistrationDto = registrationDto;
 }

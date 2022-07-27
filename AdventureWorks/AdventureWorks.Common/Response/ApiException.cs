@@ -2,26 +2,28 @@
 
 public class ApiException
 {
-    public int? ExceptionId { get; set; }
+    internal int? ExceptionId { get; set; }
 
-    public string ExceptionMessage { get; set; }
+    internal string ExceptionMessage { get; set; }
 
-    public string Details { get; set; }
+    internal string Details { get; set; }
 
-    public string InnerException { get; set; }
+    internal string InnerException { get; set; }
 
-    public string ReferenceDocumentLink { get; set; }
+    internal string? ReferenceDocumentLink { get; set; }
 
-    public IEnumerable<ValidationError> ValidationErrors { get; set; }
+    internal IEnumerable<ValidationError>? ValidationErrors { get; set; }
 
-    public ApiException(int? exceptionId, string message, string details, string innerException, string link)
+    public ApiException() { }
+
+    public ApiException(int? exceptionId, string message, string details, string innerException, string? referenceDocumentLink)
     {
         ExceptionId = exceptionId;
         ExceptionMessage = message;
         Details = details;
         InnerException = innerException;
-        if (!string.IsNullOrEmpty(link))
-            ReferenceDocumentLink = link;
+        if (!string.IsNullOrEmpty(referenceDocumentLink))
+            ReferenceDocumentLink = referenceDocumentLink;
     }
 
     public ApiException(int? exceptionId, string message, string details, string innerException, string link, IEnumerable<ValidationError> validationErrors)

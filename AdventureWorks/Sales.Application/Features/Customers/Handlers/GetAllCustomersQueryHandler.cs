@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Sales.Application.DTOs.Customer;
 
 namespace Sales.Application.Features.Customers.Handlers;
 

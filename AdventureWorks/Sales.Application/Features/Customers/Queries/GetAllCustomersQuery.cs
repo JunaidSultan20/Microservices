@@ -1,17 +1,15 @@
-﻿namespace Sales.Application.Features.Customers.Queries;
+﻿using Sales.Application.DTOs.Customer;
+
+namespace Sales.Application.Features.Customers.Queries;
 
 public class GetAllCustomersQuery : IRequest<PaginationResponse<IEnumerable<CustomerWithLinksDto>>>
 {
-    public int? PageNumber { get; set; }
+    internal int? PageNumber { get; }
 
-    public int? PageSize { get; set; }
+    internal int? PageSize { get; }
 
-    public string? Fields { get; set; }
+    internal string? Fields { get; }
 
-    public GetAllCustomersQuery(PaginationParameters paginationParameters)
-    {
-        PageNumber = paginationParameters.PageNumber;
-        PageSize = paginationParameters.PageSize;
-        Fields = paginationParameters.Fields;
-    }
+    public GetAllCustomersQuery(PaginationParameters paginationParameters) => (PageNumber, PageSize, Fields) =
+        (paginationParameters.PageNumber, paginationParameters.PageSize, paginationParameters.Fields);
 }

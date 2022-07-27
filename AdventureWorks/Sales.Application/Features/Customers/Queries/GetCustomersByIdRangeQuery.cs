@@ -1,13 +1,11 @@
-﻿namespace Sales.Application.Features.Customers.Queries;
+﻿using Sales.Application.DTOs.Customer;
 
-public class GetCustomersByIdRangeQuery : IRequest<BaseResponse<IEnumerable<CustomerDto>>>
+namespace Sales.Application.Features.Customers.Queries;
+
+public class GetCustomersByIdRangeQuery : IRequest<BaseResponse<IEnumerable<CustomerWithLinksDto>>>
 {
-    public int? MinCustomerId { get; set; }
-    public int? MaxCustomerId { get; set; }
+    internal int? MinCustomerId { get; }
+    internal int? MaxCustomerId { get; }
 
-    public GetCustomersByIdRangeQuery(int minCustomerId, int maxCustomerId)
-    {
-        MinCustomerId = minCustomerId;
-        MaxCustomerId = maxCustomerId;
-    }
+    public GetCustomersByIdRangeQuery(int minCustomerId, int maxCustomerId) => (MinCustomerId, MaxCustomerId) = (minCustomerId, maxCustomerId);
 }

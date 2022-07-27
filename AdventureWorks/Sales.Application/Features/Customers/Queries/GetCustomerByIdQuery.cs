@@ -1,11 +1,10 @@
-﻿namespace Sales.Application.Features.Customers.Queries;
+﻿using Sales.Application.DTOs.Customer;
+
+namespace Sales.Application.Features.Customers.Queries;
 
 public class GetCustomerByIdQuery : IRequest<BaseResponse<CustomerDto>>
 {
-    public int? Id { get; set; }
+    internal int? Id { get; }
 
-    public GetCustomerByIdQuery(int? id)
-    {
-        Id = id;
-    }
+    public GetCustomerByIdQuery(int? id) => Id = id;
 }

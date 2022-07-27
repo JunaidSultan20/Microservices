@@ -69,7 +69,7 @@ public class AccountService : IAccountService
             }
         }
 
-        return new BaseResponse<LoginDto>(HttpStatusCode.Unauthorized, "Unauthorized Attempt", null);
+        return new BaseResponse<LoginDto>(HttpStatusCode.Unauthorized, "Unauthorized Attempt");
     }
 
     public async Task<BaseResponse<UserDto>> RegisterAsync(RegistrationDto registrationDto)
@@ -77,7 +77,7 @@ public class AccountService : IAccountService
         User? user = await _userManager.FindByEmailAsync(registrationDto.Email);
         if (user != null)
         {
-            return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "User already exists.", null);
+            return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "User already exists.");
         }
 
         user = new User
@@ -97,7 +97,7 @@ public class AccountService : IAccountService
                 {
                     result = await _userManager.AddToRoleAsync(user, role);
                     if (!result.Succeeded)
-                        return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "Unable to create new user", null)
+                        return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "Unable to create new user")
                             { Errors = result.Errors.Select(x => x.Description).ToList() };
                 }
             }
@@ -105,7 +105,7 @@ public class AccountService : IAccountService
             return new BaseResponse<UserDto>(HttpStatusCode.OK, "User Created Successfully.",
                 new UserDto { UserName = user.UserName, Email = user.Email });
         }
-        return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "Unable To Create New User.", null)
+        return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "Unable To Create New User.")
         { Errors = result.Errors.Select(x => x.Description).ToList() };
     }
 

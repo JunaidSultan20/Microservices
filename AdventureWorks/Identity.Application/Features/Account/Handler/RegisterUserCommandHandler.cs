@@ -11,11 +11,13 @@ namespace Identity.Application.Features.Account.Handler;
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, BaseResponse<UserDto>>
 {
     private readonly UserManager<User?> _userManager;
+    private readonly RoleManager<Role?> _roleManager;
 
-    public RegisterUserCommandHandler(UserManager<User?> userManager)
+    public RegisterUserCommandHandler(UserManager<User?> userManager, RoleManager<Role?> roleManager)
     {
         _userManager = userManager ??
                        throw new Exception("Argument null exception", new ArgumentNullException(nameof(userManager)));
+        _roleManager = roleManager;
     }
 
     public async Task<BaseResponse<UserDto>> Handle(RegisterUserCommand request, CancellationToken cancellationToken = default)
@@ -23,7 +25,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
         User? user = await _userManager.FindByEmailAsync(request.RegistrationDto?.Email);
         if (user != null)
         {
-            return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "User already exists.", null);
+            return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "User already exists.");
         }
 
         user = new User
@@ -43,9 +45,12 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
                 {
                     foreach (string role in request.RegistrationDto.Roles)
                     {
+                        var roleExists = await _roleManager.RoleExistsAsync(role);
+                        if (!roleExists)
+                            await _roleManager.CreateAsync(new Role() { Name = role, NormalizedName = role.ToUpper() });
                         result = await _userManager.AddToRoleAsync(user, role);
                         if (!result.Succeeded)
-                            return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "Unable to create new user", null)
+                            return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "Unable to create new user")
                                 { Errors = result.Errors.Select(x => x.Description).ToList() };
                     }
                 }
@@ -54,7 +59,7 @@ public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, B
             return new BaseResponse<UserDto>(HttpStatusCode.Created, "User Created Successfully.",
                 new UserDto { UserName = user.UserName, Email = user.Email });
         }
-        return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "Unable To Create New User.", null)
+        return new BaseResponse<UserDto>(HttpStatusCode.BadRequest, "Unable To Create New User.")
             { Errors = result.Errors.Select(x => x.Description).ToList() };
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Sales.Application.Mappings;
+﻿using Sales.Application.DTOs.Customer;
+
+namespace Sales.Application.Mappings;
 
 public class CustomerMapping : Profile
 {
@@ -41,5 +43,7 @@ public class CustomerMapping : Profile
 
             .ForMember(destination => destination.ModifiedDate,
                 source => source.MapFrom(x => x.ModifiedDate));
+
+        CreateMap<CreateCustomerDto, Customer>();
     }
 }

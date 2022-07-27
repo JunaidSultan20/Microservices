@@ -6,6 +6,7 @@ D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\AdventureWorks.Identity.API.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\AdventureWorks.Identity.API.pdb
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Castle.Core.dll
+D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\FluentValidation.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\MediatR.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\MediatR.Contracts.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
@@ -82,3 +83,4 @@ D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\obj\Debug\net6.0
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\obj\Debug\net6.0\AdventureWorks.Identity.API.pdb
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\obj\Debug\net6.0\AdventureWorks.Identity.API.genruntimeconfig.cache
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\obj\Debug\net6.0\ref\AdventureWorks.Identity.API.dll
+D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.UserSecrets.dll

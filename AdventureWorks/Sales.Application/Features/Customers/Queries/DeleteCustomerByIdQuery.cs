@@ -2,10 +2,7 @@
 
 public class DeleteCustomerByIdQuery : IRequest<BaseResponse<object>>
 {
-    public int Id { get; set; }
+    internal int Id { get; }
 
-    public DeleteCustomerByIdQuery(int id)
-    {
-        Id = id;
-    }
+    public DeleteCustomerByIdQuery(int id) => Id = id;
 }

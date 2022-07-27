@@ -10,6 +10,6 @@ public static class ServiceExtensions
         {
             options.Configuration = configuration.GetValue<string>("RedisConnectionString:Configuration");
         });
-        //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
     }
 }

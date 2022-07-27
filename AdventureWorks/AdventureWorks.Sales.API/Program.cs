@@ -1,9 +1,15 @@
-using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration configuration = builder.Configuration;
 
 // Add services to the container.
+
+builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(origin => true));
+});
 
 builder.Services.AddResponseCaching();
 
@@ -29,7 +35,16 @@ builder.Services.AddControllers(options =>
         Duration = 120,
         Location = ResponseCacheLocation.Any
     });
-}).AddJsonOptions(options =>
+    options.Filters.Add<ModelValidationFilter>();
+    options.ReturnHttpNotAcceptable = true;
+    options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+})
+.AddFluentValidation(v =>
+{
+    v.RegisterValidatorsFromAssemblyContaining<UpdateCustomerDtoValidator>();
+    v.AutomaticValidationEnabled = true;
+})
+.AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
 });
@@ -37,11 +52,6 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    //options.SwaggerDoc("AdventureWorksSalesOpenAPISpecification", new OpenApiInfo
-    //{
-    //    Title = "AdventureWorks.Sales API",
-    //    Version = "1"
-    //});
     options.ResolveConflictingActions(resolver => resolver.First());
     var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlCommentPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
@@ -61,15 +71,35 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-});//.AddJwtBearer(options =>
-//{
-//   options.Authority = "https://adventureworks.us.auth0.com/";
-//    options.Audience = "https://localhost:7021/api/";
-//});
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ClockSkew = TimeSpan.Zero,
+        IssuerSigningKey =
+            new SymmetricSecurityKey(Encoding.UTF32.GetBytes(configuration.GetValue<string>("JwtConfig:Secret"))),
+        ValidateAudience = true,
+        ValidAudiences = new List<string> { "sales.api" },
+        ValidIssuer = configuration.GetValue<string>("JwtConfig:Issuer"),
+        ValidateIssuer = true,
+        ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
+        RequireExpirationTime = true,
+        RequireAudience = true
+    };
+});
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -100,7 +130,7 @@ app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "AdventureWorks.Sales API V1");
-    options.DefaultModelExpandDepth(2);
+    //options.DefaultModelExpandDepth(2);
     //options.DefaultModelRendering(Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model);
     //options.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
     //options.EnableDeepLinking();
@@ -115,7 +145,9 @@ app.UseResponseCaching();
 
 app.UseHttpsRedirection();
 
-//app.UseAuthentication();
+app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
