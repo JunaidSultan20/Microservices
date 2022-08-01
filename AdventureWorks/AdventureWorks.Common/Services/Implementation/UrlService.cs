@@ -1,5 +1,4 @@
-﻿using AdventureWorks.Common.Services.Contracts;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Hosting;
 
 namespace AdventureWorks.Common.Services.Implementation;

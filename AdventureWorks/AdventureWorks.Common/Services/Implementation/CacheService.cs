@@ -1,6 +1,4 @@
-﻿using AdventureWorks.Common.Services.Contracts;
-
-namespace AdventureWorks.Common.Services.Implementation;
+﻿namespace AdventureWorks.Common.Services.Implementation;
 
 public class CacheService : ICacheService
 {
@@ -20,7 +18,7 @@ public class CacheService : ICacheService
     public async Task<T> GetAsync<T>(string key)
     {
         string value = await _distributedCache.GetStringAsync(key, default);
-        return value != null ? JsonSerializer.Deserialize<T>(value) : default;
+        return (value != null ? JsonSerializer.Deserialize<T>(value) : default);
     }
 
     /// <summary>

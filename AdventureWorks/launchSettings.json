@@ -9,7 +9,9 @@
       "serviceActions": {
         "adventureworks.gateway.api": "StartDebugging",
         "adventureworks.sales.api": "StartDebugging",
-        "adventureworks.identity.api": "StartDebugging" 
+        "adventureworks.identity.api": "StartDebugging",
+        "adventureworksredis": "StartWithoutDebugging",
+        "consul": "StartWithoutDebugging"
       }
     }
   }

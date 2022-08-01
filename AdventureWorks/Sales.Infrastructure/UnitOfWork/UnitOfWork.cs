@@ -39,7 +39,7 @@ public class UnitOfWork : IUnitOfWork
             transactionScope.Dispose();
             return result;
         }
-        catch (Exception exception)
+        catch
         {
             Rollback();
             throw;
@@ -57,7 +57,7 @@ public class UnitOfWork : IUnitOfWork
         {
             if (disposing)
             {
-                _context?.Dispose();
+                _context.Dispose();
             }
             _disposed = true;
         }

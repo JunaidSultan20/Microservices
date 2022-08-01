@@ -1,4 +1,11 @@
-name: dockercompose1297127735244507517
+networks:
+  adventureworksnetwork:
+    driver: bridge
+    ipam:
+      config:
+      - gateway: 172.10.0.1
+        subnet: 172.10.0.0/16
+      driver: default
 services:
   adventureworks.gateway.api:
     build:
@@ -17,28 +24,14 @@ services:
       adventureworksnetwork:
         ipv4_address: 172.10.0.4
     ports:
-    - mode: ingress
+    - published: 5001
       target: 80
-      published: "5001"
-      protocol: tcp
-    - mode: ingress
+    - published: 5000
       target: 443
-      published: "5000"
-      protocol: tcp
     restart: on-failure
     volumes:
-    - type: bind
-      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
-      target: /root/.microsoft/usersecrets
-      read_only: true
-      bind:
-        create_host_path: true
-    - type: bind
-      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
-      target: /root/.aspnet/https
-      read_only: true
-      bind:
-        create_host_path: true
+    - C:\Users\junaid.sultan\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\junaid.sultan\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
   adventureworks.identity.api:
     build:
       context: D:\Git\Microservices\AdventureWorks
@@ -53,28 +46,14 @@ services:
       adventureworksnetwork:
         ipv4_address: 172.10.0.6
     ports:
-    - mode: ingress
+    - published: 6001
       target: 80
-      published: "6001"
-      protocol: tcp
-    - mode: ingress
+    - published: 6000
       target: 443
-      published: "6000"
-      protocol: tcp
     restart: on-failure
     volumes:
-    - type: bind
-      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
-      target: /root/.microsoft/usersecrets
-      read_only: true
-      bind:
-        create_host_path: true
-    - type: bind
-      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
-      target: /root/.aspnet/https
-      read_only: true
-      bind:
-        create_host_path: true
+    - C:\Users\junaid.sultan\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\junaid.sultan\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
   adventureworks.sales.api:
     build:
       context: D:\Git\Microservices\AdventureWorks
@@ -94,68 +73,36 @@ services:
       adventureworksnetwork:
         ipv4_address: 172.10.0.5
     ports:
-    - mode: ingress
+    - published: 4001
       target: 80
-      published: "4001"
-      protocol: tcp
-    - mode: ingress
+    - published: 4000
       target: 443
-      published: "4000"
-      protocol: tcp
     restart: on-failure
     volumes:
-    - type: bind
-      source: C:\Users\junaid.sultan\AppData\Roaming/Microsoft/UserSecrets
-      target: /root/.microsoft/usersecrets
-      read_only: true
-      bind:
-        create_host_path: true
-    - type: bind
-      source: C:\Users\junaid.sultan\AppData\Roaming/ASP.NET/Https
-      target: /root/.aspnet/https
-      read_only: true
-      bind:
-        create_host_path: true
+    - C:\Users\junaid.sultan\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\junaid.sultan\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
   adventureworksredis:
     container_name: adventureworksredis
     expose:
-    - "6379"
+    - '6379'
     image: redis:latest
     networks:
       adventureworksnetwork:
         ipv4_address: 172.10.0.2
     ports:
-    - mode: ingress
+    - published: 6379
       target: 6379
-      published: "6379"
-      protocol: tcp
   consul:
-    command:
-    - consul
-    - agent
-    - -dev
-    - -log-level=warn
-    - -ui
-    - -client=0.0.0.0
+    command: consul agent -dev -log-level=warn -ui -client=0.0.0.0
     container_name: consul
     expose:
-    - "8500"
+    - '8500'
     hostname: consul
     image: consul:latest
     networks:
       adventureworksnetwork:
         ipv4_address: 172.10.0.3
     ports:
-    - mode: ingress
+    - published: 8500
       target: 8500
-      published: "8500"
-      protocol: tcp
-networks:
-  adventureworksnetwork:
-    name: dockercompose1297127735244507517_adventureworksnetwork
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-      - subnet: 172.10.0.0/16
-        gateway: 172.10.0.1
+version: '3.9'

@@ -1,6 +1,4 @@
-﻿using Sales.Application.DTOs.Customer;
-
-namespace Sales.Application.Features.Customers.Queries;
+﻿namespace Sales.Application.Features.Customers.Queries;
 
 public class GetCustomersByIdRangeQuery : IRequest<BaseResponse<IEnumerable<CustomerWithLinksDto>>>
 {

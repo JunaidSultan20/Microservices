@@ -1,5 +1,4 @@
 ﻿using AdventureWorks.Common.Response;
-using AdventureWorks.Common.Services.Contracts;
 
 namespace AdventureWorks.Common.Helpers;
 

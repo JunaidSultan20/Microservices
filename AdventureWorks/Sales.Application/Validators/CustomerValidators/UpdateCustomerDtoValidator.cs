@@ -29,6 +29,5 @@ public class UpdateCustomerDtoValidator : AbstractValidator<UpdateCustomerDto>
             .WithMessage("{PropertyName} can not be empty")
             .NotNull()
             .WithMessage("{PropertyName} can not be null");
-
     }
 }

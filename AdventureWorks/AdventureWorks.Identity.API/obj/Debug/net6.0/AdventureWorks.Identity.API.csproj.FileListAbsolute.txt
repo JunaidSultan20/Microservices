@@ -21,6 +21,7 @@ D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.UserSecrets.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.Identity.Client.dll
@@ -83,4 +84,3 @@ D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\obj\Debug\net6.0
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\obj\Debug\net6.0\AdventureWorks.Identity.API.pdb
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\obj\Debug\net6.0\AdventureWorks.Identity.API.genruntimeconfig.cache
 D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\obj\Debug\net6.0\ref\AdventureWorks.Identity.API.dll
-D:\Git\Microservices\AdventureWorks\AdventureWorks.Identity.API\bin\Debug\net6.0\Microsoft.Extensions.Configuration.UserSecrets.dll

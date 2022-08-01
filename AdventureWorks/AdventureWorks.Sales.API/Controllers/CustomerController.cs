@@ -17,7 +17,7 @@ public class CustomerController : BaseController
     /// <param name="mediaType"></param>
     /// <returns>Returns list of customers with pagination and optional shaped data with links.</returns>
     /// <remarks>Sample Request (this request fetches the the list of **customers**)
-    ///     GET /gateway/customer?pageNumber=1&pageSize=10
+    ///     GET /gateway/customer?pageNumber=1&#38;pageSize=10
     /// </remarks>
     [HttpGet(Name = "GetCustomerList", Order = 1)]
     [ProducesResponseType(typeof(PaginationResponse<IEnumerable<ExpandoObject>>), (int)HttpStatusCode.OK)]
@@ -29,7 +29,7 @@ public class CustomerController : BaseController
     {
         if (!HelperMethods.CheckIfMediaTypeIsValid(mediaType, out MediaTypeHeaderValue? parsedMediaType,
                 out PaginationResponse<IEnumerable<ExpandoObject>>? responseValue))
-            return StatusCode((int)HttpStatusCode.UnsupportedMediaType, responseValue);
+            return BadRequest(responseValue);
 
         PaginationResponse<IEnumerable<CustomerWithLinksDto>> response =
             await Mediator.Send(new GetAllCustomersQuery(paginationParameters));
@@ -39,7 +39,7 @@ public class CustomerController : BaseController
 
         Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(response.PaginationData));
 
-        if (parsedMediaType.MediaType.Equals("application/vnd.api.hateoas+json"))
+        if (parsedMediaType is not null && parsedMediaType.MediaType.Equals("application/vnd.api.hateoas+json"))
             response.Result?.ToList().ForEach(item => item.Links = CreateCustomerLinks(item.Id, paginationParameters.Fields));
         
         PaginationResponse<IEnumerable<ExpandoObject>> shapedResponse =
@@ -87,7 +87,7 @@ public class CustomerController : BaseController
     /// <param name="mediaType"></param>
     /// <returns>Returns list of customer within the range specified</returns>
     /// <remarks>
-    /// GET api/customer/customerRange/?minId=1&maxId=5
+    /// GET api/customer/customerRange/?minId=1&#38;maxId=5
     /// </remarks>
     [HttpGet("customerRange", Name = "GetCustomerByIdRange", Order = 3)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -141,7 +141,7 @@ public class CustomerController : BaseController
         if (customer is null)
             throw new Exception("Argument Null Exception", new ArgumentNullException(nameof(customer)));
         
-        BaseResponse<CustomerDto> response = await Mediator.Send(new UpdateCustomerByIdCommand(id, customer));
+        BaseResponse<CustomerDto> response = await Mediator.Send(new UpdateCustomerCommand(id, customer));
         
         return response.StatusCode switch
         {

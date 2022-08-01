@@ -8,23 +8,23 @@ public static class IEnumerableExtensions
         if (source == null)
             throw new ArgumentNullException(nameof(source));
 
-        var expandoObjectList = new List<ExpandoObject>();
+        List<ExpandoObject> expandoObjectList = new List<ExpandoObject>();
 
-        var propertyInfoList = new List<PropertyInfo>();
+        List<PropertyInfo> propertyInfoList = new List<PropertyInfo>();
 
         if (string.IsNullOrWhiteSpace(fields))
         {
-            var propertyInfos =
+            PropertyInfo[] propertyInfos =
                 typeof(TSource).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public |
                                               BindingFlags.Instance);
             propertyInfoList.AddRange(propertyInfos);
         }
         else
         {
-            var fieldsAfterSplit = fields.Split(',');
-            foreach (var field in fieldsAfterSplit)
+            string[] fieldsAfterSplit = fields.Split(',');
+            foreach (string field in fieldsAfterSplit)
             {
-                var propertyName = field.Trim();
+                string propertyName = field.Trim();
                 var propertyInfo = typeof(TSource).GetProperty(propertyName,
                     BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
                 if (propertyInfo == null)
@@ -35,11 +35,12 @@ public static class IEnumerableExtensions
 
         foreach (TSource sourceObject in source)
         {
-            var dataShapedObject = new ExpandoObject();
-            foreach (var propertyInfo in propertyInfoList)
+            ExpandoObject dataShapedObject = new ExpandoObject();
+            foreach (PropertyInfo? propertyInfo in propertyInfoList)
             {
                 var propertyValue = propertyInfo.GetValue(sourceObject);
-                ((IDictionary<string, object>)dataShapedObject).Add(propertyInfo.Name, propertyValue);
+                (dataShapedObject as IDictionary<string, object>).Add(propertyInfo.Name, propertyValue);
+                //((IDictionary<string, object>)dataShapedObject).Add(propertyInfo.Name, propertyValue);
             }
             expandoObjectList.Add(dataShapedObject);
         }

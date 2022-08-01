@@ -8,10 +8,14 @@ IConfiguration configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
+
 builder.Services.AddIdentityApplicationLayer(configuration);
 builder.Services.AddIdentityInfrastructureLayer(configuration);
+
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

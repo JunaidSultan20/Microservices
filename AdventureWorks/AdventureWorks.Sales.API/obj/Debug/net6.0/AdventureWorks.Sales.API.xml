@@ -4,7 +4,17 @@
         <name>AdventureWorks.Sales.API</name>
     </assembly>
     <members>
-        <!-- Badly formed XML comment ignored for member "M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerList(AdventureWorks.Common.Parameters.PaginationParameters,System.String)" -->
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerList(AdventureWorks.Common.Parameters.PaginationParameters,System.String)">
+            <summary>
+            Returns the customers list with data shaping and caching options.
+            </summary>
+            <param name="paginationParameters"></param>
+            <param name="mediaType"></param>
+            <returns>Returns list of customers with pagination and optional shaped data with links.</returns>
+            <remarks>Sample Request (this request fetches the the list of **customers**)
+                GET /gateway/customer?pageNumber=1&#38;pageSize=10
+            </remarks>
+        </member>
         <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerById(System.Int32,System.String)">
             <summary>
             Returns the customer by id provided through route.
@@ -18,7 +28,18 @@
             <resposne code="200">Returns the matched customer</resposne>
             <response code="404">If no user exists against the id provided</response>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerByIdRange(System.Int32,System.Int32,System.String)" -->
+        <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.GetCustomerByIdRange(System.Int32,System.Int32,System.String)">
+            <summary>
+            Get customer by customer id range.
+            </summary>
+            <param name="minId"></param>
+            <param name="maxId"></param>
+            <param name="mediaType"></param>
+            <returns>Returns list of customer within the range specified</returns>
+            <remarks>
+            GET api/customer/customerRange/?minId=1&#38;maxId=5
+            </remarks>
+        </member>
         <member name="M:AdventureWorks.Sales.API.Controllers.CustomerController.UpdateCustomerById(System.Int32,Sales.Application.DTOs.Customer.UpdateCustomerDto)">
             <summary>
             Updates customer by id.

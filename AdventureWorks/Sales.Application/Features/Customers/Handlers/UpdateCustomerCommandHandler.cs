@@ -1,20 +1,17 @@
-﻿using Sales.Application.DTOs.Customer;
-using Sales.Application.Features.Customers.Commands.UpdateCustomer;
+﻿namespace Sales.Application.Features.Customers.Handlers;
 
-namespace Sales.Application.Features.Customers.Handlers;
-
-public class UpdateCustomerByIdCommandHandler : IRequestHandler<UpdateCustomerByIdCommand, BaseResponse<CustomerDto>>
+public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, BaseResponse<CustomerDto>>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
-    public UpdateCustomerByIdCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+    public UpdateCustomerCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<BaseResponse<CustomerDto>> Handle(UpdateCustomerByIdCommand request,
+    public async Task<BaseResponse<CustomerDto>> Handle(UpdateCustomerCommand request,
         CancellationToken cancellationToken)
     {
         Customer? customer = await _unitOfWork.ICustomerRepository.GetByIdAsync(request.Id);

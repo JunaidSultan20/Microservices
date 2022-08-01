@@ -7,8 +7,10 @@ builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), true);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy",
-        builder => builder.AllowAnyHeader().AllowAnyMethod().AllowCredentials().SetIsOriginAllowed(origin => true));
+    options.AddPolicy("CorsPolicy", cors => cors.AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials()
+        .SetIsOriginAllowed(origin => true));
 });
 
 builder.Services.AddResponseCaching();

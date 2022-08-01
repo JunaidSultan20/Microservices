@@ -32,7 +32,8 @@ public class PaginationData
         TotalRecords = totalRecords;
         CurrentPage = pageNumber;
         PageSize = pageSize;
-        TotalPages = (int)Math.Ceiling(totalRecords.Value / (double)pageSize.Value);
+        if (totalRecords is not null && pageSize is not null)
+            TotalPages = (int)Math.Ceiling(totalRecords.Value / (double)pageSize.Value);
         HasPrevious = CurrentPage > 1;
         HasNext = CurrentPage < TotalPages;
     }
@@ -42,7 +43,8 @@ public class PaginationData
         TotalRecords = totalRecords;
         CurrentPage = pageNumber;
         PageSize = pageSize;
-        TotalPages = (int)Math.Ceiling(totalRecords.Value / (double)pageSize.Value);
+        if (totalRecords is not null && pageSize is not null)
+            TotalPages = (int)Math.Ceiling(totalRecords.Value / (double)pageSize.Value);
         HasPrevious = CurrentPage > 1;
         HasNext = CurrentPage < TotalPages;
         PreviousPageLink = pageNumber > 1 ? $"{url}?pageNumber={pageNumber - 1}&pageSize={pageSize}" : null;

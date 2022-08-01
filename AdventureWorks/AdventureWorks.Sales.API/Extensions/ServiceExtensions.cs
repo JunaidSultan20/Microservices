@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters;
-
-namespace AdventureWorks.Sales.API.Extensions;
+﻿namespace AdventureWorks.Sales.API.Extensions;
 
 /// <summary>
 /// Custom service extensions class.

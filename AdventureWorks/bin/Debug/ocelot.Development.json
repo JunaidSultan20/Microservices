@@ -23,7 +23,8 @@
                 "Period": "10s",
                 "PeriodTimespan": 10,
                 "Limit": 3
-            }
+            },
+            "SwaggerKey": "customer"
         },
         {
             "DownstreamPathTemplate": "/api/customer/{id:int}",
@@ -122,7 +123,19 @@
             }
         }
     ],
+    "SwaggerEndPoints": [
+        {
+            "Key": "customer",
+            "Config": [
+                {
+                    "Name": "AdventureWorks Gateway API",
+                    "Version": "v1",
+                    "Url": "https://localhost:5000/swagger/swagger.json"
+                }
+            ]
+        }
+    ],
     "GlobalConfiguration": {
-    "BaseUrl": "localhost:5000"
-  }
+        "BaseUrl": "localhost:5000"
+    }
 }

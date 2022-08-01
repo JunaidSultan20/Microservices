@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
-using Sales.Application.DTOs.Customer;
+﻿using AdventureWorks.Common.Constants;
+using Microsoft.Extensions.Logging;
 
 namespace Sales.Application.Features.Customers.Handlers;
 
@@ -34,20 +34,19 @@ public class GetAllCustomersQueryHandler : IRequestHandler<GetAllCustomersQuery,
         }
 
         IEnumerable<Customer>? result =
-            await _unitOfWork.ICustomerRepository.GetAsync(customer => customer.CustomerId > 0, request.PageNumber.Value,
-                request.PageSize.Value);
+            await _unitOfWork.ICustomerRepository.GetAsync(customer => customer.CustomerId > 0,
+                request.PageNumber ?? Constants.DefaultPageNumber,
+                request.PageSize ?? Constants.DefaultPageSize);
 
         if (!result.Any())
         {
-            return customersPagination = new PaginationResponse<IEnumerable<CustomerWithLinksDto>>(HttpStatusCode.NotFound,
+            return new PaginationResponse<IEnumerable<CustomerWithLinksDto>>(HttpStatusCode.NotFound,
                 "No Customer Record Exists In Database.", null, null);
         }
 
         PaginationData paginationData =
             new PaginationData(_unitOfWork.ICustomerRepository.GetCount(customer => customer.CustomerId > 0).Result,
                 request.PageNumber, request.PageSize, _urlService.GetCurrentRequestUrl());
-
-        //result = result?.Skip((request.PageNumber.Value - 1) * request.PageSize.Value).Take(request.PageSize.Value);
 
         BaseResponse<IEnumerable<CustomerDto>> response =
             new BaseResponse<IEnumerable<CustomerDto>>(HttpStatusCode.OK, null,

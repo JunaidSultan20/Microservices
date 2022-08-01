@@ -4,11 +4,11 @@ public class ApiException
 {
     internal int? ExceptionId { get; set; }
 
-    internal string ExceptionMessage { get; set; }
+    internal string? ExceptionMessage { get; set; }
 
-    internal string Details { get; set; }
+    internal string? Details { get; set; }
 
-    internal string InnerException { get; set; }
+    internal string? InnerException { get; set; }
 
     internal string? ReferenceDocumentLink { get; set; }
 

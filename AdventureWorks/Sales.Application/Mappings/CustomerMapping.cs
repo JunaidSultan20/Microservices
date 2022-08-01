@@ -1,6 +1,4 @@
-﻿using Sales.Application.DTOs.Customer;
-
-namespace Sales.Application.Mappings;
+﻿namespace Sales.Application.Mappings;
 
 public class CustomerMapping : Profile
 {

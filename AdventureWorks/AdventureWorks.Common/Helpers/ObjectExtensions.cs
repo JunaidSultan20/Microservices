@@ -20,7 +20,8 @@ public static class ObjectExtensions
                 object? propertyValue = propertyInfo.GetValue(source);
 
                 // add the field to the ExpandoObject
-                ((IDictionary<string, object>)dataShapedObject).Add(propertyInfo.Name, propertyValue);
+                //((IDictionary<string, object>)dataShapedObject).Add(propertyInfo.Name, propertyValue);
+                (dataShapedObject as IDictionary<string, object>).Add(propertyInfo.Name, propertyValue);
             }
             return dataShapedObject;
         }
@@ -51,7 +52,8 @@ public static class ObjectExtensions
             object? propertyValue = propertyInfo.GetValue(source);
 
             // add the field to the ExpandoObject
-            ((IDictionary<string, object>)dataShapedObject).Add(propertyInfo.Name, propertyValue);
+            //((IDictionary<string, object>)dataShapedObject).Add(propertyInfo.Name, propertyValue);
+            (dataShapedObject as IDictionary<string, object>).Add(propertyInfo.Name, propertyValue);
         }
 
         // return the list

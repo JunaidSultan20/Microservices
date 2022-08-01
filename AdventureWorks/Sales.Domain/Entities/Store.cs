@@ -26,7 +26,7 @@ public partial class Store
     public int? SalesPersonId { get; set; }
 
     /// <summary>
-    /// Demographic informationg about the store such as the number of employees, annual sales and store type.
+    /// Demographic information about the store such as the number of employees, annual sales and store type.
     /// </summary>
     public string? Demographics { get; set; }
 

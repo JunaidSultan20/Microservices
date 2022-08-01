@@ -10,7 +10,9 @@
     <Folder Include="Contracts\UnitOfWork\" />
     <Folder Include="Contracts\Repositories\" />
     <Folder Include="DTOs\Base\" />
+    <Folder Include="DTOs\Store\" />
     <Folder Include="Features\Customers\Queries\" />
+    <Folder Include="Features\Store\Query\" />
     <Folder Include="Mappings\" />
     <Folder Include="Behaviours\" />
   </ItemGroup>
