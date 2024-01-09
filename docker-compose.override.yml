@@ -1,0 +1,140 @@
+version: '3.8'
+
+services:
+    #Redis
+    adventureworks.sales.redis:
+        ports:
+            - "6379:6379"
+        expose:
+            - "6379"
+
+    adventureworks.production.redis:
+        ports:
+            - "6380:6379"
+        expose:
+            - "6380"
+    
+    #Database
+    adventureworks.identity.db:
+        ports:
+            - "8000:1433"
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
+        volumes:
+            - identity-db:/var/opt/mssql
+    
+    adventureworks.sales.db:
+        ports:
+            - "8100:1433"
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
+        volumes:
+            - sales-db:/var/opt/mssql
+
+    adventureworks.jobs.db:
+        ports:
+            - "8900:1433"
+        environment:
+            - ACCEPT_EULA=Y
+            - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
+        volumes:
+            - jobs-db:/var/opt/mssql
+
+    #Logging
+    adventureworks.sales.logging.db:
+        ports:
+            - "27017:27017"
+        environment:
+            - MONGO_INITDB_DATABASE=requestLogs
+            - MONGO_INITDB_ROOT_USERNAME=root 
+            - MONGO_INITDB_ROOT_PASSWORD=adventureworksrequestlogging
+        volumes:
+            - sales-logging-db:/data/db
+
+    adventureworks.production.logging.db:
+        ports:
+            - "27018:27017"
+        environment:
+            - MONGO_INITDB_DATABASE=requestLogs
+            - MONGO_INITDB_ROOT_USERNAME=root 
+            - MONGO_INITDB_ROOT_PASSWORD=adventureworksrequestlogging
+        volumes:
+            - production-logging-db:/data/db
+
+    #Api
+    adventureworks.gateway.api:
+        labels:
+            #com.datadoghq.ad.check_names: '[""]'
+            com.datadoghq.ad.init_configs: '[{}]'
+            #com.datadoghq.ad.instances: '[{"host":"%%host%%", "port": "%%port%%"}]'
+            com.datadoghq.ad.logs: '[{"source": "adventureworks.gateway.api", "service": "adventureworks.gateway.api"}]'
+            com.datadoghq.tags.env: 'Development'
+            com.datadoghq.tags.service: 'adventureworks.gateway.api'
+            com.datadoghq.tags.version: "<VERSION>"
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTP_PORTS=80
+            - ASPNETCORE_HTTPS_PORTS=443
+        ports:
+            - "5001:80"
+            - "5000:443"
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  
+    adventureworks.identity.api:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTP_PORTS=8080
+            - ASPNETCORE_HTTPS_PORTS=8081
+        ports:
+            - "6001:8080"
+            - "6002:8081"
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+    adventureworks.sales.api:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTP_PORTS=8080
+            - ASPNETCORE_HTTPS_PORTS=8081
+        ports:
+            - "6003:8080"
+            - "6004:8081"
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+    adventureworks.jobs.api:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTP_PORTS=8080
+            - ASPNETCORE_HTTPS_PORTS=8081
+        ports:
+            - "6019:8080"
+            - "6020:8081"
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+    #Telemetrics
+    adventureworks.seq:
+        environment:
+            - ACCEPT_EULA=Y
+        ports:
+            - "5341:80"
+
+    #Queue
+    rabbitMq:
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        volumes:
+            - adventureworks-rabbitmq:/var/lib/rabbitmq/
+            - adventureworks-rabbitmq:/var/log/rabbitmq

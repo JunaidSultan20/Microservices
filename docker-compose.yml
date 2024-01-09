@@ -1,0 +1,151 @@
+version: '3.8'
+
+services:
+    #Redis
+    adventureworks.sales.redis:
+        container_name: sales.redis
+        image: redis:latest
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.2
+
+    adventureworks.production.redis:
+        container_name: production.redis
+        restart: always
+        image: redis:latest
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.3
+
+    #Databases
+    adventureworks.identity.db:
+        container_name: identity.db
+        restart: on-failure
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.11
+    
+    adventureworks.sales.db:
+        container_name: sales.db
+        restart: on-failure
+        image: "mcr.microsoft.com/mssql/server:2022-latest"
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.12
+
+    adventureworks.jobs.db:
+        container_name: jobs.db
+        restart: on-failure
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.20
+
+    #Logging
+    adventureworks.sales.logging.db:
+        container_name: sales.logging.db
+        restart: on-failure
+        image: mongo:latest
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.1.1
+
+    adventureworks.production.logging.db:
+        container_name: production.logging.db
+        restart: on-failure
+        image: mongo:latest
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.1.2
+
+    #Api
+    adventureworks.gateway.api:
+        container_name: gateway.api
+        restart: on-failure
+        hostname: gateway.api
+        image: ${DOCKER_REGISTRY-}adventureworksgatewayapi
+        build:
+            context: .
+            dockerfile: src/api/gateway/AdventureWorks.Gateway.API/Dockerfile
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.21
+
+    adventureworks.identity.api:
+        container_name: identity.api
+        restart: on-failure
+        hostname: identity.api
+        image: ${DOCKER_REGISTRY-}adventureworksidentityapi
+        build:
+            context: .
+            dockerfile: src/api/identity/AdventureWorks.Identity.Api/Dockerfile
+        depends_on:
+            - adventureworks.identity.db
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.22
+
+    adventureworks.sales.api:
+        container_name: sales.api
+        restart: on-failure
+        hostname: sales.api
+        image: ${DOCKER_REGISTRY-}adventureworkssalesapi
+        build:
+            context: .
+            dockerfile: src/api/sales/AdventureWorks.Sales.Api/Dockerfile
+        depends_on:
+            - adventureworks.sales.db
+            - adventureworks.sales.logging.db
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.23
+
+    adventureworks.jobs.api:
+        container_name: jobs.api
+        restart: on-failure
+        hostname: jobs.api
+        image: ${DOCKER_REGISTRY-}adventureworksjobsapi
+        build:
+            context: .
+            dockerfile: src/api/jobs/AdventureWorks.Jobs.Api/Dockerfile
+        depends_on:
+            - adventureworks.jobs.db
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.31
+
+    #Telemetrics
+    adventureworks.seq:
+        image: datalust/seq:latest
+        container_name: adventureworksseq
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.2.1
+
+    #Queue
+    rabbitMq:
+        image: rabbitmq:management
+        container_name: adventureworksmq
+        restart: on-failure
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.2.2
+
+volumes:
+    identity-db:
+    sales-db:
+    jobs-db:
+    sales-logging-db:
+    production-logging-db:
+    adventureworks-consul:
+    adventureworks-rabbitmq:
+
+networks:
+    adventureworksnetwork:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.10.0.0/16
+                  gateway: 172.10.0.1
