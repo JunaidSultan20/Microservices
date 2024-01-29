@@ -1,4 +1,7 @@
-﻿namespace AdventureWorks.Identity.Application.Features.RefreshToken.Handler;
+﻿using AdventureWorks.Identity.Application.Features.RefreshToken.Request;
+using AdventureWorks.Identity.Application.Features.RefreshToken.Response;
+
+namespace AdventureWorks.Identity.Application.Features.RefreshToken.Handler;
 
 public class RefreshTokenHandler : IRequestHandler<RefreshTokenRequest, RefreshTokenResponse>
 {

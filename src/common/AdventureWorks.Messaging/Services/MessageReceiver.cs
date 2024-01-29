@@ -1,8 +1,4 @@
-﻿using AdventureWorks.Common.Options;
-using AdventureWorks.Contracts.Messaging;
-using RabbitMQ.Client;
-
-namespace AdventureWorks.Messaging.Services;
+﻿namespace AdventureWorks.Messaging.Services;
 
 public class MessageReceiver : IMessageReceiver
 {

@@ -5,7 +5,7 @@ public class SalesReasonConfiguration : IEntityTypeConfiguration<SalesReason>
     public void Configure(EntityTypeBuilder<SalesReason> entity)
     {
         entity.ToTable(name: "SalesReason", buildAction: table
-                               => table.HasComment(comment: "Lookup table of customer purchase reasons."));
+                           => table.HasComment(comment: "Lookup table of customer purchase reasons."));
 
         entity.Property(propertyExpression: expression => expression.SalesReasonId)
               .HasColumnName(name: "SalesReasonID")

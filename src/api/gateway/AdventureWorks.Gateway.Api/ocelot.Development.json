@@ -17,7 +17,7 @@
       },
       "DownstreamHeaderTransform": {
         "X-Forwarded-For": "{BaseUrl}",
-        "Access-Control-Allow-Origin": "https://localhost:5000"
+        "Access-Control-Allow-Origin": "https://localhost:6002"
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
@@ -70,7 +70,7 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "localhost:5000",
+    "BaseUrl": "localhost:6002"
     //"ServiceDiscoveryProvider": {
     //  "Host": "consul",
     //  "Port": 8500,

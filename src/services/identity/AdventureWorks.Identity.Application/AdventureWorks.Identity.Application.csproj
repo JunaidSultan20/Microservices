@@ -7,16 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+    <ProjectReference Include="..\..\..\common\AdventureWorks.Common\AdventureWorks.Common.csproj" />
+    <ProjectReference Include="..\AdventureWorks.Identity.Domain\AdventureWorks.Identity.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\common\AdventureWorks.Common\AdventureWorks.Common.csproj" />
-    <ProjectReference Include="..\AdventureWorks.Identity.Domain\AdventureWorks.Identity.Domain.csproj" />
+    <Folder Include="Features\Login\Response\" />
+    <Folder Include="Features\Login\Request\" />
+    <Folder Include="Features\RefreshToken\Response\" />
+    <Folder Include="Features\RefreshToken\Request\" />
+    <Folder Include="Features\Register\Handler\" />
+    <Folder Include="Features\Register\Request\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.2.0" />
   </ItemGroup>
 
 </Project>

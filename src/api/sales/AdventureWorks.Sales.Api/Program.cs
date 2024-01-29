@@ -1,6 +1,26 @@
+using AdventureWorks.Common;
+using AdventureWorks.Common.Filters;
+using AdventureWorks.Common.Options.Setup;
+using AdventureWorks.Messaging;
+using AdventureWorks.Middlewares.Logging;
+using AdventureWorks.Sales.Api.BackgroundServices;
+using AdventureWorks.Sales.Customers;
+using AdventureWorks.Sales.Customers.Features.GetCustomers.Response;
+using AdventureWorks.Sales.Infrastructure;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using MongoDB.Driver;
+using Swashbuckle.AspNetCore.Filters;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration configuration = builder.Configuration;
+
+builder.Services.AddCors(options => options.AddPolicy("SalesCorsPolicy", build =>
+{
+    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+}));
 
 //Options configuration begin
 builder.Services.ConfigureOptions<SeqOptionsSetup>();
@@ -11,17 +31,17 @@ builder.Services.ConfigureOptions<JwtOptionsSetup>();
 
 builder.Host.UseCustomSeriLog(builder.Services);
 
-builder.Services.AddCorsPolicy("SalesCorsPolicy");
+//builder.Services.AddCorsPolicy("SalesCorsPolicy");
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-                      policy =>
-                      {
-                          policy.WithOrigins("https://localhost:5000").AllowAnyHeader().AllowAnyMethod();
-                          policy.WithOrigins("http://localhost:5001").AllowAnyHeader().AllowAnyMethod();
-                      });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowSpecificOrigin",
+//                      policy =>
+//                      {
+//                          policy.WithOrigins("https://localhost:6002").AllowAnyHeader().AllowAnyMethod();
+//                          policy.WithOrigins("http://localhost:6001").AllowAnyHeader().AllowAnyMethod();
+//                      });
+//});
 
 builder.Services.AddResponseCaching();
 
@@ -47,7 +67,12 @@ builder.Services.AddHealthChecksUI().AddInMemoryStorage();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.ExampleFilters();
+});
+
+builder.Services.AddSwaggerExamplesFromAssemblyOf<GetCustomersResponse>();
 
 builder.Services.AddApiVersioning(1, 0);
 
@@ -102,13 +127,17 @@ app.UseSwaggerUI();
 
 app.UseStaticFiles();
 
+app.UseCors("SalesCorsPolicy");
+
 //app.UseConsul(configuration);
 
 app.UseRouting();
 
-app.UseCors("SalesCorsPolicy");
+app.MapHeartbeatEndpoint();
 
-app.UseCors("AllowSpecificOrigin");
+
+
+//app.UseCors("AllowSpecificOrigin");
 
 app.MapHealthChecks("/health", new HealthCheckOptions
 {

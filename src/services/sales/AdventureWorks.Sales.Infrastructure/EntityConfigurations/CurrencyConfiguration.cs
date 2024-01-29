@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Sales.Infrastructure.EntityConfigurations;
 
-internal class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
+public class CurrencyConfiguration : IEntityTypeConfiguration<Currency>
 {
     public void Configure(EntityTypeBuilder<Currency> entity)
     {

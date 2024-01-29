@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Identity.Application.Dto;
 
-public class UserDto
+public record UserDto
 {
     public string? UserName { get; }
     public string? Email { get; }

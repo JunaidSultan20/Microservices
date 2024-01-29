@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Sales.Infrastructure.EntityConfigurations;
 
-internal class CountryRegionCurrencyConfiguration : IEntityTypeConfiguration<CountryRegionCurrency>
+public class CountryRegionCurrencyConfiguration : IEntityTypeConfiguration<CountryRegionCurrency>
 {
     public void Configure(EntityTypeBuilder<CountryRegionCurrency> entity)
     {
@@ -8,7 +8,7 @@ internal class CountryRegionCurrencyConfiguration : IEntityTypeConfiguration<Cou
               .HasName(name: "PK_CountryRegionCurrency_CountryRegionCode_CurrencyCode");
 
         entity.ToTable(name: "CountryRegionCurrency", schema: "Sales", buildAction: table => table
-              .HasComment(comment: "Cross-reference table mapping ISO currency codes to a country or region."));
+                          .HasComment(comment: "Cross-reference table mapping ISO currency codes to a country or region."));
 
         entity.HasIndex(indexExpression: expression => expression.CurrencyCode,
                         name: "IX_CountryRegionCurrency_CurrencyCode");

@@ -20,7 +20,7 @@ public class ApiResult
     [JsonProperty(PropertyName = "isSuccessful", Order = 3)]
     public bool? IsSuccessful { get; set; }
 
-    protected ApiResult() { }
+    public ApiResult() { }
 
     /// <summary>
     /// Acts as a base method for response fields

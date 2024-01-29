@@ -1,10 +1,4 @@
-﻿using AdventureWorks.Common.Options;
-using AdventureWorks.Contracts.Messaging;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using System.Text;
-
-namespace AdventureWorks.Messaging.Services;
+﻿namespace AdventureWorks.Messaging.Services;
 
 public class MessageProducer : IMessageProducer
 {

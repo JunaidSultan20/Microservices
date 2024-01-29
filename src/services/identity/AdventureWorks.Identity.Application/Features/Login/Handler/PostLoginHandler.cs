@@ -1,4 +1,7 @@
-﻿namespace AdventureWorks.Identity.Application.Features.Login.Handler;
+﻿using AdventureWorks.Identity.Application.Features.Login.Request;
+using AdventureWorks.Identity.Application.Features.Login.Response;
+
+namespace AdventureWorks.Identity.Application.Features.Login.Handler;
 
 public class PostLoginHandler : IRequestHandler<PostLoginRequest, PostLoginResponse>
 {

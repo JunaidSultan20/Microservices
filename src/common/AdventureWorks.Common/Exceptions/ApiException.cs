@@ -15,7 +15,19 @@ public class ApiException
     /// <summary>
     /// Parameter-less constructor
     /// </summary>
-    public ApiException() { }
+    public ApiException()
+    {
+    }
+
+    /// <summary>
+    /// Constructor for creating new api exception with message only
+    /// </summary>
+    /// <param name="message"></param>
+    public ApiException(string message)
+    {
+        Id = Guid.NewGuid();
+        Message = message;
+    }
 
     /// <summary>
     /// Constructor for creating new api exception
@@ -46,8 +58,8 @@ public class ApiException
                         string? details,
                         string? innerException,
                         string? stackTrace) :
-                        this(message,
-                            details,
-                            innerException,
-                            stackTrace) => Id = id;
+                   this(message,
+                        details,
+                        innerException,
+                        stackTrace) => Id = id;
 }

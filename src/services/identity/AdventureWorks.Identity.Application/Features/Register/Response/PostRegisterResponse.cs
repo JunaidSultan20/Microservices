@@ -7,5 +7,5 @@ public class PostRegisterResponse : ApiResponse<UserDto>
     }
 
     public PostRegisterResponse(HttpStatusCode statusCode, string? message, UserDto? result) :
-                           this(statusCode, message) => Result = result;
+        this(statusCode, message) => Result = result;
 }

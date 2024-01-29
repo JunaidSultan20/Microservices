@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Sales.Infrastructure.EntityConfigurations;
 
-internal class CreditCardConfiguration : IEntityTypeConfiguration<CreditCard>
+public class CreditCardConfiguration : IEntityTypeConfiguration<CreditCard>
 {
     public void Configure(EntityTypeBuilder<CreditCard> entity)
     {

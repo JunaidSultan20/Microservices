@@ -1,4 +1,6 @@
-﻿namespace AdventureWorks.Common.Filters;
+﻿using ValidationException = AdventureWorks.Common.Exceptions.ValidationException;
+
+namespace AdventureWorks.Common.Filters;
 
 public class ModelValidationFilter : IAsyncActionFilter
 {

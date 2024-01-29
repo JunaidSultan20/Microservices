@@ -37,7 +37,7 @@ public static class ObjectExtensions
             var propertyName = field.Trim();
 
             var propertyInfo = typeof(TSource)
-                               .GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) ??
+                                  .GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) ??
                                throw new Exception($"Property {propertyName} wasn't found on {typeof(TSource)}");
 
             var propertyValue = propertyInfo.GetValue(source);

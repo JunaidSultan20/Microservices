@@ -1,5 +1,3 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -9,6 +7,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 COPY ["src/api/identity/AdventureWorks.Identity.Api/AdventureWorks.Identity.Api.csproj", "src/api/identity/AdventureWorks.Identity.Api/"]
+COPY ["src/services/identity/AdventureWorks.Identity.Application/AdventureWorks.Identity.Application.csproj", "src/services/identity/AdventureWorks.Identity.Application/"]
+COPY ["src/common/AdventureWorks.Common/AdventureWorks.Common.csproj", "src/common/AdventureWorks.Common/"]
+COPY ["src/services/identity/AdventureWorks.Identity.Domain/AdventureWorks.Identity.Domain.csproj", "src/services/identity/AdventureWorks.Identity.Domain/"]
+COPY ["src/services/identity/AdventureWorks.Identity.Infrastructure/AdventureWorks.Identity.Infrastructure.csproj", "src/services/identity/AdventureWorks.Identity.Infrastructure/"]
 RUN dotnet restore "src/api/identity/AdventureWorks.Identity.Api/AdventureWorks.Identity.Api.csproj"
 COPY . .
 WORKDIR "/src/src/api/identity/AdventureWorks.Identity.Api"

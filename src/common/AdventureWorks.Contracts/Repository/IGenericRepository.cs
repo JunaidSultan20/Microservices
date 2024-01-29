@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace AdventureWorks.Contracts.Repository;
+﻿namespace AdventureWorks.Contracts.Repository;
 
 public interface IGenericRepository<TEntity> where TEntity : class
 {

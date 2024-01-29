@@ -15,7 +15,7 @@ public class ApiResponse<TEntity> : ApiResult
     /// <summary>
     /// Default constructor
     /// </summary>
-    protected ApiResponse() { }
+    public ApiResponse() { }
 
     /// <summary>
     /// Constructor with status code and message
@@ -31,6 +31,6 @@ public class ApiResponse<TEntity> : ApiResult
     /// <param name="message" example="Records retrieved successfully."></param>
     /// <param name="result"></param>
     protected ApiResponse(HttpStatusCode statusCode, string? message, TEntity? result)
-                        : this(statusCode, message)
-                        => Result = result;
+        : this(statusCode, message)
+        => Result = result;
 }

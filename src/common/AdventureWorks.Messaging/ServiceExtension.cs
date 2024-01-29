@@ -1,7 +1,5 @@
 ﻿using AdventureWorks.Common.Options.Setup;
-using AdventureWorks.Contracts.Messaging;
 using AdventureWorks.Messaging.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace AdventureWorks.Messaging;
 

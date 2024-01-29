@@ -23,19 +23,19 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
                          .Where(predicate)
                          .ToListAsync();
 
-    public async Task<List<TEntity>> GetAsync(int pageNumber, int pageSize, Expression<Func<TEntity, bool>>? predicate = null)
-        => predicate is null ?
-        await _context.Set<TEntity>()
-        .Skip((pageNumber - 1) * pageSize)
-        .Take(pageSize)
-        .AsNoTracking()
-        .ToListAsync() :
-        await _context.Set<TEntity>()
-        .Where(predicate)
-        .Skip((pageNumber - 1) * pageSize)
-        .Take(pageSize)
-        .AsNoTracking()
-        .ToListAsync();
+    public async Task<List<TEntity>> GetAsync(int pageNumber, int pageSize,
+                                              Expression<Func<TEntity, bool>>? predicate = null)
+    {
+        IQueryable<TEntity> query = _context.Set<TEntity>().AsQueryable();
+
+        if (predicate is not null)
+            query = query.Where(predicate);
+
+        return await query.Skip((pageNumber - 1) * pageSize)
+                          .Take(pageSize)
+                          .AsNoTracking()
+                          .ToListAsync();
+    }
 
     public async Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? predicate = null,
                                               Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
@@ -58,13 +58,14 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         if (predicate is not null)
             query = query.Where(predicate);
 
-        return orderBy is not null ? await orderBy(query).ToListAsync() : await query.ToListAsync();
+        return orderBy is not null
+            ? await orderBy(query).ToListAsync()
+            : await query.ToListAsync();
     }
 
     public async Task<TEntity?> GetByIdAsync<TKey>(TKey id)
         => await _context.Set<TEntity>()
-                         .FindAsync(id)
-                         .AsTask();
+                         .FindAsync(id);
 
     public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken)
     {

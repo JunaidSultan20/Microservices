@@ -1,6 +1,4 @@
-﻿using AdventureWorks.Common.Options;
-
-namespace AdventureWorks.Contracts.Messaging;
+﻿namespace AdventureWorks.Contracts.Messaging;
 
 public interface IMessageReceiver
 {

@@ -1,4 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using AdventureWorks.Common.Options;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text;
+using Constants = AdventureWorks.Common.Constants.Constants;
 
 namespace AdventureWorks.Sales.Api.BackgroundServices;
 
@@ -45,13 +51,13 @@ public class RabbitMqBackgroundService : BackgroundService
         var consumer = new EventingBasicConsumer(_channel);
         consumer.Received += (ch, ea) =>
         {
-            //Received message
+            // Received message
             var content = System.Text.Encoding.UTF8.GetString(ea.Body.ToArray());
 
-            //Acknowledge the received message
+            // Acknowledge the received message
             _channel.BasicAck(ea.DeliveryTag, false);
 
-            //Deserialized Message
+            // Deserialized Message
             var message = Encoding.UTF8.GetString(ea.Body.ToArray());
             var json = JsonConvert.DeserializeObject<object>(message);
             Console.WriteLine("Message From Queue");

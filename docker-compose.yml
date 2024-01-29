@@ -20,7 +20,7 @@ services:
     #Databases
     adventureworks.identity.db:
         container_name: identity.db
-        restart: on-failure
+        restart: always
         image: "mcr.microsoft.com/mssql/server:2022-latest"
         networks:
             adventureworksnetwork:
@@ -28,7 +28,7 @@ services:
     
     adventureworks.sales.db:
         container_name: sales.db
-        restart: on-failure
+        restart: always
         image: "mcr.microsoft.com/mssql/server:2022-latest"
         networks:
             adventureworksnetwork:
@@ -36,7 +36,7 @@ services:
 
     adventureworks.jobs.db:
         container_name: jobs.db
-        restart: on-failure
+        restart: always
         image: mcr.microsoft.com/mssql/server:2022-latest
         networks:
             adventureworksnetwork:

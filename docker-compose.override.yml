@@ -23,6 +23,7 @@ services:
             - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
         volumes:
             - identity-db:/var/opt/mssql
+            - identity-db:/var/opt/mssql/system
     
     adventureworks.sales.db:
         ports:
@@ -32,6 +33,7 @@ services:
             - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
         volumes:
             - sales-db:/var/opt/mssql
+            - /var/opt/mssql/system
 
     adventureworks.jobs.db:
         ports:
@@ -41,6 +43,7 @@ services:
             - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
         volumes:
             - jobs-db:/var/opt/mssql
+            - /var/opt/mssql/system
 
     #Logging
     adventureworks.sales.logging.db:
@@ -65,26 +68,6 @@ services:
 
     #Api
     adventureworks.gateway.api:
-        labels:
-            #com.datadoghq.ad.check_names: '[""]'
-            com.datadoghq.ad.init_configs: '[{}]'
-            #com.datadoghq.ad.instances: '[{"host":"%%host%%", "port": "%%port%%"}]'
-            com.datadoghq.ad.logs: '[{"source": "adventureworks.gateway.api", "service": "adventureworks.gateway.api"}]'
-            com.datadoghq.tags.env: 'Development'
-            com.datadoghq.tags.service: 'adventureworks.gateway.api'
-            com.datadoghq.tags.version: "<VERSION>"
-        environment:
-            - ASPNETCORE_ENVIRONMENT=Development
-            - ASPNETCORE_HTTP_PORTS=80
-            - ASPNETCORE_HTTPS_PORTS=443
-        ports:
-            - "5001:80"
-            - "5000:443"
-        volumes:
-            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-  
-    adventureworks.identity.api:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_HTTP_PORTS=8080
@@ -95,8 +78,8 @@ services:
         volumes:
             - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
             - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-
-    adventureworks.sales.api:
+  
+    adventureworks.identity.api:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
             - ASPNETCORE_HTTP_PORTS=8080
@@ -104,6 +87,18 @@ services:
         ports:
             - "6003:8080"
             - "6004:8081"
+        volumes:
+            - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+            - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+    adventureworks.sales.api:
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Development
+            - ASPNETCORE_HTTP_PORTS=8080
+            - ASPNETCORE_HTTPS_PORTS=8081
+        ports:
+            - "6005:8080"
+            - "6006:8081"
         volumes:
             - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
             - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

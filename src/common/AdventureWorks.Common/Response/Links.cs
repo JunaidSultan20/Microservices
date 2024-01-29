@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Common.Response;
 
-public class Links
+public record Links
 {
     public string? Href { get; set; }
 

@@ -1,4 +1,6 @@
-﻿namespace AdventureWorks.Middlewares.Logging.Models;
+﻿using System.Globalization;
+
+namespace AdventureWorks.Middlewares.Logging.Models;
 
 public abstract class BaseLog
 {

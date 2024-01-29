@@ -1,5 +1,3 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -13,7 +11,7 @@ COPY ["src/common/AdventureWorks.Common/AdventureWorks.Common.csproj", "src/comm
 COPY ["src/common/AdventureWorks.Messaging/AdventureWorks.Messaging.csproj", "src/common/AdventureWorks.Messaging/"]
 COPY ["src/common/AdventureWorks.Contracts/AdventureWorks.Contracts.csproj", "src/common/AdventureWorks.Contracts/"]
 COPY ["src/common/AdventureWorks.Middlewares/AdventureWorks.Middlewares.csproj", "src/common/AdventureWorks.Middlewares/"]
-COPY ["src/services/sales/AdventureWorks.Sales.Customers/AdventureWorks.Sales.Customers.csproj", "src/services/sales/AdventureWorks.Sales.Customers/"]
+COPY ["src/services/sales/AdventureWorks.Sales.Customer/AdventureWorks.Sales.Customers.csproj", "src/services/sales/AdventureWorks.Sales.Customer/"]
 COPY ["src/services/sales/AdventureWorks.Sales.Domain/AdventureWorks.Sales.Domain.csproj", "src/services/sales/AdventureWorks.Sales.Domain/"]
 COPY ["src/services/sales/AdventureWorks.Sales.Infrastructure/AdventureWorks.Sales.Infrastructure.csproj", "src/services/sales/AdventureWorks.Sales.Infrastructure/"]
 RUN dotnet restore "src/api/sales/AdventureWorks.Sales.Api/AdventureWorks.Sales.Api.csproj"

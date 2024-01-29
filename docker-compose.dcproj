@@ -3,10 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>7b94c831-fb8b-4f08-8c4d-df40da27be37</ProjectGuid>
+    <ProjectGuid>1daab28b-f107-4933-9bca-bfe9d34e1b93</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>adventureworks.sales.api</DockerServiceName>
+    <DockerServiceName>adventureworks.gateway.api</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

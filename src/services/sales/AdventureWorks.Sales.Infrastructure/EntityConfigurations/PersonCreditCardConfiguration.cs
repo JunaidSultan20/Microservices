@@ -8,7 +8,7 @@ public class PersonCreditCardConfiguration : IEntityTypeConfiguration<PersonCred
               .HasName(name: "PK_PersonCreditCard_BusinessEntityID_CreditCardID");
 
         entity.ToTable(name: "PersonCreditCard", buildAction: table =>
-                               table.HasComment(comment: "Cross-reference table mapping people to their credit card information in the CreditCard table."));
+                           table.HasComment(comment: "Cross-reference table mapping people to their credit card information in the CreditCard table."));
 
         entity.Property(propertyExpression: expression => expression.BusinessEntityId)
               .HasColumnName(name: "BusinessEntityID")

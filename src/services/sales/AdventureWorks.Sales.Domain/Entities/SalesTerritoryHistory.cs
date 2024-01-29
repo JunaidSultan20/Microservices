@@ -14,7 +14,7 @@ public partial class SalesTerritoryHistory
     /// </summary>
     public int TerritoryId { get; set; }
     /// <summary>
-    /// Primary key. Date the sales representive started work in the territory.
+    /// Primary key. Date the sales representative started work in the territory.
     /// </summary>
     public DateTime StartDate { get; set; }
     /// <summary>

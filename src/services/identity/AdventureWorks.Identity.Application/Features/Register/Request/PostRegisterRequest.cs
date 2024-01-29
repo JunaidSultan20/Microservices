@@ -1,4 +1,6 @@
-﻿namespace AdventureWorks.Identity.Application.Features.Register.Request;
+﻿using AdventureWorks.Identity.Application.Features.Register.Response;
+
+namespace AdventureWorks.Identity.Application.Features.Register.Request;
 
 public class PostRegisterRequest : IRequest<PostRegisterResponse>
 {

@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Common.Response;
 
-public class PaginationData
+public record PaginationData
 {
     public int? TotalRecords { get; set; }
 

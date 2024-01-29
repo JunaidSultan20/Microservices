@@ -8,7 +8,7 @@ public class SalesOrderHeaderSalesReasonConfiguration : IEntityTypeConfiguration
               .HasName(name: "PK_SalesOrderHeaderSalesReason_SalesOrderID_SalesReasonID");
 
         entity.ToTable(name: "SalesOrderHeaderSalesReason", buildAction: table
-                               => table.HasComment(comment: "Cross-reference table mapping sales orders to sales reason codes."));
+                           => table.HasComment(comment: "Cross-reference table mapping sales orders to sales reason codes."));
 
         entity.Property(propertyExpression: expression => expression.SalesOrderId)
               .HasColumnName(name: "SalesOrderID")

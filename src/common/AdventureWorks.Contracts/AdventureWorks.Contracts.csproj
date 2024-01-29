@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Messaging\" />
+    <Folder Include="UnitOfWork\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AdventureWorks.Common\AdventureWorks.Common.csproj" />
   </ItemGroup>
 

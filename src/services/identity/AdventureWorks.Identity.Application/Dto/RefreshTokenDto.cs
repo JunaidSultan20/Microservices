@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Identity.Application.Dto;
 
-public class RefreshTokenDto
+public record RefreshTokenDto
 {
     public string? Token { get; }
     public string? RefreshToken { get; }

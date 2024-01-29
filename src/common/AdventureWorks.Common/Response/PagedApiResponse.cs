@@ -11,6 +11,6 @@ public class PagedApiResponse<TEntity> : ApiResponse<TEntity>
     public PagedApiResponse(HttpStatusCode statusCode, string? message) : base(statusCode, message) { }
 
     public PagedApiResponse(HttpStatusCode statusCode, string? message, TEntity? result, PaginationData? paginationData)
-                            : base(statusCode, message, result)
-                            => PaginationData = paginationData;
+        : base(statusCode, message, result)
+        => PaginationData = paginationData;
 }

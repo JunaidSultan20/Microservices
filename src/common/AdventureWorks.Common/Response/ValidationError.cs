@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Common.Response;
 
-public class ValidationError
+public record ValidationError
 {
     [JsonProperty(PropertyName = "field", NullValueHandling = NullValueHandling.Ignore)]
     public string? Field { get; set; }

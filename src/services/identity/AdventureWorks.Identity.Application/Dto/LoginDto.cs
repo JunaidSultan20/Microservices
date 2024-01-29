@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Identity.Application.Dto;
 
-public class LoginDto
+public record LoginDto
 {
     public string? Token { get; }
     public DateTime? Expiration { get; }
@@ -14,11 +14,13 @@ public class LoginDto
     public LoginDto(string? token,
                     DateTime? expiration,
                     string? refreshToken,
-                    DateTime? refreshTokenExpiration) => (Token,
-                                                          Expiration,
-                                                          RefreshToken,
-                                                          RefreshTokenExpiration) = (token,
-                                                                                     expiration,
-                                                                                     refreshToken,
-                                                                                     refreshTokenExpiration);
+                    DateTime? refreshTokenExpiration) =>
+                   (Token,
+                    Expiration,
+                    RefreshToken,
+                    RefreshTokenExpiration) =
+                   (token,
+                    expiration,
+                    refreshToken,
+                    refreshTokenExpiration);
 }

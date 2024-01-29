@@ -12,16 +12,25 @@ builder.Configuration.AddJsonFile(path: $"ocelot.{builder.Environment.Environmen
                                   optional: false,
                                   reloadOnChange: true);
 
-builder.Services.AddCorsPolicy("GatewayCorsPolicy");
+//builder.Services.AddCorsPolicy("GatewayCorsPolicy");
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowSpecificOrigin",
+//                      policy =>
+//                      {
+//                          policy.WithOrigins("https://localhost:6004").AllowAnyHeader().AllowAnyMethod();
+//                          policy.WithOrigins("http://localhost:6003").AllowAnyHeader().AllowAnyMethod();
+//                      });
+//});
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-                      policy =>
-                      {
-                          policy.WithOrigins("https://localhost:6004").AllowAnyHeader().AllowAnyMethod();
-                          policy.WithOrigins("http://localhost:6003").AllowAnyHeader().AllowAnyMethod();
-                      });
+    options.AddPolicy("CorsPolicy",
+                      cors => cors.AllowAnyHeader()
+                                  .AllowAnyMethod()
+                                  .AllowCredentials()
+                                  .SetIsOriginAllowed(origin => true));
 });
 
 builder.Services.AddControllers();
@@ -46,14 +55,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(s =>
     {
-        s.SwaggerEndpoint(url: "https://localhost:6002/swagger/v1/swagger.json", name: "AdventureWorks.Identity.Api.v1");
-        s.SwaggerEndpoint(url: "https://localhost:6004/swagger/v1/swagger.json", name: "AdventureWorks.Sales.Api.v1");
+        s.SwaggerEndpoint(url: "https://localhost:6004/swagger/v1/swagger.json", name: "AdventureWorks.Identity.Api.v1");
+        s.SwaggerEndpoint(url: "https://localhost:6006/swagger/v1/swagger.json", name: "AdventureWorks.Sales.Api.v1");
     });
 }
 
-app.UseCors("GatewayCorsPolicy");
+//app.UseCors("GatewayCorsPolicy");
 
-app.UseCors("AllowSpecificOrigin");
+//app.UseCors("AllowSpecificOrigin");
+
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 

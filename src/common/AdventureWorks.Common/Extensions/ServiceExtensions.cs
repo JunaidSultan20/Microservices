@@ -1,7 +1,7 @@
 ﻿namespace AdventureWorks.Common.Extensions;
 
 /// <summary>
-/// Custom services extensions class.
+/// Services extensions class.
 /// </summary>
 public static class ServiceExtensions
 {
@@ -98,9 +98,20 @@ public static class ServiceExtensions
             options.ReturnHttpNotAcceptable = true;
 
             options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+
+            options.RespectBrowserAcceptHeader = true;
         }).AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        }).AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+        }).AddXmlDataContractSerializerFormatters();
+
+        service.Configure<MvcOptions>(options =>
+        {
+            options.OutputFormatters.RemoveType<XmlDataContractSerializerOutputFormatter>();
         });
     }
 
@@ -111,13 +122,21 @@ public static class ServiceExtensions
     /// <param name="policyName"></param>
     public static void AddCorsPolicy(this IServiceCollection services, string policyName)
     {
-        services.AddCors(options =>
+        //services.AddCors(options =>
+        //{
+        //    options.AddPolicy(policyName, 
+        //        cors => 
+        //        {
+        //            cors.AllowAnyOrigin()
+        //                .AllowAnyHeader()
+        //                .AllowAnyMethod();
+        //        });
+        //});
+
+        services.AddCors(options => options.AddPolicy(policyName, builder =>
         {
-            options.AddPolicy(policyName, cors =>
-                                  cors.AllowAnyOrigin()
-                                      .AllowAnyHeader()
-                                      .AllowAnyMethod());
-        });
+            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+        }));
     }
 
     /// <summary>
