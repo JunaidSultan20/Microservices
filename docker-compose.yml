@@ -42,6 +42,14 @@ services:
             adventureworksnetwork:
                 ipv4_address: 172.10.0.20
 
+    adventureworks.eventstore.db:
+        container_name: eventstore.db
+        restart: on-failure
+        image: mongo:latest
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.19
+
     #Logging
     adventureworks.sales.logging.db:
         container_name: sales.logging.db
@@ -136,6 +144,7 @@ volumes:
     identity-db:
     sales-db:
     jobs-db:
+    eventstore-db:
     sales-logging-db:
     production-logging-db:
     adventureworks-consul:

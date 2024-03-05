@@ -1,23 +1,29 @@
-﻿using AdventureWorks.Sales.Customers.Features.GetCustomerById.Request;
+﻿using AdventureWorks.Sales.Customers.Dto;
+using AdventureWorks.Sales.Customers.Features.GetCustomerById.Request;
 using AdventureWorks.Sales.Customers.Features.GetCustomerById.Response;
 using AdventureWorks.Sales.Customers.Features.GetCustomers.Request;
 using AdventureWorks.Sales.Customers.Features.GetCustomers.Response;
+using AdventureWorks.Sales.Customers.Features.PostCustomer.Request;
+using AdventureWorks.Sales.Customers.Features.PostCustomer.Response;
 
 namespace AdventureWorks.Sales.Api.Controllers;
 
+/// <summary>
+/// Customer controller
+/// </summary>
+/// <param name="mediator"></param>
+/// <param name="httpContextAccessor"></param>
+/// <param name="logger"></param>
 [Produces(contentType: Constants.ContentTypeJson, Constants.ContentTypeJsonHateoas,
           Constants.ContentTypeTextPlain,
           Constants.ContentTypeTextJson)]
-public class CustomerController : BaseController<CustomerController>
+public class CustomerController(IMediator mediator, 
+                                IHttpContextAccessor httpContextAccessor, 
+                                ILogger<CustomerController> logger) : 
+             BaseController<CustomerController>(mediator: mediator, 
+                                                httpContextAccessor: httpContextAccessor, 
+                                                logger: logger)
 {
-    public CustomerController(IMediator mediator, IHttpContextAccessor httpContextAccessor,
-                              ILogger<CustomerController> logger) :
-        base(mediator: mediator,
-             httpContextAccessor: httpContextAccessor,
-             logger: logger)
-    {
-    }
-
     /// <summary>
     /// Returns the customers list with data shaping and caching options.
     /// </summary>
@@ -25,7 +31,7 @@ public class CustomerController : BaseController<CustomerController>
     /// <param name="mediaType"></param>
     /// <param name="cancellationToken"></param>
     /// <returns>Returns list of customers with pagination and optional shaped data with links.</returns>
-    /// <remarks>Sample Request (this request fetches the the list of **customers**)
+    /// <remarks>Sample Request (this request fetches the list of **customers**)
     ///     GET /gateway/customer?pageNumber=1&#38;pageSize=10
     /// </remarks>
     [HttpGet(Name = "GetCustomers", Order = 1)]
@@ -96,6 +102,15 @@ public class CustomerController : BaseController<CustomerController>
         }
 
         return Ok(response);
+    }
+
+    [HttpPost(Name = "PostCustomer", Order = 3)]
+    public async Task<ActionResult<PostCustomerResponse>> PostCustomer([FromBody] CreateCustomerDto dto, 
+                                                                       CancellationToken cancellationToken = default)
+    {
+        PostCustomerResponse response = await Mediator.Send(new PostCustomerRequest(dto), cancellationToken);
+
+        return CreatedAtRoute("GetCustomerById", new { id = response.Result.CustomerId });
     }
 
     #region Links Helper Region

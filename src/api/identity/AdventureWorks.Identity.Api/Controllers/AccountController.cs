@@ -13,20 +13,13 @@ namespace AdventureWorks.Identity.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AccountController : ControllerBase
+public class AccountController(IMediator _mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public AccountController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     [HttpPost("[action]", Name = "Login")]
     [ProducesResponseType(typeof(PostLoginResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(PostUnauthorizedAttemptResponse), (int)HttpStatusCode.Unauthorized)]
-    public async Task<ActionResult<PostLoginResponse>> Login([FromBody] AuthenticationDto authenticationDto,
-                                                         CancellationToken cancellationToken = default)
+    public async Task<ActionResult<PostLoginResponse>> Login([FromBody] AuthenticationDto authenticationDto, 
+                                                             CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(argument: authenticationDto, paramName: nameof(authenticationDto));
 

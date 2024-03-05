@@ -45,6 +45,16 @@ services:
             - jobs-db:/var/opt/mssql
             - /var/opt/mssql/system
 
+    adventureworks.eventstore.db:
+        ports:
+            - "27019:27017"
+        environment:
+            - MONGO_INITDB_DATABASE=sales
+            - MONGO_INITDB_ROOT_USERNAME=root 
+            - MONGO_INITDB_ROOT_PASSWORD=adventureworkseventstore
+        volumes:
+            - eventstore-db:/data/db
+
     #Logging
     adventureworks.sales.logging.db:
         ports:

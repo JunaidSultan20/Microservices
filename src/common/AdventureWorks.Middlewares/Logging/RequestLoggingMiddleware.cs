@@ -1,28 +1,14 @@
-﻿namespace AdventureWorks.Middlewares.Logging;
+﻿using AdventureWorks.Common.Options;
 
-public class RequestLoggingMiddleware
+namespace AdventureWorks.Middlewares.Logging;
+
+public class RequestLoggingMiddleware(RequestDelegate next, IMongoClient client, RequestLogOptions requestLogOptions, ServiceName serviceName)
 {
-    private readonly RequestDelegate _next;
-    private readonly IConfiguration _configuration;
-    private readonly IMongoClient _client;
-    private readonly ServiceName _serviceName;
-
-    public RequestLoggingMiddleware(RequestDelegate next,
-                                    IMongoClient client,
-                                    IConfiguration configuration,
-                                    ServiceName serviceName)
-    {
-        _next = next;
-        _client = client;
-        _configuration = configuration;
-        _serviceName = serviceName;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
-        await LogRecord(context, _serviceName);
+        await LogRecord(context, serviceName);
 
-        await _next(context);
+        await next(context);
     }
 
     private async Task<string> ReadRequestBody(HttpRequest request)
@@ -70,7 +56,7 @@ public class RequestLoggingMiddleware
             _ => default
         };
 
-        IMongoDatabase database = _client.GetDatabase(_configuration.GetValue<string>("RequestLogDbConfig:Database"));
+        IMongoDatabase database = client.GetDatabase(requestLogOptions.Database);
 
         if (serviceName.Equals(ServiceName.Sales))
         {

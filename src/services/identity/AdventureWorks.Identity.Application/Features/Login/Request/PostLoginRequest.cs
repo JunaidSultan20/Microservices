@@ -2,9 +2,7 @@
 
 namespace AdventureWorks.Identity.Application.Features.Login.Request;
 
-public class PostLoginRequest : IRequest<PostLoginResponse>
+public class PostLoginRequest(AuthenticationDto authenticationDto) : IRequest<PostLoginResponse>
 {
-    internal AuthenticationDto? AuthenticationDto { get; }
-
-    public PostLoginRequest(AuthenticationDto authenticationDto) => AuthenticationDto = authenticationDto;
+    internal AuthenticationDto? AuthenticationDto { get; } = authenticationDto;
 }

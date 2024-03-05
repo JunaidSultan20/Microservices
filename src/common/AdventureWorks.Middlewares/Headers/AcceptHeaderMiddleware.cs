@@ -1,16 +1,7 @@
 ﻿namespace AdventureWorks.Middlewares.Headers;
 
-public class AcceptHeaderMiddleware
+public class AcceptHeaderMiddleware(RequestDelegate next, ILogger<AcceptHeaderMiddleware> logger)
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<AcceptHeaderMiddleware> _logger;
-
-    public AcceptHeaderMiddleware(RequestDelegate next, ILogger<AcceptHeaderMiddleware> logger)
-    {
-        _next = next;
-        _logger = logger;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
         context.Request.Headers.TryGetValue("Accept", out StringValues value);
@@ -21,7 +12,7 @@ public class AcceptHeaderMiddleware
         {
             ApiResult result = new ApiResult(HttpStatusCode.BadRequest, message: Messages.InvalidMediaType);
 
-            _logger.LogError(message: JsonConvert.SerializeObject(result));
+            logger.LogError(message: JsonConvert.SerializeObject(result));
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
 
@@ -32,6 +23,6 @@ public class AcceptHeaderMiddleware
             return;
         }
 
-        await _next(context);
+        await next(context);
     }
 }

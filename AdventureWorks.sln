@@ -51,7 +51,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jobs", "jobs", "{0CF604D3-A89A-40BC-8E2E-99001AE2EBA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Jobs.Api", "src\api\jobs\AdventureWorks.Jobs.Api\AdventureWorks.Jobs.Api.csproj", "{12C2A76A-CD4F-44FC-9A1F-99CF970D42CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Jobs.Api", "src\api\jobs\AdventureWorks.Jobs.Api\AdventureWorks.Jobs.Api.csproj", "{12C2A76A-CD4F-44FC-9A1F-99CF970D42CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Events", "src\common\AdventureWorks.Events\AdventureWorks.Events.csproj", "{EBF38404-8012-4446-A12F-1400798BD452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +121,10 @@ Global
 		{12C2A76A-CD4F-44FC-9A1F-99CF970D42CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12C2A76A-CD4F-44FC-9A1F-99CF970D42CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12C2A76A-CD4F-44FC-9A1F-99CF970D42CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBF38404-8012-4446-A12F-1400798BD452}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBF38404-8012-4446-A12F-1400798BD452}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBF38404-8012-4446-A12F-1400798BD452}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF38404-8012-4446-A12F-1400798BD452}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +153,7 @@ Global
 		{4E9E7A7B-45D3-4A5D-ABF0-DD698461B0C6} = {4400A064-9771-43BC-8CC3-87F4AC3D72B2}
 		{0CF604D3-A89A-40BC-8E2E-99001AE2EBA7} = {7104D51E-95FB-4799-B5E2-D0587EC3E485}
 		{12C2A76A-CD4F-44FC-9A1F-99CF970D42CC} = {0CF604D3-A89A-40BC-8E2E-99001AE2EBA7}
+		{EBF38404-8012-4446-A12F-1400798BD452} = {26ED7CD2-D784-4B62-9E5E-0EE7227C7BA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80260F81-A5B4-4306-B500-7EAE6324FF65}
