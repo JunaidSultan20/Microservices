@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\common\AdventureWorks.Common\AdventureWorks.Common.csproj" />
     <ProjectReference Include="..\..\..\common\AdventureWorks.Contracts\AdventureWorks.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\common\AdventureWorks.Events\AdventureWorks.Events.csproj" />
     <ProjectReference Include="..\AdventureWorks.Identity.Domain\AdventureWorks.Identity.Domain.csproj" />
   </ItemGroup>
 

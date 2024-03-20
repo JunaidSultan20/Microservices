@@ -1,8 +1,9 @@
 ﻿using AdventureWorks.Common.Options;
+using Microsoft.Extensions.Options;
 
 namespace AdventureWorks.Middlewares.Logging;
 
-public class RequestLoggingMiddleware(RequestDelegate next, IMongoClient client, RequestLogOptions requestLogOptions, ServiceName serviceName)
+public class RequestLoggingMiddleware(RequestDelegate next, IMongoClient client, IOptionsMonitor<RequestLogOptions> requestLogOptions, ServiceName serviceName)
 {
     public async Task InvokeAsync(HttpContext context)
     {
@@ -29,8 +30,6 @@ public class RequestLoggingMiddleware(RequestDelegate next, IMongoClient client,
 
         var requestBody = await ReadRequestBody(request);
 
-
-
         BaseLog? log = serviceName switch
         {
             ServiceName.Sales => new SalesLogs(request.Scheme,
@@ -56,7 +55,7 @@ public class RequestLoggingMiddleware(RequestDelegate next, IMongoClient client,
             _ => default
         };
 
-        IMongoDatabase database = client.GetDatabase(requestLogOptions.Database);
+        IMongoDatabase database = client.GetDatabase(requestLogOptions.CurrentValue.Database);
 
         if (serviceName.Equals(ServiceName.Sales))
         {

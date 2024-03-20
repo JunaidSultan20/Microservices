@@ -18,6 +18,7 @@ public static class Messages
     public const string InvalidTokenModel = "Invalid token model";
     public const string UserExists = "User already exists";
     public const string UnableToCreateUser = "Unable to create user";
+    public const string UnableToAssignRole = "Unable to assign role to user";
     public const string UserCreatedSuccessfully = "User created successfully";
     public const string UserCreatedFailed = "Unable to create new user";
     public const string UserNotFound = "User not found";

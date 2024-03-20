@@ -35,6 +35,46 @@ services:
             - sales-db:/var/opt/mssql
             - /var/opt/mssql/system
 
+    # adventureworks.production.db:
+    #     ports:
+    #         - "8200:1433"
+    #     environment:
+    #         - ACCEPT_EULA=Y
+    #         - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
+    #     volumes:
+    #         - production-db:/var/opt/mssql
+    #         - production-db:/var/opt/mssql/system
+
+    # adventureworks.person.db:
+    #     ports:
+    #         - "8300:1433"
+    #     environment:
+    #         - ACCEPT_EULA=Y
+    #         - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
+    #     volumes:
+    #         - person-db:/var/opt/mssql
+    #         - person-db:/var/opt/mssql/system
+
+    # adventureworks.purchasing.db:
+    #     ports:
+    #         - "8400:1433"
+    #     environment:
+    #         - ACCEPT_EULA=Y
+    #         - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
+    #     volumes:
+    #         - purchasing-db:/var/opt/mssql
+    #         - purchasing-db:/var/opt/mssql/system
+
+    # adventureworks.humanresource.db:
+    #     ports:
+    #         - "8500:1433"
+    #     environment:
+    #         - ACCEPT_EULA=Y
+    #         - MSSQL_SA_PASSWORD=g#Gd%9?QMcGq7pLHnqXV
+    #     volumes:
+    #         - humanresource-db:/var/opt/mssql
+    #         - humanresource-db:/var/opt/mssql/system
+
     adventureworks.jobs.db:
         ports:
             - "8900:1433"

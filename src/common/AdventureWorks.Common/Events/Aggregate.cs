@@ -6,11 +6,11 @@ public abstract class Aggregate
 
     public Guid Id { get; set; } = Guid.Empty;
 
-    public long Version { get; set; } = -1;
+    public long Version { get; set; } = 0;
 
     protected abstract void When(object @event);
 
-    public void Apply(object @event)
+    protected void Apply(object @event)
     {
         When(@event);
 

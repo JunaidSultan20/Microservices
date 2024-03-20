@@ -15,7 +15,7 @@ public class ApiException
     /// <summary>
     /// Parameter-less constructor
     /// </summary>
-    public ApiException()
+    protected ApiException()
     {
     }
 

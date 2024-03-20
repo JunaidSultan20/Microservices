@@ -3,17 +3,17 @@
 /// <summary>
 /// Parameterized constructor that takes values and assigns them to the properties
 /// </summary>
-/// <param name="username"></param>
-/// <param name="email"></param>
-/// <param name="password"></param>
-/// <param name="role"></param>
-public record RegistrationDto(string username, string email, string password, string role)
+/// <param name="Username"></param>
+/// <param name="Email"></param>
+/// <param name="Password"></param>
+/// <param name="Role"></param>
+public record RegistrationDto(string Username, string Email, string Password, string Role)
 {
-    public string Username { get; set; } = username;
+    public string Username { get; set; } = Username;
 
-    public string Email { get; set; } = email;
+    public string Email { get; set; } = Email;
 
-    public string Password { get; set; } = password;
+    public string Password { get; set; } = Password;
 
-    public string Role { get; set; } = role;
+    public string Role { get; set; } = Role;
 }

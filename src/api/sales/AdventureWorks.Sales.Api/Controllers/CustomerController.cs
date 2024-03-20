@@ -104,13 +104,19 @@ public class CustomerController(IMediator mediator,
         return Ok(response);
     }
 
+    /// <summary>
+    /// Creates new customer
+    /// </summary>
+    /// <param name="dto"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost(Name = "PostCustomer", Order = 3)]
     public async Task<ActionResult<PostCustomerResponse>> PostCustomer([FromBody] CreateCustomerDto dto, 
                                                                        CancellationToken cancellationToken = default)
     {
         PostCustomerResponse response = await Mediator.Send(new PostCustomerRequest(dto), cancellationToken);
 
-        return CreatedAtRoute("GetCustomerById", new { id = response.Result.CustomerId });
+        return CreatedAtRoute("GetCustomerById", new { id = response.Result?.CustomerId });
     }
 
     #region Links Helper Region
@@ -118,26 +124,22 @@ public class CustomerController(IMediator mediator,
     private IReadOnlyList<Links> CreateCustomerLinks(int id, string? fields)
     {
         var context = HttpContextAccessor.HttpContext;
-        Links link;
-        List<Links> links = new List<Links>();
-        if (!string.IsNullOrWhiteSpace(fields))
-        {
-            link = new Links(Url.RouteUrl("GetCustomerById", new { id, fields }), "self", "GET");
-            link.Href = link.Href?.Replace("/api", $"{context?.Request.Scheme}://{RemoteIpAddress}/api");
-            links.Add(link);
-        }
-        else
-        {
-            link = new Links(Url.RouteUrl("GetCustomerById", new { id }), "self", "GET");
-            link.Href = link.Href?.Replace("/api", $"{context?.Request.Scheme}://{RemoteIpAddress}/api");
-            links.Add(link);
-        }
 
-        link = new Links(Url.RouteUrl("DeleteCustomerById", new { id }), "delete_customer", "DELETE");
+        Links link;
+
+        List<Links> links = new ();
+
+        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl("GetCustomerById", !string.IsNullOrWhiteSpace(fields) ? new { id, fields } : new { id })}", Constants.SelfRel, Constants.GetMethod);
+
+        link = new Links(Url.RouteUrl("GetCustomerById", !string.IsNullOrWhiteSpace(fields) ? new { id, fields } : new { id }), Constants.SelfRel, Constants.GetMethod);
+        link.Href = link.Href?.Replace("/api", $"{context?.Request.Scheme}://{RemoteIpAddress}/api");
+        links.Add(link);       
+
+        link = new Links(Url.RouteUrl("DeleteCustomerById", new { id }), "delete_customer", Constants.DeleteMethod);
         link.Href = link.Href?.Replace("/api", $"{context?.Request.Scheme}://{RemoteIpAddress}/api");
         links.Add(link);
 
-        link = new Links(Url.RouteUrl("UpdateCustomerById", new { id }), "update_customer", "PUT");
+        link = new Links(Url.RouteUrl("UpdateCustomerById", new { id }), "update_customer", Constants.PutMethod);
         link.Href = link.Href?.Replace("/api", $"{context?.Request.Scheme}://{RemoteIpAddress}/api");
         links.Add(link);
 

@@ -13,6 +13,8 @@ public static class ServiceExtension
     {
         services.ConfigureOptions<EventStoreOptionsSetup>();
 
+        services.AddSingleton<IOptionsMonitor<EventStoreOptions>, OptionsMonitor<EventStoreOptions>>();
+
         services.AddSingleton<IMongoClient>(_ => 
                                                 new MongoClient(services
                                                                .BuildServiceProvider()

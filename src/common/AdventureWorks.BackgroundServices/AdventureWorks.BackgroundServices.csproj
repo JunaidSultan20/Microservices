@@ -7,16 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EventStore.Client.Grpc.Streams" Version="23.1.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.24.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.0.0-alpha.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdventureWorks.Contracts\AdventureWorks.Contracts.csproj" />
+    <ProjectReference Include="..\AdventureWorks.Common\AdventureWorks.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Streams\" />
+    <Folder Include="Queue\" />
   </ItemGroup>
 
 </Project>

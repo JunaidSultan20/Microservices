@@ -1,6 +1,7 @@
 ﻿using AdventureWorks.Common.Options.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using AdventureWorks.Common.Extensions;
 using AdventureWorks.Identity.Application.DomainEvents;
 using AdventureWorks.Identity.Application.DomainEvents.Roles;
 
@@ -12,7 +13,9 @@ public static class ServiceExtension
     {
         services.ConfigureOptions<JwtOptionsSetup>();
 
-        services.AddOptions<JwtOptions>();
+        //services.AddSingleton<IOptionsMonitor<JwtOptions>, OptionsMonitor<JwtOptions>>();
+
+        services.AddSingleton<JwtOptions>();
 
         services.AddMediatR(config => 
                             config.RegisterServicesFromAssemblies(assemblies: Assembly.GetExecutingAssembly()));
@@ -24,5 +27,7 @@ public static class ServiceExtension
         services.AddScoped<UserAggregate>();
 
         services.AddScoped<RoleAggregate>();
+
+        //services.AddScopedAggregates();
     }
 }

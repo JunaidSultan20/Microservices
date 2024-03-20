@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\PutCustomer\Handler\**" />
+    <EmbeddedResource Remove="Features\PutCustomer\Handler\**" />
+    <None Remove="Features\PutCustomer\Handler\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Mapster" Version="7.4.1-pre01" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
@@ -33,7 +39,6 @@
     <Folder Include="Features\PostCustomer\Handler\" />
     <Folder Include="Features\PostCustomer\Response\" />
     <Folder Include="Features\PostCustomer\Request\" />
-    <Folder Include="Features\PutCustomer\Handler\" />
     <Folder Include="Features\PutCustomer\Request\" />
   </ItemGroup>
 

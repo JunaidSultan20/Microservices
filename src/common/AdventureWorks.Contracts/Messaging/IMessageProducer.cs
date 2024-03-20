@@ -2,8 +2,7 @@
 
 public interface IMessageProducer
 {
-    void SendMessage<T>(RabbitMqOptions queueConfig,
-                        string queue,
+    void SendMessage<T>(string queue,
                         string exchangeName,
                         string exchangeType,
                         string routeKey,

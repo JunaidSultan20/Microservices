@@ -31,6 +31,8 @@ public class UserAggregate : Aggregate
 
     public string Role { get; set; }
 
+    public int RoleId { get; set; }
+
     protected override void When(object @event)
     {
         switch (@event)
@@ -75,6 +77,10 @@ public class UserAggregate : Aggregate
                 OnAccessFailedCountChanged(user);
                 break;
 
+            case UserRoleChanged user:
+                OnUserRoleChanged(user);
+                break;
+
             default:
                 throw new ArgumentException($"Unsupported event type: {@event.GetType().Name}", nameof(@event));
         }
@@ -115,6 +121,9 @@ public class UserAggregate : Aggregate
     public void AccessFailedCountChangedEvent(int oldCount, int newCount)
         => Apply(new AccessFailedCountChanged(oldCount, newCount));
 
+    public void UserRoleChangedEvent(int? oldRole, int newRole)
+        => Apply(new UserRoleChanged(oldRole, newRole));
+
     private void OnCreated(UserCreated @event)
     {
         Username = @event.Username;
@@ -140,4 +149,6 @@ public class UserAggregate : Aggregate
     private void OnLockoutEnabledChanged(LockoutEnabledChanged @event) => LockoutEnabled = @event.LockoutChanged;
 
     private void OnAccessFailedCountChanged(AccessFailedCountChanged @event) => AccessFailedCount = @event.NewCount;
+
+    private void OnUserRoleChanged(UserRoleChanged @event) => RoleId = @event.NewRole;
 }

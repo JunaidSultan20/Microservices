@@ -1,9 +1,12 @@
-﻿namespace AdventureWorks.Messaging.Services;
+﻿using Microsoft.Extensions.Options;
 
-public class MessageProducer : IMessageProducer
+namespace AdventureWorks.Messaging.Services;
+
+public class MessageProducer(IOptionsMonitor<RabbitMqOptions> options) : IMessageProducer
 {
-    public void SendMessage<T>(RabbitMqOptions queueConfig,
-                               string queue,
+    private readonly RabbitMqOptions _options = options.CurrentValue;
+
+    public void SendMessage<T>(string queue,
                                string exchangeName,
                                string exchangeType,
                                string routeKey,
@@ -11,10 +14,10 @@ public class MessageProducer : IMessageProducer
     {
         var factory = new ConnectionFactory
         {
-            HostName = queueConfig.Hostname,
-            Port = queueConfig.Port,
-            UserName = queueConfig.Username,
-            Password = queueConfig.Password
+            HostName = _options.Hostname,
+            Port = _options.Port,
+            UserName = _options.Username,
+            Password = _options.Password
         };
 
         using var connection = factory.CreateConnection();
