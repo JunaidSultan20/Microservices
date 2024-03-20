@@ -2,9 +2,7 @@
 
 namespace AdventureWorks.Identity.Application.Features.Register.Request;
 
-public class PostRegisterRequest : IRequest<PostRegisterResponse>
+public class PostRegisterRequest(RegistrationDto registrationDto) : IRequest<PostRegisterResponse>
 {
-    internal RegistrationDto RegistrationDto { get; }
-
-    public PostRegisterRequest(RegistrationDto registrationDto) => RegistrationDto = registrationDto;
+    internal RegistrationDto RegistrationDto { get; } = registrationDto;
 }

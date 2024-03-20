@@ -1,89 +1,115 @@
 {
-  "Routes": [
-    {
-      "DownstreamPathTemplate": "/api/customer?{everything}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+    "Routes": [
         {
-          "Host": "sales.api",
-          "Port": 8081
-        }
-      ],
-      "UpstreamPathTemplate": "/api/customer?{everything}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "DangerousAcceptAnyServerCertificateValidator": true,
-      "UpstreamHeaderTransform": {
-        "X-Forwarded-For": "{BaseUrl}"
-      },
-      "DownstreamHeaderTransform": {
-        "X-Forwarded-For": "{BaseUrl}",
-        "Access-Control-Allow-Origin": "https://localhost:6002"
-      },
-      "RateLimitOptions": {
-        "EnableRateLimiting": true,
-        "Period": "10s",
-        "PeriodTimespan": 10,
-        "Limit": 5
-      },
-      "SwaggerKey": "customer",
-      "RouteIsCaseSensitive": false
-    },
-    {
-      "DownstreamPathTemplate": "/api/account/login",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
+            "DownstreamPathTemplate": "/api/customer?{everything}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "sales.api",
+                    "Port": 8081
+                }
+            ],
+            "UpstreamPathTemplate": "/api/customer?{everything}",
+            "UpstreamHttpMethod": [ "GET" ],
+            "DangerousAcceptAnyServerCertificateValidator": true,
+            "UpstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}"
+            },
+            "DownstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}",
+                "Access-Control-Allow-Origin": "https://localhost:6002"
+            },
+            "RateLimitOptions": {
+                "EnableRateLimiting": true,
+                "Period": "10s",
+                "PeriodTimespan": 10,
+                "Limit": 5
+            },
+            "SwaggerKey": "customer",
+            "RouteIsCaseSensitive": false
+        },
         {
-          "Host": "identity.api",
-          "Port": 8081
+            "DownstreamPathTemplate": "/api/account/login",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "identity.api",
+                    "Port": 8081
+                }
+            ],
+            "UpstreamPathTemplate": "/api/account/login",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DangerousAcceptAnyServerCertificateValidator": true,
+            "UpstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}"
+            },
+            "DownstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}"
+            },
+            "RateLimitOptions": {
+                "EnableRateLimiting": true,
+                "Period": "10s",
+                "PeriodTimespan": 10,
+                "Limit": 3
+            },
+            "RouteIsCaseSensitive": false
+        },
+        {
+            "DownstreamPathTemplate": "/api/account/register",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "identity.api",
+                    "Port": 8081
+                }
+            ],
+            "UpstreamPathTemplate": "/api/account/register",
+            "UpstreamHttpMethod": [ "POST" ],
+            "DangerousAcceptAnyServerCertificateValidator": true,
+            "UpstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}"
+            },
+            "DownstreamHeaderTransform": {
+                "X-Forwarded-For": "{BaseUrl}"
+            },
+            "RateLimitOptions": {
+                "EnableRateLimiting": true,
+                "Period": "10s",
+                "PeriodTimespan": 10,
+                "Limit": 3
+            },
+            "RouteIsCaseSensitive": false
         }
-      ],
-      "UpstreamPathTemplate": "/api/account/login",
-      "UpstreamHttpMethod": [ "POST" ],
-      "DangerousAcceptAnyServerCertificateValidator": true,
-      "UpstreamHeaderTransform": {
-        "X-Forwarded-For": "{BaseUrl}"
-      },
-      "DownstreamHeaderTransform": {
-        "X-Forwarded-For": "{BaseUrl}"
-      },
-      "RateLimitOptions": {
-        "EnableRateLimiting": true,
-        "Period": "10s",
-        "PeriodTimespan": 10,
-        "Limit": 3
-      },
-      "RouteIsCaseSensitive": false
-    }
-  ],
-  "SwaggerEndpoints": [
-    {
-      "Key": "sales.api",
-      "Config": "/sales.api/swagger/v1/swagger.json"
+    ],
+    "SwaggerEndpoints": [
+        {
+            "Key": "sales.api",
+            "Config": "/sales.api/swagger/v1/swagger.json"
+        },
+        {
+            "Key": "identity.api",
+            "Config": "/identity.api/swagger/v1/swagger.json"
+        },
+        {
+            "Key": "AggregatedSwagger",
+            "Config": "/swagger/v1/swagger.json" // Aggregated Swagger endpoint
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "localhost:6002"
+        //"ServiceDiscoveryProvider": {
+        //  "Host": "consul",
+        //  "Port": 8500,
+        //  "Type": "Consul"
+        //}
     },
-    {
-      "Key": "identity.api",
-      "Config": "/identity.api/swagger/v1/swagger.json"
-    },
-    {
-      "Key": "AggregatedSwagger",
-      "Config": "/swagger/v1/swagger.json" // Aggregated Swagger endpoint
-    }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "localhost:6002"
-    //"ServiceDiscoveryProvider": {
-    //  "Host": "consul",
-    //  "Port": 8500,
-    //  "Type": "Consul"
-    //}
-  },
-  "ReRoutes": [
-    {
-      "DownstreamPathTemplate": "/swagger/{everything}",
-      "UpstreamPathTemplate": "/swagger/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamHttpMethod": [ "Get" ],
-      "SwaggerKey": "AggregatedSwagger"
-    }
-  ]
+    "ReRoutes": [
+        {
+            "DownstreamPathTemplate": "/swagger/{everything}",
+            "UpstreamPathTemplate": "/swagger/{everything}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamHttpMethod": [ "Get" ],
+            "SwaggerKey": "AggregatedSwagger"
+        }
+    ]
 }

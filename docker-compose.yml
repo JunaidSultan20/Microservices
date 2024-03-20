@@ -34,6 +34,38 @@ services:
             adventureworksnetwork:
                 ipv4_address: 172.10.0.12
 
+    # adventureworks.production.db:
+    #     container_name: production.db
+    #     restart: always
+    #     image: "mcr.microsoft.com/mssql/server:2022-latest"
+    #     networks:
+    #         adventureworksnetwork:
+    #             ipv4_address: 172.10.0.13
+
+    # adventureworks.person.db:
+    #     container_name: person.db
+    #     restart: always
+    #     image: "mcr.microsoft.com/mssql/server:2022-latest"
+    #     networks:
+    #         adventureworksnetwork:
+    #             ipv4_address: 172.10.0.14
+
+    # adventureworks.purchasing.db:
+    #     container_name: purchasing.db
+    #     restart: always
+    #     image: "mcr.microsoft.com/mssql/server:2022-latest"
+    #     networks:
+    #         adventureworksnetwork:
+    #             ipv4_address: 172.10.0.15
+
+    # adventureworks.humanresource.db:
+    #     container_name: humanresource.db
+    #     restart: always
+    #     image: "mcr.microsoft.com/mssql/server:2022-latest"
+    #     networks:
+    #         adventureworksnetwork:
+    #             ipv4_address: 172.10.0.16
+
     adventureworks.jobs.db:
         container_name: jobs.db
         restart: always
@@ -41,6 +73,14 @@ services:
         networks:
             adventureworksnetwork:
                 ipv4_address: 172.10.0.20
+
+    adventureworks.eventstore.db:
+        container_name: eventstore.db
+        restart: on-failure
+        image: mongo:latest
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.0.19
 
     #Logging
     adventureworks.sales.logging.db:
@@ -135,7 +175,12 @@ services:
 volumes:
     identity-db:
     sales-db:
+    production-db:
+    person-db:
+    purchasing-db:
+    humanresource-db:
     jobs-db:
+    eventstore-db:
     sales-logging-db:
     production-logging-db:
     adventureworks-consul:

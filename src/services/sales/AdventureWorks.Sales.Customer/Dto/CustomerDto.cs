@@ -8,7 +8,7 @@ public class CustomerDto
     /// <summary>
     /// Customer id field.
     /// </summary>
-    [JsonProperty(PropertyName = "id", Order = 1)]
+    [JsonProperty(PropertyName = "customerId", Order = 1)]
     public int CustomerId { get; set; }
 
     /// <summary>
@@ -51,7 +51,7 @@ public class CustomerDto
     {
     }
 
-    public CustomerDto(int id,
+    public CustomerDto(int customerId,
                        int? personId,
                        int? storeId,
                        int? territoryId,
@@ -59,5 +59,5 @@ public class CustomerDto
                        DateTime? modifiedDate,
                        IReadOnlyList<Links>? links = null) =>
         (CustomerId, PersonId, StoreId, TerritoryId, AccountNumber, ModifiedDate, Links) =
-        (id, personId, storeId, territoryId, accountNumber, modifiedDate, links);
+        (customerId, personId, storeId, territoryId, accountNumber, modifiedDate, links);
 }

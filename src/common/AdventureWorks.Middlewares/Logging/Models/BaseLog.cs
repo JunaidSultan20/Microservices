@@ -16,16 +16,16 @@ public abstract class BaseLog
     public string? Body { get; set; }
     public string Timestamp { get; set; }
 
-    public BaseLog(string? scheme,
-                   string? host,
-                   string? path,
-                   string? method,
-                   string? query,
-                   IDictionary<string, StringValues>? headers,
-                   IDictionary<string, string>? cookie,
-                   string? contentType,
-                   string? remoteIpAddress,
-                   string? body)
+    protected BaseLog(string? scheme,
+                      string? host,
+                      string? path,
+                      string? method,
+                      string? query,
+                      IDictionary<string, StringValues>? headers,
+                      IDictionary<string, string>? cookie,
+                      string? contentType,
+                      string? remoteIpAddress,
+                      string? body)
     {
         Scheme = scheme;
         Host = host;

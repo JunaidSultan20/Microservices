@@ -5,32 +5,22 @@ using AdventureWorks.Identity.Application.Features.RefreshToken.Request;
 using AdventureWorks.Identity.Application.Features.RefreshToken.Response;
 using AdventureWorks.Identity.Application.Features.Register.Request;
 using AdventureWorks.Identity.Application.Features.Register.Response;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace AdventureWorks.Identity.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AccountController : ControllerBase
+public class AccountController(IMediator mediator) : ControllerBase
 {
-    private readonly IMediator _mediator;
-
-    public AccountController(IMediator mediator)
-    {
-        _mediator = mediator;
-    }
-
     [HttpPost("[action]", Name = "Login")]
     [ProducesResponseType(typeof(PostLoginResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(PostUnauthorizedAttemptResponse), (int)HttpStatusCode.Unauthorized)]
-    public async Task<ActionResult<PostLoginResponse>> Login([FromBody] AuthenticationDto authenticationDto,
-                                                         CancellationToken cancellationToken = default)
+    public async Task<ActionResult<PostLoginResponse>> Login([FromBody] AuthenticationDto authenticationDto, 
+                                                             CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(argument: authenticationDto, paramName: nameof(authenticationDto));
 
-        var response = await _mediator.Send(new PostLoginRequest(authenticationDto), cancellationToken);
+        var response = await mediator.Send(new PostLoginRequest(authenticationDto), cancellationToken);
 
         if (response.StatusCode.Equals(HttpStatusCode.Unauthorized))
             return Unauthorized(response);
@@ -45,8 +35,8 @@ public class AccountController : ControllerBase
     public async Task<ActionResult<PostRegisterResponse>> Register([FromBody] RegistrationDto registrationDto,
                                                                    CancellationToken cancellationToken = default)
     {
-        PostRegisterResponse response = await _mediator.Send(request: new PostRegisterRequest(registrationDto),
-                                                             cancellationToken: cancellationToken);
+        PostRegisterResponse response = await mediator.Send(request: new PostRegisterRequest(registrationDto), 
+                                                            cancellationToken: cancellationToken);
 
         return response.StatusCode switch
         {
@@ -65,7 +55,7 @@ public class AccountController : ControllerBase
 
     public async Task<ActionResult<RefreshTokenResponse>> Refresh(CancellationToken cancellationToken = default)
     {
-        RefreshTokenResponse response = await _mediator.Send(new RefreshTokenRequest(), cancellationToken);
+        RefreshTokenResponse response = await mediator.Send(new RefreshTokenRequest(), cancellationToken);
 
         return response.StatusCode switch
         {

@@ -1,17 +1,9 @@
 ﻿namespace AdventureWorks.Middlewares.Logging;
 
-public class ResponseLoggingMiddleware
+public class ResponseLoggingMiddleware(RequestDelegate next, IConfiguration configuration, ServiceName serviceName)
 {
-    private readonly RequestDelegate _next;
-    private readonly IConfiguration _configuration;
-    private readonly ServiceName _serviceName;
-
-    public ResponseLoggingMiddleware(RequestDelegate next, IConfiguration configuration, ServiceName serviceName)
-    {
-        _next = next;
-        _configuration = configuration;
-        _serviceName = serviceName;
-    }
+    private readonly IConfiguration _configuration = configuration;
+    private readonly ServiceName _serviceName = serviceName;
 
     public async Task InvokeAsync(HttpContext context)
     {
@@ -41,7 +33,7 @@ public class ResponseLoggingMiddleware
 
         //await collection.InsertOneAsync(log);
 
-        await _next(context);
+        await next(context);
     }
 
     private async Task<string> ReadResponseBody(HttpResponse response)

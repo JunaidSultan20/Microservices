@@ -3,16 +3,8 @@
 /// <inheritdoc />
 [Route(template: "api")]
 [ApiController]
-public class RootController : ControllerBase
+public class RootController(IHttpContextAccessor httpContextAccessor) : ControllerBase
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    /// <inheritdoc />
-    public RootController(IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-    }
-
     /// <summary>
     /// Root method to return url for all endpoints in the API.
     /// </summary>
@@ -20,7 +12,7 @@ public class RootController : ControllerBase
     [HttpGet(Name = "GetRoot")]
     public async Task<ActionResult<RootResponse>> GetRoot()
     {
-        var context = _httpContextAccessor.HttpContext;
+        var context = httpContextAccessor.HttpContext;
         string remoteIpAddress = string.Empty;
 
         if (context is not null &&

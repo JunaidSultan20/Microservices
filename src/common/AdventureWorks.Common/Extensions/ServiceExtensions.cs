@@ -1,4 +1,7 @@
-﻿namespace AdventureWorks.Common.Extensions;
+﻿using AdventureWorks.Common.Events;
+using Newtonsoft.Json.Serialization;
+
+namespace AdventureWorks.Common.Extensions;
 
 /// <summary>
 /// Services extensions class.
@@ -57,7 +60,7 @@ public static class ServiceExtensions
         {
             options.RequireHttpsMetadata = false;
             options.SaveToken = true;
-            options.Authority = "https://localhost:5000";
+            options.Authority = "https://localhost:6002";
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ClockSkew = TimeSpan.Zero,
@@ -100,13 +103,11 @@ public static class ServiceExtensions
             options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
 
             options.RespectBrowserAcceptHeader = true;
-        }).AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         }).AddNewtonsoftJson(options =>
         {
             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None;
+            options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }).AddXmlDataContractSerializerFormatters();
 
         service.Configure<MvcOptions>(options =>
@@ -179,5 +180,21 @@ public static class ServiceExtensions
             options.ForwardedForHeaderName = Constants.Constants.ForwardedFor;
             options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
         });
+    }
+
+    /// <summary>
+    /// Registers each event specific aggregate class that is inherited from Aggregate class
+    /// </summary>
+    /// <param name="services"></param>
+    public static void AddScopedAggregates(this IServiceCollection services)
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+        var aggregateType = typeof(Aggregate);
+
+        foreach (var type in assembly.GetTypes())
+        {
+            if (type.IsSubclassOf(aggregateType) && !type.IsAbstract)
+                services.AddScoped(type);
+        }
     }
 }

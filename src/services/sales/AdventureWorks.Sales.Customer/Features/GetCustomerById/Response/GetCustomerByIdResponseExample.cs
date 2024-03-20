@@ -4,7 +4,7 @@ public class GetCustomerByIdResponseExample : IExamplesProvider<GetCustomerByIdR
 {
     public GetCustomerByIdResponse GetExamples()
     {
-        CustomerDto customer = new CustomerDto(id: 1,
+        CustomerDto customer = new CustomerDto(customerId: 1,
                                                personId: 150,
                                                storeId: 10,
                                                territoryId: 4,

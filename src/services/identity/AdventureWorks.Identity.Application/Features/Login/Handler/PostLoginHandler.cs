@@ -3,35 +3,23 @@ using AdventureWorks.Identity.Application.Features.Login.Response;
 
 namespace AdventureWorks.Identity.Application.Features.Login.Handler;
 
-public class PostLoginHandler : IRequestHandler<PostLoginRequest, PostLoginResponse>
+public class PostLoginHandler(UserManager<User> userManager, 
+                              IHttpContextAccessor httpContextAccessor, 
+                              JwtOptions jwtOptions) : IRequestHandler<PostLoginRequest, PostLoginResponse>
 {
-    private readonly UserManager<User> _userManager;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly JwtOptions _jwtOptions;
-
-    public PostLoginHandler(UserManager<User> userManager,
-                            IHttpContextAccessor httpContextAccessor,
-                            IOptions<JwtOptions> jwtOptions)
-    {
-        _userManager = userManager;
-        _httpContextAccessor = httpContextAccessor;
-        _jwtOptions = jwtOptions.Value;
-    }
-
     public async Task<PostLoginResponse> Handle(PostLoginRequest request, CancellationToken cancellationToken = default)
     {
-        var context = _httpContextAccessor.HttpContext;
+        var context = httpContextAccessor.HttpContext;
 
-        User? user = await _userManager.FindByEmailAsync(request.AuthenticationDto?.Email ?? string.Empty);
+        User? user = await userManager.FindByEmailAsync(request.AuthenticationDto?.Email ?? string.Empty);
 
         if (user is not null)
         {
-            bool isAuthenticUser = await _userManager.CheckPasswordAsync(user: user,
-                                                                         password: request.AuthenticationDto?.Password
-                                                                         ?? string.Empty);
+            bool isAuthenticUser = await userManager.CheckPasswordAsync(user: user, 
+                                                                        password: request.AuthenticationDto?.Password ?? string.Empty);
             if (isAuthenticUser)
             {
-                IList<string> roles = await _userManager.GetRolesAsync(user: user);
+                IList<string> roles = await userManager.GetRolesAsync(user: user);
 
                 List<Claim> claims = new List<Claim>
                 {
@@ -46,51 +34,49 @@ public class PostLoginHandler : IRequestHandler<PostLoginRequest, PostLoginRespo
                     claims.Add(new Claim(type: ClaimTypes.Role, value: claim));
                 });
 
-                SymmetricSecurityKey authenticationSigningKey = new SymmetricSecurityKey(key: Encoding.UTF32
-                                                                    .GetBytes(s: _jwtOptions.Secret ?? string.Empty));
+                SymmetricSecurityKey authenticationSigningKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(jwtOptions.Secret));
 
-                JwtSecurityToken token = new JwtSecurityToken(issuer: _jwtOptions.Issuer,
-                                                              audience: _jwtOptions.Audience,
-                                                              expires: DateTime.Now.AddMinutes(value: _jwtOptions.ExpirationMinutes),
+                JwtSecurityToken token = new JwtSecurityToken(issuer: jwtOptions.Issuer,
+                                                              audience: jwtOptions.Audience,
+                                                              expires: DateTime.Now.AddMinutes(value: jwtOptions.ExpirationMinutes),
                                                               claims: claims,
                                                               signingCredentials: new SigningCredentials(key: authenticationSigningKey,
                                                                                                          algorithm: SecurityAlgorithms.HmacSha256));
 
-                string? refreshToken = await _userManager.GetAuthenticationTokenAsync(user: user,
-                                                                                      loginProvider: Constants.LoginProviderName,
-                                                                                      tokenName: Constants.TokenName);
+                string? refreshToken = await userManager.GetAuthenticationTokenAsync(user: user, 
+                                                                                     loginProvider: Constants.LoginProviderName, 
+                                                                                     tokenName: Constants.TokenName);
 
                 if (!string.IsNullOrEmpty(refreshToken))
                 {
-                    await _userManager.RemoveAuthenticationTokenAsync(user: user,
-                                                                      loginProvider: Constants.LoginProviderName,
-                                                                      tokenName: Constants.TokenName);
+                    await userManager.RemoveAuthenticationTokenAsync(user: user, 
+                                                                     loginProvider: Constants.LoginProviderName, 
+                                                                     tokenName: Constants.TokenName);
                 }
 
-                refreshToken = await _userManager.GenerateUserTokenAsync(user: user,
-                                                                         tokenProvider: Constants.LoginProviderName,
-                                                                         purpose: Constants.TokenName);
+                refreshToken = await userManager.GenerateUserTokenAsync(user: user, 
+                                                                        tokenProvider: Constants.LoginProviderName, 
+                                                                        purpose: Constants.TokenName);
 
-                await _userManager.SetAuthenticationTokenAsync(user: user,
-                                                               loginProvider: Constants.LoginProviderName,
-                                                               tokenName: Constants.TokenName,
-                                                               tokenValue: refreshToken);
+                await userManager.SetAuthenticationTokenAsync(user: user, 
+                                                              loginProvider: Constants.LoginProviderName, 
+                                                              tokenName: Constants.TokenName, 
+                                                              tokenValue: refreshToken);
 
-                context.Response.Cookies.Append(key: Constants.BearerToken,
-                                                value: new JwtSecurityTokenHandler().WriteToken(token),
-                                                new CookieOptions
-                                                {
-                                                    Expires = token.ValidTo,
-                                                    Secure = true,
-                                                    HttpOnly = true,
-                                                    IsEssential = true,
-                                                    SameSite = SameSiteMode.Strict
-                                                });
+                context?.Response.Cookies.Append(key: Constants.BearerToken, 
+                                                 value: new JwtSecurityTokenHandler().WriteToken(token), 
+                                                 new CookieOptions 
+                                                 {
+                                                     Expires = token.ValidTo, 
+                                                     Secure = true, 
+                                                     HttpOnly = true, 
+                                                     IsEssential = true, 
+                                                     SameSite = SameSiteMode.Strict
+                                                 });
 
                 return new PostLoginResponse(HttpStatusCode.OK, Messages.BearerTokenGenerated);
             }
         }
-
         return new PostUnauthorizedAttemptResponse();
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace AdventureWorks.Sales.Customers;
+﻿using AdventureWorks.Sales.Customers.DomainEvents;
+
+namespace AdventureWorks.Sales.Customers;
 
 public static class ServiceExtension
 {
@@ -10,6 +12,8 @@ public static class ServiceExtension
         {
             options.Configuration = configuration.GetConnectionString("RedisConnectionString");
         });
+
+        services.AddScoped<CustomerAggregate>();
 
         //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
     }

@@ -23,7 +23,7 @@ public class IdentityContext : IdentityDbContext<User, Role, int, UserClaim, Use
         base.OnConfiguring(optionsBuilder: optionsBuilder);
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(connectionString: "Server=localhost,9000;Database=AdventureWorksIdentity;User ID=sa;Password=g#Gd%9?QMcGq7pLHnqXV;Trusted_Connection=False;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(connectionString: "Server=localhost,8000;Database=AdventureWorksIdentity;User ID=sa;Password=g#Gd%9?QMcGq7pLHnqXV;Trusted_Connection=False;TrustServerCertificate=True");
         }
     }
 

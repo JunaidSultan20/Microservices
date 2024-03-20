@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using MongoDB.Driver;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
+using AdventureWorks.Common.Options;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,11 @@ builder.Services.ConfigureOptions<SeqOptionsSetup>();
 
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 
+builder.Services.ConfigureOptions<RequestLogOptionsSetup>();
+
+builder.Services.AddSingleton<IOptionsMonitor<RequestLogOptions>, OptionsMonitor<RequestLogOptions>>();
+
+//builder.Services.AddSingleton<RequestLogOptions>();
 //Options configuration end
 
 builder.Host.UseCustomSeriLog(builder.Services);

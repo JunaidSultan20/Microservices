@@ -1,34 +1,19 @@
 ﻿namespace AdventureWorks.Identity.Application.Dto;
 
-public record RegistrationDto
+/// <summary>
+/// Parameterized constructor that takes values and assigns them to the properties
+/// </summary>
+/// <param name="Username"></param>
+/// <param name="Email"></param>
+/// <param name="Password"></param>
+/// <param name="Role"></param>
+public record RegistrationDto(string Username, string Email, string Password, string Role)
 {
-    public string UserName { get; set; }
-    public string Email { get; set; }
-    public string Password { get; set; }
-    public List<string> Roles { get; set; }
+    public string Username { get; set; } = Username;
 
-    /// <summary>
-    /// Default constructor
-    /// </summary>
-    public RegistrationDto()
-    {
-    }
+    public string Email { get; set; } = Email;
 
-    /// <summary>
-    /// Parameterized constructor that takes values and assigns them to the properties
-    /// </summary>
-    /// <param name="userName"></param>
-    /// <param name="email"></param>
-    /// <param name="password"></param>
-    /// <param name="roles"></param>
-    public RegistrationDto(string userName,
-                           string email,
-                           string password,
-                           List<string> roles) => (UserName,
-                                                   Email,
-                                                   Password,
-                                                   Roles) = (userName,
-                                                             email,
-                                                             password,
-                                                             roles);
+    public string Password { get; set; } = Password;
+
+    public string Role { get; set; } = Role;
 }

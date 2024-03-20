@@ -2,8 +2,7 @@
 
 public interface IMessageReceiver
 {
-    void ReceiveMessage<T>(RabbitMqOptions queueConfig,
-                           string queue,
+    void ReceiveMessage<T>(string queue,
                            string exchangeName,
                            string exchangeType,
                            string routeKey);

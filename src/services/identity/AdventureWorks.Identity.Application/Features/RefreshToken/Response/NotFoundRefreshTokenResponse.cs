@@ -1,8 +1,3 @@
 ﻿namespace AdventureWorks.Identity.Application.Features.RefreshToken.Response;
 
-public class NotFoundRefreshTokenResponse : RefreshTokenResponse
-{
-    public NotFoundRefreshTokenResponse(string message) : base(HttpStatusCode.NotFound, Messages.UserNotFound)
-    {
-    }
-}
+public class NotFoundRefreshTokenResponse(string message) : RefreshTokenResponse(HttpStatusCode.NotFound, Messages.UserNotFound);
