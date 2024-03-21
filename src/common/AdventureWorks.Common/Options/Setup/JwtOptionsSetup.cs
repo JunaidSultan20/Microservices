@@ -7,7 +7,6 @@ public class JwtOptionsSetup(IConfiguration configuration) : IConfigureOptions<J
     public void Configure(JwtOptions options)
     {
         configuration.GetSection(SectionName).Bind(options);
-
         Validator.ValidateObject(options, new ValidationContext(options), validateAllProperties: true);
     }
 }

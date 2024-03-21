@@ -7,11 +7,8 @@ public class GetCustomersHandler(IUnitOfWork unitOfWork,
                                  IDistributedCache cache, 
                                  ILogger<GetCustomersHandler> logger,
                                  IUrlService urlService,
-                                 IMessageProducer messageProducer,
-                                 IOptions<RabbitMqOptions> options) : IRequestHandler<GetCustomersRequest, GetCustomersResponse>
+                                 IMessageProducer messageProducer) : IRequestHandler<GetCustomersRequest, GetCustomersResponse>
 {
-    private readonly RabbitMqOptions _rabbitMqConfig = options.Value;
-
     public async Task<GetCustomersResponse> Handle(GetCustomersRequest request, CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(nameof(request));

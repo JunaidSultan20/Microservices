@@ -7,7 +7,6 @@ public class RequestLogOptionsSetup(IConfiguration configuration) : IConfigureOp
     public void Configure(RequestLogOptions options)
     {
         configuration.GetSection(SectionName).Bind(options);
-
         Validator.ValidateObject(options, new ValidationContext(options), validateAllProperties: true);
     }
 }

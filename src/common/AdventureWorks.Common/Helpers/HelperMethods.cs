@@ -8,7 +8,8 @@ public static class HelperMethods
     {
         bool isValid = MediaTypeHeaderValue.TryParse(input: mediaType, parsedValue: out parsedMediaType);
         responseValue = null;
-        if (isValid) return true;
+        if (isValid) 
+            return true;
         responseValue = new ApiResult(statusCode: HttpStatusCode.UnsupportedMediaType, message: Messages.InvalidMediaType);
         return false;
     }
@@ -19,7 +20,8 @@ public static class HelperMethods
     {
         bool isValid = MediaTypeHeaderValue.TryParse(input: mediaType, parsedValue: out parsedMediaType);
         responseValue = null;
-        if (isValid) return true;
+        if (isValid) 
+            return true;
         responseValue = new PagedApiResponse<T>(statusCode: HttpStatusCode.UnsupportedMediaType, message: Messages.InvalidMediaType);
         return false;
     }

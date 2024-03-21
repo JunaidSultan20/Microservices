@@ -10,10 +10,9 @@ public static class DistributedCacheExtensions
     /// <param name="key" example="exampleKey1"></param>
     /// <param name="value" example="exampleValue1"></param>
     /// <returns></returns>
-    public static Task SetAsync<T>(this IDistributedCache cache, string key, T value)
-    {
-        return SetAsync(cache, key, value, new DistributedCacheEntryOptions());
-    }
+    public static Task SetAsync<T>(this IDistributedCache cache, string key, T value) 
+        => SetAsync(cache, key, value, new DistributedCacheEntryOptions());
+    
 
     /// <summary>
     /// Extension method for setting the value in the cache database with key, value and cache options.
@@ -27,6 +26,7 @@ public static class DistributedCacheExtensions
     public static Task SetAsync<T>(this IDistributedCache cache, string key, T value, DistributedCacheEntryOptions options)
     {
         var bytes = Encoding.UTF8.GetBytes(System.Text.Json.JsonSerializer.Serialize(value, GetJsonSerializerOptions()));
+
         return cache.SetAsync(key, bytes, options);
     }
 
@@ -41,10 +41,14 @@ public static class DistributedCacheExtensions
     public static bool TryGetValue<T>(this IDistributedCache cache, string key, out T? cacheValue)
     {
         byte[]? value = cache.Get(key);
+
         cacheValue = default;
+
         if (value is null)
             return false;
+
         cacheValue = System.Text.Json.JsonSerializer.Deserialize<T>(value, GetJsonSerializerOptions());
+
         return true;
     }
 
