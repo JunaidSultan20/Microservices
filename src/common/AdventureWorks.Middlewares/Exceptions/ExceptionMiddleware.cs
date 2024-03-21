@@ -16,6 +16,7 @@ public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddlewa
             _logger.LogError($"An error occurred: {exception}");
 
             context.Response.ContentType = Constants.ContentTypeJson;
+
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             // You can customize the error response JSON as needed.

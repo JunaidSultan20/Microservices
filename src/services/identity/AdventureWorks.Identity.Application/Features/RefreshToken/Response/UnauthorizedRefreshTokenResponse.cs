@@ -1,8 +1,5 @@
 ﻿namespace AdventureWorks.Identity.Application.Features.RefreshToken.Response;
 
-public class UnauthorizedRefreshTokenResponse : RefreshTokenResponse
+public class UnauthorizedRefreshTokenResponse(string message) : RefreshTokenResponse(HttpStatusCode.Unauthorized, message)
 {
-    public UnauthorizedRefreshTokenResponse(string message) : base(HttpStatusCode.Unauthorized, message)
-    {
-    }
 }

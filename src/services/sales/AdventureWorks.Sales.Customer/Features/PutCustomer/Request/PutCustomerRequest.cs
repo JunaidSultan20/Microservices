@@ -2,9 +2,7 @@
 
 namespace AdventureWorks.Sales.Customers.Features.PutCustomer.Request;
 
-public class PutCustomerRequest : IRequest<PutCustomerResponse>
+public class PutCustomerRequest(UpdateCustomerDto customer) : IRequest<PutCustomerResponse>
 {
-    internal UpdateCustomerDto Customer { get; set; }
-
-    public PutCustomerRequest(UpdateCustomerDto customer) => Customer = customer;
+    internal UpdateCustomerDto Customer { get; set; } = customer;
 }

@@ -129,18 +129,22 @@ public class CustomerController(IMediator mediator,
 
         List<Links> links = new ();
 
-        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl("GetCustomerById", !string.IsNullOrWhiteSpace(fields) ? new { id, fields } : new { id })}", Constants.SelfRel, Constants.GetMethod);
-
-        link = new Links(Url.RouteUrl("GetCustomerById", !string.IsNullOrWhiteSpace(fields) ? new { id, fields } : new { id }), Constants.SelfRel, Constants.GetMethod);
-        link.Href = link.Href?.Replace("/api", $"{context?.Request.Scheme}://{RemoteIpAddress}/api");
-        links.Add(link);       
-
-        link = new Links(Url.RouteUrl("DeleteCustomerById", new { id }), "delete_customer", Constants.DeleteMethod);
-        link.Href = link.Href?.Replace("/api", $"{context?.Request.Scheme}://{RemoteIpAddress}/api");
+        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl("GetCustomerById", 
+                         !string.IsNullOrWhiteSpace(fields) ? new { id, fields } : new { id })}", 
+                         Constants.SelfRel, 
+                         Constants.GetMethod);
         links.Add(link);
 
-        link = new Links(Url.RouteUrl("UpdateCustomerById", new { id }), "update_customer", Constants.PutMethod);
-        link.Href = link.Href?.Replace("/api", $"{context?.Request.Scheme}://{RemoteIpAddress}/api");
+        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl("DeleteCustomerById", 
+                         new { id })}", 
+                         "delete_customer",
+                         Constants.DeleteMethod);
+        links.Add(link);
+
+        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl("UpdateCustomerById", 
+                         new { id })}",
+                         "update_customer",
+                         Constants.PutMethod);
         links.Add(link);
 
         return links.AsReadOnly();

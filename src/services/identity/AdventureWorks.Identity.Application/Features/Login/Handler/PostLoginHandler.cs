@@ -5,8 +5,10 @@ namespace AdventureWorks.Identity.Application.Features.Login.Handler;
 
 public class PostLoginHandler(UserManager<User> userManager, 
                               IHttpContextAccessor httpContextAccessor, 
-                              JwtOptions jwtOptions) : IRequestHandler<PostLoginRequest, PostLoginResponse>
+                              IOptionsMonitor<JwtOptions> options) : IRequestHandler<PostLoginRequest, PostLoginResponse>
 {
+    private readonly JwtOptions _jwtOptions = options.CurrentValue;
+
     public async Task<PostLoginResponse> Handle(PostLoginRequest request, CancellationToken cancellationToken = default)
     {
         var context = httpContextAccessor.HttpContext;
@@ -34,11 +36,11 @@ public class PostLoginHandler(UserManager<User> userManager,
                     claims.Add(new Claim(type: ClaimTypes.Role, value: claim));
                 });
 
-                SymmetricSecurityKey authenticationSigningKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(jwtOptions.Secret));
+                SymmetricSecurityKey authenticationSigningKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(_jwtOptions.Secret));
 
-                JwtSecurityToken token = new JwtSecurityToken(issuer: jwtOptions.Issuer,
-                                                              audience: jwtOptions.Audience,
-                                                              expires: DateTime.Now.AddMinutes(value: jwtOptions.ExpirationMinutes),
+                JwtSecurityToken token = new JwtSecurityToken(issuer: _jwtOptions.Issuer,
+                                                              audience: _jwtOptions.Audience,
+                                                              expires: DateTime.Now.AddMinutes(value: _jwtOptions.ExpirationMinutes),
                                                               claims: claims,
                                                               signingCredentials: new SigningCredentials(key: authenticationSigningKey,
                                                                                                          algorithm: SecurityAlgorithms.HmacSha256));

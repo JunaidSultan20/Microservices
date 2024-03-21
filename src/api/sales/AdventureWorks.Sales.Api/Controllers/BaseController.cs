@@ -1,50 +1,41 @@
 ﻿namespace AdventureWorks.Sales.Api.Controllers;
 
 /// <summary>
-/// Base controller class
+/// Base controller for initializing the common fields and instances
 /// </summary>
+/// <param name="mediator"></param>
+/// <param name="httpContextAccessor"></param>
+/// <param name="logger"></param>
+/// <exception cref="Exception"></exception>
 /// <typeparam name="TController"></typeparam>
 [Route("api/[controller]")]
 [ApiController]
-public abstract class BaseController<TController> : ControllerBase where TController : BaseController<TController>
+public abstract class BaseController<TController>(IMediator mediator, IHttpContextAccessor httpContextAccessor, ILogger<TController> logger) : ControllerBase where TController : BaseController<TController>
 {
     /// <summary>
     /// IMediator instance
     /// </summary>
-    protected readonly IMediator Mediator;
+    protected readonly IMediator Mediator = mediator ?? throw new ArgumentNullException(nameof(mediator), Messages.ArgumentNullExceptionMessage);
 
     /// <summary>
     /// IHttpContextAccessor instance
     /// </summary>
-    protected readonly IHttpContextAccessor HttpContextAccessor;
+    protected readonly IHttpContextAccessor HttpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor), Messages.ArgumentNullExceptionMessage);
 
     /// <summary>
     /// ILogger instance of type TController
     /// </summary>
-    protected readonly ILogger<TController> Logger;
+    protected readonly ILogger<TController> Logger = logger ?? throw new ArgumentNullException(nameof(logger), Messages.ArgumentNullExceptionMessage);
 
     /// <summary>
     /// Client Ip Address property
     /// </summary>
-    protected string? RemoteIpAddress { get; }
-
-    /// <summary>
-    /// Base controller for initializing the common fields and instances
-    /// </summary>
-    /// <param name="mediator"></param>
-    /// <param name="httpContextAccessor"></param>
-    /// <param name="logger"></param>
-    /// <exception cref="Exception"></exception>
-    protected BaseController(IMediator mediator, IHttpContextAccessor httpContextAccessor, ILogger<TController> logger)
+    protected string? RemoteIpAddress 
     {
-        Mediator = mediator ?? throw new ArgumentNullException(nameof(mediator), Messages.ArgumentNullExceptionMessage);
-
-        HttpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor), Messages.ArgumentNullExceptionMessage);
-
-        Logger = logger ?? throw new ArgumentNullException(nameof(logger), Messages.ArgumentNullExceptionMessage);
-
-        if (HttpContextAccessor.HttpContext is not null &&
-            HttpContextAccessor.HttpContext.Request.Headers.TryGetValue(key: Constants.ForwardedFor, value: out var header))
-            RemoteIpAddress = header;
+        get
+        {
+            httpContextAccessor.HttpContext.Request.Headers.TryGetValue(Constants.ForwardedFor, out var header);
+            return header;
+        }
     }
 }

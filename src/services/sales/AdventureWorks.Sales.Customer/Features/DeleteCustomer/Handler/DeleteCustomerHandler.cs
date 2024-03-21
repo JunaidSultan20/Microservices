@@ -3,17 +3,13 @@ using AdventureWorks.Sales.Customers.Features.DeleteCustomer.Response;
 
 namespace AdventureWorks.Sales.Customers.Features.DeleteCustomer.Handler;
 
-public class DeleteCustomerHandler : BaseHandler<DeleteCustomerHandler>, IRequestHandler<DeleteCustomerRequest, DeleteCustomerResponse>
+public class DeleteCustomerHandler(IUnitOfWork unitOfWork, 
+                                   IDistributedCache cache, 
+                                   ILogger<DeleteCustomerHandler> logger) : 
+             BaseHandler<DeleteCustomerHandler>(unitOfWork, 
+                                                cache, 
+                                                logger), IRequestHandler<DeleteCustomerRequest, DeleteCustomerResponse>
 {
-    public DeleteCustomerHandler(IUnitOfWork unitOfWork,
-                                 IDistributedCache cache,
-                                 ILogger<DeleteCustomerHandler> logger)
-                          : base(unitOfWork,
-                                 cache,
-                                 logger)
-    {
-    }
-
     public async Task<DeleteCustomerResponse> Handle(DeleteCustomerRequest request,
                                                      CancellationToken cancellationToken = default)
     {

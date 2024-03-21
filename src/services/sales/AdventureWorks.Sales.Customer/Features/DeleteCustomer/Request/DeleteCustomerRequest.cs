@@ -2,9 +2,7 @@
 
 namespace AdventureWorks.Sales.Customers.Features.DeleteCustomer.Request;
 
-public class DeleteCustomerRequest : IRequest<DeleteCustomerResponse>
+public class DeleteCustomerRequest(int id) : IRequest<DeleteCustomerResponse>
 {
-    internal int Id { get; set; }
-
-    public DeleteCustomerRequest(int id) => Id = id;
+    internal int Id { get; set; } = id;
 }

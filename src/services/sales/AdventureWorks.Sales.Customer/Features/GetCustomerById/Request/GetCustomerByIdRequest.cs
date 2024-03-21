@@ -2,9 +2,7 @@
 
 namespace AdventureWorks.Sales.Customers.Features.GetCustomerById.Request;
 
-public class GetCustomerByIdRequest : IRequest<GetCustomerByIdResponse>
+public class GetCustomerByIdRequest(int id) : IRequest<GetCustomerByIdResponse>
 {
-    public int Id { get; set; }
-
-    public GetCustomerByIdRequest(int id) => Id = id;
+    public int Id { get; set; } = id;
 }

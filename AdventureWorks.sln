@@ -55,6 +55,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Jobs.Api", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Events", "src\common\AdventureWorks.Events\AdventureWorks.Events.csproj", "{EBF38404-8012-4446-A12F-1400798BD452}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{612F9DAF-03CF-4EB1-A344-CF89CC3CBC4B}"
+	ProjectSection(SolutionItems) = preProject
+		src\shared\sharedsettings.json = src\shared\sharedsettings.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,6 +159,7 @@ Global
 		{0CF604D3-A89A-40BC-8E2E-99001AE2EBA7} = {7104D51E-95FB-4799-B5E2-D0587EC3E485}
 		{12C2A76A-CD4F-44FC-9A1F-99CF970D42CC} = {0CF604D3-A89A-40BC-8E2E-99001AE2EBA7}
 		{EBF38404-8012-4446-A12F-1400798BD452} = {26ED7CD2-D784-4B62-9E5E-0EE7227C7BA3}
+		{612F9DAF-03CF-4EB1-A344-CF89CC3CBC4B} = {A78A2CCB-F8FE-46AC-A31C-B38725136BCF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80260F81-A5B4-4306-B500-7EAE6324FF65}

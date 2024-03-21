@@ -16,15 +16,19 @@ public class RabbitMqBackgroundService : BackgroundService
     public RabbitMqBackgroundService(IOptions<RabbitMqOptions> options)
     {
         var rabbitMqConfig = options.Value;
-        var factory = new ConnectionFactory
-        {
-            HostName = rabbitMqConfig.Hostname,
-            Port = rabbitMqConfig.Port,
-            UserName = rabbitMqConfig.Username,
-            Password = rabbitMqConfig.Password
-        };
+        //var factory = new ConnectionFactory
+        //{
+        //    HostName = rabbitMqConfig.Hostname,
+        //    Port = rabbitMqConfig.Port,
+        //    UserName = rabbitMqConfig.Username,
+        //    Password = rabbitMqConfig.Password
+        //};
+        ConnectionFactory factory = new ConnectionFactory().CreateConnection(rabbitMqConfig);
+
         _connection = factory.CreateConnection();
+        
         _channel = _connection.CreateChannel();
+        
         InitRabbitMq();
     }
 

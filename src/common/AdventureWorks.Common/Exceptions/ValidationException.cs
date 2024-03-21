@@ -13,8 +13,5 @@ public class ValidationException : ApiResult
     {
     }
 
-    public ValidationException(IReadOnlyList<ValidationError> errors) : this()
-    {
-        Errors = errors;
-    }
+    public ValidationException(IReadOnlyList<ValidationError> errors) : this() => Errors = errors;
 }

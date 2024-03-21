@@ -20,10 +20,8 @@ public class RoleAggregate : Aggregate
         }
     }
 
-    public void RoleCreatedEvent(string name)
-    {
-        Apply(new RoleCreated(name, name.ToUpper()));
-    }
+    public void RoleCreatedEvent(string name) 
+        => Apply(new RoleCreated(name, name.ToUpper()));
 
     private void OnCreated(RoleCreated @event)
     {

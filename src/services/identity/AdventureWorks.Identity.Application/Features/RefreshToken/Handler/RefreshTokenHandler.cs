@@ -5,8 +5,10 @@ namespace AdventureWorks.Identity.Application.Features.RefreshToken.Handler;
 
 public class RefreshTokenHandler(UserManager<User> userManager,
                                  IHttpContextAccessor httpContextAccessor,
-                                 JwtOptions jwtOptions) : IRequestHandler<RefreshTokenRequest, RefreshTokenResponse>
+                                 IOptionsMonitor<JwtOptions> jwtOptions) : IRequestHandler<RefreshTokenRequest, RefreshTokenResponse>
 {
+    private readonly JwtOptions _jwtOptions = jwtOptions.CurrentValue;
+
     public async Task<RefreshTokenResponse> Handle(RefreshTokenRequest request,
                                                    CancellationToken cancellationToken = default)
     {
@@ -14,10 +16,8 @@ public class RefreshTokenHandler(UserManager<User> userManager,
             return new UnauthorizedRefreshTokenResponse(Messages.UnauthorizedAttempt);
 
         ClaimsPrincipal principal = GetPrincipalFromExpiredToken(token: bearerToken);
-
-        string? username = principal.Identity?.Name;
-
-        User? user = await userManager.FindByNameAsync(userName: username ?? string.Empty);
+        
+        User? user = await userManager.FindByNameAsync(userName: principal.Identity?.Name ?? string.Empty);
 
         if (user is null)
             return new NotFoundRefreshTokenResponse(Messages.UserNotFound);
@@ -25,19 +25,16 @@ public class RefreshTokenHandler(UserManager<User> userManager,
         string? refreshToken = await userManager.GetAuthenticationTokenAsync(user: user, 
                                                                              loginProvider: Constants.LoginProviderName, 
                                                                              tokenName: Constants.TokenName);
-        if (string.IsNullOrEmpty(refreshToken))
+        if (string.IsNullOrEmpty(refreshToken)) 
             throw new RefreshTokenException();
 
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-
-        JwtSecurityToken token;
-
+        
         if (tokenHandler.CanReadToken(refreshToken))
         {
-            token = tokenHandler.ReadJwtToken(refreshToken);
-            var tokenExpiration = token.ValidTo;
-
-            if (tokenExpiration <= DateTime.UtcNow)
+            JwtSecurityToken token = tokenHandler.ReadJwtToken(refreshToken);
+            
+            if (token.ValidTo <= DateTime.UtcNow)
                 return new UnauthorizedRefreshTokenResponse(Messages.RefreshTokenExpired);
         }
 
@@ -72,7 +69,7 @@ public class RefreshTokenHandler(UserManager<User> userManager,
             ValidateAudience = false,
             ValidateIssuer = false,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(s: jwtOptions.Secret ?? string.Empty)),
+            IssuerSigningKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(s: _jwtOptions.Secret ?? string.Empty)),
             ValidateLifetime = false
         };
 
@@ -86,7 +83,6 @@ public class RefreshTokenHandler(UserManager<User> userManager,
 
         if (jwtSecurityToken is null || !jwtSecurityToken.Header.Alg.Equals(value: SecurityAlgorithms.HmacSha256,
                                                                             comparisonType: StringComparison.InvariantCultureIgnoreCase))
-
             throw new SecurityTokenException(message: Messages.InvalidAccessToken);
 
         return principal;
@@ -94,14 +90,14 @@ public class RefreshTokenHandler(UserManager<User> userManager,
 
     private JwtSecurityToken GenerateAccessToken(IEnumerable<Claim>? claims)
     {
-        SymmetricSecurityKey secretKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(s: jwtOptions.Secret));
+        SymmetricSecurityKey secretKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(s: _jwtOptions.Secret));
 
         SigningCredentials signinCredentials = new SigningCredentials(key: secretKey, algorithm: SecurityAlgorithms.HmacSha256Signature);
 
-        JwtSecurityToken token = new JwtSecurityToken(issuer: jwtOptions.Issuer,
+        JwtSecurityToken token = new JwtSecurityToken(issuer: _jwtOptions.Issuer,
                                                       audience: "http://localhost:4100",
                                                       claims: claims,
-                                                      expires: DateTime.Now.AddMinutes(jwtOptions.ExpirationMinutes),
+                                                      expires: DateTime.Now.AddMinutes(_jwtOptions.ExpirationMinutes),
                                                       signingCredentials: signinCredentials);
         return token;
     }

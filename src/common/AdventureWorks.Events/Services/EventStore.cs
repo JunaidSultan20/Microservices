@@ -1,8 +1,6 @@
-﻿using System.Text;
-using AdventureWorks.Common.Events;
+﻿using AdventureWorks.Common.Events;
 using AdventureWorks.Common.Options;
 using AdventureWorks.Contracts.EventStreaming;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -16,14 +14,6 @@ public class EventStore(IMongoClient client,
     private readonly EventStoreOptions _options = options.Value;
     public async Task SaveAsync<T>(T aggregate, string streamId, string collectionName) where T : Aggregate, new()
     {
-        //var events = aggregate.GetChanges()
-        //                             .Select(@event => new Event(id: Guid.NewGuid().ToString(), 
-        //                                                         type: @event.GetType().Name, 
-        //                                                         version: ++aggregate.Version, 
-        //                                                         streamId: streamId, 
-        //                                                         data: JsonConvert.SerializeObject(@event)))
-        //                             .ToArray();
-
         var events = aggregate
                                  .GetChanges()
                                  .Select(@event => new BsonDocument 

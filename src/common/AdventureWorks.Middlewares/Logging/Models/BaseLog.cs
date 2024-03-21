@@ -5,15 +5,25 @@ namespace AdventureWorks.Middlewares.Logging.Models;
 public abstract class BaseLog
 {
     public string? Scheme { get; set; }
+    
     public string? Host { get; set; }
+    
     public string? Path { get; set; }
+    
     public string? Method { get; set; }
+    
     public string? Query { get; set; }
+    
     public List<string>? Headers { get; set; }
+    
     public List<Pairs>? Cookie { get; set; }
+    
     public string? ContentType { get; set; }
+    
     public string? RemoteIpAddress { get; set; }
+    
     public string? Body { get; set; }
+    
     public string Timestamp { get; set; }
 
     protected BaseLog(string? scheme,
@@ -28,9 +38,13 @@ public abstract class BaseLog
                       string? body)
     {
         Scheme = scheme;
+
         Host = host;
+
         Path = path;
+
         Method = method;
+
         Query = query;
 
         Headers = headers?.Select(x => string.Join(" = ", x.Key, x.Value)).ToList();
@@ -39,8 +53,11 @@ public abstract class BaseLog
                         .ToList();
 
         ContentType = contentType;
+
         RemoteIpAddress = remoteIpAddress;
+
         Body = body;
+
         Timestamp = DateTime.Now.ToString(CultureInfo.InvariantCulture);
     }
 }
