@@ -2,9 +2,9 @@
 
 public interface IMessageProducer
 {
-    void SendMessage<T>(string queue,
-                        string exchangeName,
-                        string exchangeType,
-                        string routeKey,
-                        T message);
+    Task SendMessageAsync<T>(string queue, 
+                             string exchangeName, 
+                             string exchangeType, 
+                             string routeKey, 
+                             T message);
 }

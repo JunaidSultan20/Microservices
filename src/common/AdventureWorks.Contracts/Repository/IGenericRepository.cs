@@ -45,7 +45,7 @@ public interface IGenericRepository<TEntity> where TEntity : class
     Task<TEntity?> GetByIdAsync<TKey>(TKey id);
 
     /// <summary>
-    /// Add's a new record asynchronously
+    /// Adds a new record asynchronously
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
@@ -59,7 +59,7 @@ public interface IGenericRepository<TEntity> where TEntity : class
     void Update(TEntity entity);
 
     /// <summary>
-    /// Delete's record
+    /// Deletes record
     /// </summary>
     /// <param name="entity"></param>
     void Delete(TEntity entity);

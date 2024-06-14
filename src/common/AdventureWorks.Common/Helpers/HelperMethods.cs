@@ -8,7 +8,8 @@ public static class HelperMethods
     {
         bool isValid = MediaTypeHeaderValue.TryParse(input: mediaType, parsedValue: out parsedMediaType);
         responseValue = null;
-        if (isValid) return true;
+        if (isValid) 
+            return true;
         responseValue = new ApiResult(statusCode: HttpStatusCode.UnsupportedMediaType, message: Messages.InvalidMediaType);
         return false;
     }
@@ -19,8 +20,17 @@ public static class HelperMethods
     {
         bool isValid = MediaTypeHeaderValue.TryParse(input: mediaType, parsedValue: out parsedMediaType);
         responseValue = null;
-        if (isValid) return true;
+        if (isValid) 
+            return true;
         responseValue = new PagedApiResponse<T>(statusCode: HttpStatusCode.UnsupportedMediaType, message: Messages.InvalidMediaType);
         return false;
+    }
+
+    public static TProperty GetInternalProperty<TProperty>(object obj, string propertyName)
+    {
+        var propertyInfo = obj.GetType().GetProperty(propertyName,
+                                                     System.Reflection.BindingFlags.NonPublic |
+                                                     System.Reflection.BindingFlags.Instance);
+        return (TProperty)propertyInfo.GetValue(obj);
     }
 }

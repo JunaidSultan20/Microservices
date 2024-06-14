@@ -1,13 +1,17 @@
 ﻿using AdventureWorks.Common.Options;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using System.Globalization;
 
 namespace AdventureWorks.Middlewares.Logging;
 
-public class RequestLoggingMiddleware(RequestDelegate next, IMongoClient client, IOptionsMonitor<RequestLogOptions> requestLogOptions, ServiceName serviceName)
+public class RequestLoggingMiddleware(RequestDelegate next, 
+                                      IMongoClient client, 
+                                      IOptionsMonitor<RequestLogOptions> options)
 {
     public async Task InvokeAsync(HttpContext context)
     {
-        await LogRecord(context, serviceName);
+        await LogRecord(context);
 
         await next(context);
     }
@@ -16,95 +20,42 @@ public class RequestLoggingMiddleware(RequestDelegate next, IMongoClient client,
     {
         request.EnableBuffering();
 
-        using var reader = new StreamReader(request.Body, Encoding.UTF8, true, 1024, true);
+        using var reader = new StreamReader(request.Body, 
+                                            Encoding.UTF8, 
+                                            true, 
+                                            1024, 
+                                            true);
 
         var body = await reader.ReadToEndAsync();
+
         request.Body.Position = 0;
 
         return body;
     }
 
-    private async Task LogRecord(HttpContext context, ServiceName serviceName)
+    private async Task LogRecord(HttpContext context)
     {
         var request = context.Request;
 
         var requestBody = await ReadRequestBody(request);
 
-        BaseLog? log = serviceName switch
+        BsonDocument log = new BsonDocument
         {
-            ServiceName.Sales => new SalesLogs(request.Scheme,
-                                               request.Host.ToString(),
-                                               request.Path.ToString(),
-                                               request.Method,
-                                               request.QueryString.ToString(),
-                                               request.Headers,
-                                               request.Cookies.ToDictionary(),
-                                               request.ContentType,
-                                               context.Connection.RemoteIpAddress?.ToString(),
-                                               requestBody),
-            ServiceName.Production => new ProductionLogs(request.Scheme,
-                                                         request.Host.ToString(),
-                                                         request.Path.ToString(),
-                                                         request.Method,
-                                                         request.QueryString.ToString(),
-                                                         request.Headers,
-                                                         request.Cookies.ToDictionary(),
-                                                         request.ContentType,
-                                                         context.Connection.RemoteIpAddress?.ToString(),
-                                                         requestBody),
-            _ => default
+            { "scheme", request.Scheme },
+            { "host", request.Host.ToString() },
+            { "path", request.Path.ToString() },
+            { "method", request.Method },
+            { "query", request.QueryString.ToString() },
+            { "headers", new BsonArray(request.Headers?.Select(x => string.Join(" = ", x.Key, x.Value)).ToArray()) },
+            { "cookies", new BsonArray(request.Cookies.ToDictionary().Select(x => new Pairs { Key = x.Key, Value = x.Value }).ToArray()) },
+            { "contentType", request.ContentType },
+            { "remoteIpAddress", context.Connection.RemoteIpAddress?.ToString() },
+            { "body", requestBody },
+            { "timestamp", DateTime.Now.ToString(CultureInfo.InvariantCulture) }
         };
 
-        IMongoDatabase database = client.GetDatabase(requestLogOptions.CurrentValue.Database);
+        IMongoDatabase database = client.GetDatabase(options.CurrentValue.Database);
 
-        if (serviceName.Equals(ServiceName.Sales))
-        {
-            await database.GetCollection<SalesLogs>("sales_logs").InsertOneAsync((SalesLogs)log);
-        }
-        else if (serviceName.Equals(ServiceName.Production))
-        {
-            await database.GetCollection<ProductionLogs>("production_logs").InsertOneAsync((ProductionLogs)log);
-        }
-
-
-        //if (serviceName.Equals(ServiceName.Sales))
-        //{
-        //    SalesLogs log = new SalesLogs(context.Request.Scheme,
-        //                                  context.Request.Host.ToString(),
-        //                                  context.Request.Path.ToString(),
-        //                                  context.Request.Method,
-        //                                  context.Request.QueryString.ToString(),
-        //                                  context.Request.Headers,
-        //                                  context.Request.Cookies.ToDictionary(),
-        //                                  context.Request.ContentType,
-        //                                  context.Connection.RemoteIpAddress?.ToString(),
-        //                                  requestBody);
-
-        //    IMongoDatabase database = _client.GetDatabase(_configuration.GetValue<string>("RequestLogDbConfig:Database"));
-
-        //    var collection = database.GetCollection<SalesLogs>("sales_logs");
-
-        //    await collection.InsertOneAsync(log);
-        //}
-
-        //if (serviceName.Equals(ServiceName.Production))
-        //{
-        //    ProductionLogs log = new ProductionLogs(context.Request.Scheme,
-        //                                            context.Request.Host.ToString(),
-        //                                            context.Request.Path.ToString(),
-        //                                            context.Request.Method,
-        //                                            context.Request.QueryString.ToString(),
-        //                                            context.Request.Headers,
-        //                                            context.Request.Cookies.ToDictionary(),
-        //                                            context.Request.ContentType,
-        //                                            context.Connection.RemoteIpAddress?.ToString(),
-        //                                            requestBody);
-
-        //    IMongoDatabase database = _client.GetDatabase(_configuration.GetValue<string>("RequestLogDbConfig:Database"));
-
-        //    var collection = database.GetCollection<ProductionLogs>("production_logs");
-
-        //    await collection.InsertOneAsync(log);
-        //}
+        await database.GetCollection<BsonDocument>(options.CurrentValue.Collection).InsertOneAsync(log);
     }
 }

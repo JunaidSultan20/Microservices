@@ -6,7 +6,7 @@ public abstract class Aggregate
 
     public Guid Id { get; set; } = Guid.Empty;
 
-    public long Version { get; set; } = 0;
+    public long Version { get; set; }
 
     protected abstract void When(object @event);
 

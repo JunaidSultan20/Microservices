@@ -7,7 +7,6 @@ public class RabbitMqOptionsSetup(IConfiguration configuration) : IConfigureOpti
     public void Configure(RabbitMqOptions options)
     {
         configuration.GetSection(SectionName).Bind(options);
-
         //Validator.ValidateObject(options, new ValidationContext(options), validateAllProperties: true);
     }
 }

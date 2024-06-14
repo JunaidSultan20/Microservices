@@ -8,6 +8,6 @@ public class RequestLogOptions
     [Required(AllowEmptyStrings = false)]
     public string Database { get; set; } = string.Empty;
 
-    //[Required(AllowEmptyStrings = false)]
+    [Required(AllowEmptyStrings = false)]
     public string Collection { get; set; } = string.Empty;
 }

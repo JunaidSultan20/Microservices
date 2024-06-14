@@ -1,13 +1,8 @@
 ﻿namespace AdventureWorks.Sales.Infrastructure.Repository;
 
-public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+public class GenericRepository<TEntity>(AdventureWorksSalesContext context) : IGenericRepository<TEntity> where TEntity : class
 {
-    private readonly AdventureWorksSalesContext _context;
-
-    public GenericRepository(AdventureWorksSalesContext context)
-    {
-        _context = context ?? throw new ArgumentNullException(paramName: nameof(context));
-    }
+    private readonly AdventureWorksSalesContext _context = context ?? throw new ArgumentNullException(paramName: nameof(context));
 
     public async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> predicate)
         => await _context.Set<TEntity>()

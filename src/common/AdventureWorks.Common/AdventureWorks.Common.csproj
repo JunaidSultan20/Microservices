@@ -17,18 +17,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Asp.Versioning.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
+    <PackageReference Include="Asp.Versioning.Abstractions" Version="8.1.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageReference Include="Consul" Version="1.7.14.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.0.0-alpha.2" />
     <PackageReference Include="Serilog" Version="3.1.2-dev-02097" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
-    <PackageReference Include="Serilog.Sinks.Http" Version="9.0.0-beta.1" />
-    <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.0-dev-00276" />
+    <PackageReference Include="Serilog.Sinks.Http" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

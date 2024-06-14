@@ -1,8 +1,3 @@
 ﻿namespace AdventureWorks.Sales.Customers.Features.PutCustomer.Response;
 
-public class BadRequestCustomerResponse : PutCustomerResponse
-{
-    public BadRequestCustomerResponse(string message) : base(HttpStatusCode.BadRequest, message)
-    {
-    }
-}
+public class BadRequestCustomerResponse(string message) : PutCustomerResponse(HttpStatusCode.BadRequest, message);

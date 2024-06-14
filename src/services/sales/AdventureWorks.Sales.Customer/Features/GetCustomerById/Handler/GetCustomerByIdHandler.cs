@@ -3,17 +3,13 @@ using AdventureWorks.Sales.Customers.Features.GetCustomerById.Response;
 
 namespace AdventureWorks.Sales.Customers.Features.GetCustomerById.Handler;
 
-public class GetCustomerByIdHandler : BaseHandler<GetCustomerByIdHandler>, IRequestHandler<GetCustomerByIdRequest, GetCustomerByIdResponse>
+public class GetCustomerByIdHandler(IUnitOfWork unitOfWork,
+                                    IDistributedCache cache,
+                                    ILogger<GetCustomerByIdHandler> logger) : 
+             BaseHandler<GetCustomerByIdHandler>(unitOfWork, 
+                                                 cache, 
+                                                 logger), IRequestHandler<GetCustomerByIdRequest, GetCustomerByIdResponse>
 {
-    public GetCustomerByIdHandler(IUnitOfWork unitOfWork,
-                                  IDistributedCache cache,
-                                  ILogger<GetCustomerByIdHandler> logger)
-                           : base(unitOfWork,
-                                  cache,
-                                  logger)
-    {
-    }
-
     public async Task<GetCustomerByIdResponse> Handle(GetCustomerByIdRequest request,
                                                       CancellationToken cancellationToken = default)
     {

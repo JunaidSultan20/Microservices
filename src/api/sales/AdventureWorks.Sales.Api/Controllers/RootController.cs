@@ -23,72 +23,45 @@ public class RootController(IHttpContextAccessor httpContextAccessor) : Controll
         {
             List<Links> links = new List<Links>
             {
-                new Links(href: Url.RouteUrl(routeName: "GetRoot")?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway/"),
-                                            rel: Constants.SelfRel,
-                                            method: Constants.GetMethod),
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("GetRoot")}", 
+                          rel: Constants.SelfRel, 
+                          method: Constants.GetMethod),
 
-                new Links(href: Url.RouteUrl(routeName: "GetCustomerList",
-                                             values: new { pageNumber = 1, pageSize = 10 })?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: Constants.CustomerRel,
-                                            method: Constants.GetMethod),
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("GetCustomerList", new { pageNumber = 1, pageSize = 10 })}",
+                          rel: Constants.CustomerRel,
+                          method: Constants.GetMethod),
 
-                new Links(href: Url.RouteUrl(routeName: "GetCustomerById",
-                                             values: new { id = 1 })?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: Constants.CustomerRel, method: Constants.GetMethod),
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("GetCustomerById", new { id = 1 })}",
+                          rel: Constants.CustomerRel,
+                          method: Constants.GetMethod),
 
-                new Links(href: Url.RouteUrl(routeName: "GetCustomerByIdRange",
-                                             values: new { minId = 1, maxId = 10 })?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: Constants.CustomerRel,
-                                            method: Constants.GetMethod),
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("GetCustomerByIdRange", new { minId = 1, maxId = 10 })}",
+                          rel: Constants.CustomerRel,
+                          method: Constants.GetMethod),
 
-                new Links(href: Url.RouteUrl(routeName: "UpdateCustomerById",
-                                             values: new { id = 1 })?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: Constants.CustomerRel,
-                                            method: Constants.GetMethod),
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("UpdateCustomerById", new { id = 1 })}",
+                          rel: Constants.CustomerRel,
+                          method: Constants.PutMethod),
 
-                new Links(href: Url.RouteUrl(routeName: "DeleteCustomerById",
-                                             values: new { id = 1 })?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: Constants.CustomerRel,
-                                            method: Constants.GetMethod),
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("DeleteCustomerById", new { id = 1 })}",
+                          rel: Constants.CustomerRel,
+                          method: Constants.DeleteMethod),
 
-                new Links(href: Url.RouteUrl(routeName: "CreateCustomer")?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: "create_customer",
-                                            method: Constants.PostMethod),
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("CreateCustomer")}",
+                          rel: "create_customer",
+                          method: Constants.PostMethod),
 
-                new Links(href: Url.RouteUrl(routeName: "GetStoreById",
-                                             values: new { id = 934 })?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: Constants.StoreRel,
-                                            method: Constants.GetMethod),
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("GetStoreById", new { id = 934 })}",
+                          rel: Constants.StoreRel,
+                          method: Constants.GetMethod),
 
-                new Links(href: Url.RouteUrl(routeName: "GetCustomerListByStoreId",
-                                             values: new { id = 934 })?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: "store",
-                                            method: "GET"),
-
-                new Links(href: Url.RouteUrl(routeName: "GetStoreBySalesPersonId",
-                                             values: new { salesPersonId = 280 })?
-                                   .Replace(oldValue: Constants.ApiValue,
-                                            newValue: $"{context?.Request.Scheme}://{remoteIpAddress}/gateway"),
-                                            rel: "store",
-                                            method: "GET")
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("GetCustomerListByStoreId", new { id = 934 })}",
+                          rel: Constants.StoreRel,
+                          method: Constants.GetMethod),
+                
+                new Links(href: $"{context?.Request.Scheme}://{remoteIpAddress}{Url.RouteUrl("GetStoreBySalesPersonId", new { salesPersonId = 280 })}",
+                          rel: Constants.StoreRel,
+                          method: Constants.GetMethod)
             };
 
             return new RootResponse(links.AsReadOnly());

@@ -7,7 +7,6 @@ public class EventStoreOptionsSetup(IConfiguration configuration) : IConfigureOp
     public void Configure(EventStoreOptions options)
     {
         configuration.GetSection(SectionName).Bind(options);
-
         Validator.ValidateObject(options, new ValidationContext(options), validateAllProperties: true);
     }
 }

@@ -3,12 +3,13 @@ using AdventureWorks.Sales.Customers.Features.PostCustomer.Response;
 
 namespace AdventureWorks.Sales.Customers.Features.PostCustomer.Handler;
 
-public class PostCustomerHandler : BaseHandler<PostCustomerHandler>, IRequestHandler<PostCustomerRequest, PostCustomerResponse>
+public class PostCustomerHandler(IUnitOfWork unitOfWork, 
+                                 IDistributedCache cache, 
+                                 ILogger<PostCustomerHandler> logger) : 
+             BaseHandler<PostCustomerHandler>(unitOfWork, 
+                                              cache, 
+                                              logger), IRequestHandler<PostCustomerRequest, PostCustomerResponse>
 {
-    public PostCustomerHandler(IUnitOfWork unitOfWork, IDistributedCache cache, ILogger<PostCustomerHandler> logger) : base(unitOfWork, cache, logger)
-    {
-    }
-
     public async Task<PostCustomerResponse> Handle(PostCustomerRequest request,
                                                    CancellationToken cancellationToken = default)
     {
