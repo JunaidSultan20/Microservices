@@ -52,7 +52,7 @@ public class GetCustomersHandler(IUnitOfWork unitOfWork,
 
         logger.LogInformation("Data saved in cache");
 
-        messageProducer.SendMessage(Constants.SalesQueue,
+        messageProducer.SendMessageAsync(Constants.SalesQueue,
                                     "SalesExchange",
                                     "direct",
                                     "sales_route",

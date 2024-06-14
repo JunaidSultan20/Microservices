@@ -7,7 +7,7 @@ namespace AdventureWorks.Middlewares.Logging;
 
 public class RequestLoggingMiddleware(RequestDelegate next, 
                                       IMongoClient client, 
-                                      IOptionsMonitor<RequestLogOptions> requestLogOptions)
+                                      IOptionsMonitor<RequestLogOptions> options)
 {
     public async Task InvokeAsync(HttpContext context)
     {
@@ -54,8 +54,8 @@ public class RequestLoggingMiddleware(RequestDelegate next,
             { "timestamp", DateTime.Now.ToString(CultureInfo.InvariantCulture) }
         };
 
-        IMongoDatabase database = client.GetDatabase(requestLogOptions.CurrentValue.Database);
+        IMongoDatabase database = client.GetDatabase(options.CurrentValue.Database);
 
-        await database.GetCollection<BsonDocument>(requestLogOptions.CurrentValue.Collection).InsertOneAsync(log);
+        await database.GetCollection<BsonDocument>(options.CurrentValue.Collection).InsertOneAsync(log);
     }
 }

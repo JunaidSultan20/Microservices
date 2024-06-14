@@ -2,14 +2,19 @@
 
 public class ApiException
 {
+    [JsonProperty(PropertyName = "id", Order = 1)]
     internal Guid? Id { get; set; }
 
+    [JsonProperty(PropertyName = "message", Order = 2)]
     internal string? Message { get; set; }
 
+    [JsonProperty(PropertyName = "details", Order = 3)]
     internal string? Details { get; set; }
 
+    [JsonProperty(PropertyName = "innerException", Order = 4)]
     internal string? InnerException { get; set; }
 
+    [JsonProperty(PropertyName = "stackTrace", Order = 5)]
     internal string? StackTrace { get; set; }
 
     /// <summary>

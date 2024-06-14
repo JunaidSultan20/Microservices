@@ -6,11 +6,11 @@ public class MessageProducer(IOptionsMonitor<RabbitMqOptions> options) : IMessag
 {
     private readonly RabbitMqOptions _options = options.CurrentValue;
 
-    public void SendMessage<T>(string queue,
-                               string exchangeName,
-                               string exchangeType,
-                               string routeKey,
-                               T message)
+    public async Task SendMessageAsync<T>(string queue, 
+                                          string exchangeName, 
+                                          string exchangeType, 
+                                          string routeKey, 
+                                          T message)
     {
         var factory = new ConnectionFactory
         {
@@ -20,19 +20,21 @@ public class MessageProducer(IOptionsMonitor<RabbitMqOptions> options) : IMessag
             Password = _options.Password
         };
 
-        using var connection = factory.CreateConnection();
+        using var connection = await factory.CreateConnectionAsync();
 
-        using var channel = connection.CreateChannel();
+        using var channel = await connection.CreateChannelAsync();
 
-        channel.ExchangeDeclare(exchangeName, exchangeType);
+        await channel.ExchangeDeclareAsync(exchangeName, exchangeType);
 
-        channel.QueueDeclare(queue: queue,
-                             durable: true,
-                             exclusive: false,
-                             autoDelete: false,
-                             arguments: null);
+        await channel.QueueDeclareAsync(queue: queue, 
+                                        durable: true, 
+                                        exclusive: false, 
+                                        autoDelete: false, 
+                                        arguments: null);
 
-        channel.QueueBind(queue: queue, exchange: exchangeName, routeKey);
+        await channel.QueueBindAsync(queue: queue, 
+                                     exchange: exchangeName, 
+                                     routeKey);
 
         var json = JsonConvert.SerializeObject(message);
 
@@ -42,8 +44,8 @@ public class MessageProducer(IOptionsMonitor<RabbitMqOptions> options) : IMessag
 
         //properties.Persistent = true;
 
-        channel.BasicPublish(exchange: exchangeName,
-                             routingKey: routeKey,
-                             body: body);
+        await channel.BasicPublishAsync(exchange: exchangeName, 
+                                        routingKey: routeKey, 
+                                        body: body);
     }
 }

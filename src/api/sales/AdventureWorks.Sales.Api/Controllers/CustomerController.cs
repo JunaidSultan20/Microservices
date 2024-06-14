@@ -1,4 +1,6 @@
 ﻿using AdventureWorks.Sales.Customers.Dto;
+using AdventureWorks.Sales.Customers.Features.DeleteCustomer.Request;
+using AdventureWorks.Sales.Customers.Features.DeleteCustomer.Response;
 using AdventureWorks.Sales.Customers.Features.GetCustomerById.Request;
 using AdventureWorks.Sales.Customers.Features.GetCustomerById.Response;
 using AdventureWorks.Sales.Customers.Features.GetCustomers.Request;
@@ -25,21 +27,65 @@ public class CustomerController(IMediator mediator,
                                                 logger: logger)
 {
     /// <summary>
-    /// Returns the customers list with data shaping and caching options.
+    /// Retrieves a list of customers based on pagination parameters.
     /// </summary>
-    /// <param name="paginationParameters"></param>
-    /// <param name="mediaType"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns>Returns list of customers with pagination and optional shaped data with links.</returns>
-    /// <remarks>Sample Request (this request fetches the list of **customers**)
-    ///     GET /gateway/customer?pageNumber=1&#38;pageSize=10
+    /// <remarks>
+    /// This endpoint retrieves a paginated list of customers from the database based on the provided pagination parameters.
     /// </remarks>
+    /// <param name="paginationParameters">Pagination parameters for specifying page number, page size, sorting, etc.</param>
+    /// <param name="mediaType">The media type requested by the client.</param>
+    /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+    /// <returns>
+    ///   <para>Returns a paginated list of customers.</para>
+    ///   <para>If successful, returns HTTP status code 200 (OK).</para>
+    ///   <para>If no customers are found based on the provided parameters, returns HTTP status code 404 (NotFound).</para>
+    /// </returns>
+    /// <response code="200">Returns a paginated list of customers.</response>
+    /// <response code="404">No customers found based on the provided parameters.</response>
+    /// <example>
+    ///     GET /api/customers?page=1&amp;pageSize=10
+    ///     Response:
+    ///     HTTP/1.1 200 OK
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 200,
+    ///         "message": "Records found successfully",
+    ///         "isSuccessful: true,
+    ///         "result": [
+    ///             {
+    ///                 "customerId": 1,
+    ///                 "personId": 10,
+    ///                 "storeId": 468,
+    ///                 "territoryId": 197,
+    ///                 "accountNumber": "AWN256GD298",
+    ///                 "modifiedDate": null,
+    ///                 "links": [
+    ///                     {
+    ///                         "rel": "self",
+    ///                         "href": "/api/customers/1"
+    ///                     },
+    ///                     // Additional link objects
+    ///                 ]
+    ///             },
+    ///             // Additional customer objects
+    ///         ],
+    ///         "pagination": {
+    ///             "totalRecords": 100,
+    ///             "currentPage": 1,
+    ///             "pageSize": 10,
+    ///             "totalPages": 10,
+    ///             "hasPrevious": false,
+    ///             "hasNext": true,
+    ///             "previousPageLink": null,
+    ///             "nextPageLink": "/api/customers?page=2&amp;pageSize=10"
+    ///         }
+    ///     }
+    /// </example>
     [HttpGet(Name = "GetCustomers", Order = 1)]
     [ProducesResponseType(typeof(GetCustomersResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(NotFoundGetCustomersResponse), (int)HttpStatusCode.NotFound)]
-    [RequiresParameter(Name = "paginationParameters", Required = true, Source = OpenApiParameterLocation.Query, Type = typeof(PaginationParameters))]
+    [RequiresParameter(Name = nameof(paginationParameters), Required = true, Source = OpenApiParameterLocation.Query, Type = typeof(PaginationParameters))]
     [MapToApiVersion("1.0")]
-    //[ProducesErrorResponseType(typeof(PaginationResponse<IEnumerable<CustomerWithLinksDto>>))]
     //[ResponseCache(CacheProfileName = "120SecondsCacheProfile")]
     public async Task<ActionResult<GetCustomersResponse>> GetCustomers([FromQuery] PaginationParameters paginationParameters,
                                                                        [BindRequired, FromHeader(Name = "Accept")] string mediaType,
@@ -116,7 +162,61 @@ public class CustomerController(IMediator mediator,
     {
         PostCustomerResponse response = await Mediator.Send(new PostCustomerRequest(dto), cancellationToken);
 
-        return CreatedAtRoute("GetCustomerById", new { id = response.Result?.CustomerId });
+        return CreatedAtRoute(nameof(GetCustomerById), new { id = response.Result?.CustomerId });
+    }
+
+    /// <summary>
+    /// Deletes a customer by their unique identifier.
+    /// </summary>
+    /// <remarks>
+    /// This endpoint deletes a customer record from the database based on the provided ID.
+    /// </remarks>
+    /// <param name="id" example="1">The unique identifier of the customer to delete.</param>
+    /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+    /// <returns>
+    ///   <para>Returns a status code indicating the success of the operation.</para>
+    ///   <para>If successful, returns HTTP status code 204 (NoContent).</para>
+    ///   <para>If the customer with the given ID does not exist, returns HTTP status code 404 (NotFound).</para>
+    ///   <para>If the provided ID is not valid or other validation errors occur, returns HTTP status code 400 (BadRequest).</para>
+    /// </returns>
+    /// <response code="204">Customer deleted successfully.</response>
+    /// <response code="404">Customer with the given ID not found.</response>
+    /// <response code="400">The request is invalid.</response>
+    /// <example>
+    ///     DELETE /api/customers/1
+    ///     Response:
+    ///     HTTP/1.1 204 No Content
+    /// </example>
+    /// <example>
+    ///     DELETE /api/customers/1000
+    ///     Response:
+    ///     HTTP/1.1 404 Not Found
+    /// </example>
+    /// <example>
+    ///     DELETE /api/customers/abc
+    ///     Response:
+    ///     HTTP/1.1 400 Bad Request
+    ///     Content-Type: application/json
+    ///     {
+    ///         "message": "The request is invalid.",
+    ///         "errors": {
+    ///             "id": [
+    ///                 "The value 'abc' is not valid."
+    ///             ]
+    ///         }
+    ///     }
+    /// </example>
+    [HttpDelete(template: "{id:int:min(1):required}", Name = "DeleteCustomerById", Order = 4)]
+    [ProducesResponseType(typeof(DeleteCustomerResponse), (int)HttpStatusCode.NoContent)]
+    [ProducesResponseType(typeof(NotFoundCustomerResponse), (int)HttpStatusCode.NotFound)]
+    [ProducesResponseType(typeof(BadRequestCustomerResponse), (int)HttpStatusCode.BadRequest)]
+    [RequiresParameter(Name = nameof(id), Required = true, Source = OpenApiParameterLocation.Route, Type = typeof(int))]
+    public async Task<ActionResult<DeleteCustomerResponse>> DeleteCustomerById([FromRoute] int id, 
+                                                                               CancellationToken cancellationToken = default)
+    {
+        DeleteCustomerResponse response = await Mediator.Send(new DeleteCustomerRequest(id), cancellationToken);
+
+        return StatusCode((int)HttpStatusCode.NoContent, response);
     }
 
     #region Links Helper Region
@@ -129,13 +229,13 @@ public class CustomerController(IMediator mediator,
 
         List<Links> links = new ();
 
-        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl("GetCustomerById", 
+        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl(nameof(GetCustomerById), 
                          !string.IsNullOrWhiteSpace(fields) ? new { id, fields } : new { id })}", 
                          Constants.SelfRel, 
                          Constants.GetMethod);
         links.Add(link);
 
-        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl("DeleteCustomerById", 
+        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl(nameof(DeleteCustomerById), 
                          new { id })}", 
                          "delete_customer",
                          Constants.DeleteMethod);

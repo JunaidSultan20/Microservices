@@ -25,4 +25,12 @@ public static class HelperMethods
         responseValue = new PagedApiResponse<T>(statusCode: HttpStatusCode.UnsupportedMediaType, message: Messages.InvalidMediaType);
         return false;
     }
+
+    public static TProperty GetInternalProperty<TProperty>(object obj, string propertyName)
+    {
+        var propertyInfo = obj.GetType().GetProperty(propertyName,
+                                                     System.Reflection.BindingFlags.NonPublic |
+                                                     System.Reflection.BindingFlags.Instance);
+        return (TProperty)propertyInfo.GetValue(obj);
+    }
 }

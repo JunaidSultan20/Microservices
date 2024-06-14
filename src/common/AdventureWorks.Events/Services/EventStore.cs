@@ -9,9 +9,10 @@ using Newtonsoft.Json;
 namespace AdventureWorks.Events.Services;
 
 public class EventStore(IMongoClient client, 
-                        IOptions<EventStoreOptions> options) : IEventStore
+                        IOptionsMonitor<EventStoreOptions> options) : IEventStore
 {
-    private readonly EventStoreOptions _options = options.Value;
+    private readonly EventStoreOptions _options = options.CurrentValue;
+
     public async Task SaveAsync<T>(T aggregate, string streamId, string collectionName) where T : Aggregate, new()
     {
         var events = aggregate
