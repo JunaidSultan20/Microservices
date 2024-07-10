@@ -22,7 +22,7 @@ public class MessageProducer(IOptionsMonitor<RabbitMqOptions> options) : IMessag
 
         using var connection = await factory.CreateConnectionAsync();
 
-        using var channel = await connection.CreateChannelAsync();
+        using var channel = connection.CreateChannel();
 
         await channel.ExchangeDeclareAsync(exchangeName, exchangeType);
 

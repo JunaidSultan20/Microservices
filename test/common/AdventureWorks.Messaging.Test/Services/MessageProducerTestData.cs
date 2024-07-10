@@ -13,7 +13,7 @@ public class MessageProducerTestData
     protected Mock<IConnection> _connectionMock;
     protected Mock<IChannel> _channelMock;
 
-    public MessageProducerTestData()
+    protected MessageProducerTestData()
     {
         _optionsMock = new Mock<IOptionsMonitor<RabbitMqOptions>>();
         _connectionFactoryMock = new Mock<IConnectionFactory>();
@@ -25,7 +25,7 @@ public class MessageProducerTestData
     {
         _connectionFactoryMock.Setup(x => x.CreateConnectionAsync(It.IsAny<CancellationToken>()))
                               .ReturnsAsync(_connectionMock.Object);
-        _connectionMock.Setup(x => x.CreateChannel());
+        //_connectionMock.Setup(x => x.CreateChannel()).Returns(_channelMock.);
         //try
         //{
         //    _connectionMock.SetupGet(x => x.CreateChannelAsync())
@@ -36,7 +36,6 @@ public class MessageProducerTestData
         //    Console.WriteLine(e);
         //    throw;
         //}
-        
 
         _channelMock.Setup(x => x.ExchangeDeclare(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(),
                                                   It.IsAny<bool>(), It.IsAny<IDictionary<string, object>>()));

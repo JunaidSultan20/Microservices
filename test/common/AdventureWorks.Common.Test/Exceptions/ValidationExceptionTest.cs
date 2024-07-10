@@ -20,12 +20,12 @@ public class ValidationExceptionTest
 
         // Act
         var exception = new ValidationException(errors);
-        var errorsProperty = HelperMethods.GetInternalProperty<IReadOnlyList<ValidationError>?>(exception, "Errors");
 
         // Assert
         exception.StatusCode.Should().Be(HttpStatusCode.UnprocessableEntity);
         
-        errorsProperty.Should().BeEquivalentTo(errors);
+        //errorsProperty.Should().BeEquivalentTo(errors);
+        exception.Errors.Should().BeEquivalentTo(errors);
 
         // Ensure the message matches the expected value
         exception.Message.Should().Be(Messages.ValidationError);
