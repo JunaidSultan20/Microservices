@@ -5,6 +5,7 @@ using AdventureWorks.Identity.Application.Features.RefreshToken.Request;
 using AdventureWorks.Identity.Application.Features.RefreshToken.Response;
 using AdventureWorks.Identity.Application.Features.Register.Request;
 using AdventureWorks.Identity.Application.Features.Register.Response;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace AdventureWorks.Identity.Api.Controllers;
 
@@ -13,6 +14,7 @@ namespace AdventureWorks.Identity.Api.Controllers;
 public class AccountController(IMediator mediator) : ControllerBase
 {
     [HttpPost("[action]", Name = "Login")]
+    [SwaggerRequestExample(typeof(PostLoginRequest), typeof(PostLoginRequestExample))]
     [ProducesResponseType(typeof(PostLoginResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(PostUnauthorizedAttemptResponse), (int)HttpStatusCode.Unauthorized)]
     public async Task<ActionResult<PostLoginResponse>> Login([FromBody] AuthenticationDto authenticationDto, 

@@ -15,3 +15,4 @@ global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.Extensions.Options;
 global using Microsoft.IdentityModel.Tokens;
+global using Swashbuckle.AspNetCore.Filters;

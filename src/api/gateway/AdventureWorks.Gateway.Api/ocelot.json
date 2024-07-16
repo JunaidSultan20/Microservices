@@ -16,8 +16,7 @@
         "X-Forwarded-For": "{BaseUrl}"
       },
       "DownstreamHeaderTransform": {
-        "X-Forwarded-For": "{BaseUrl}",
-        "Access-Control-Allow-Origin": "https://localhost:6002"
+        "X-Forwarded-For": "{BaseUrl}"
       },
       "RateLimitOptions": {
         "EnableRateLimiting": true,
@@ -55,20 +54,6 @@
       "RouteIsCaseSensitive": false
     }
   ],
-  "SwaggerEndpoints": [
-    {
-      "Key": "sales.api",
-      "Config": "/sales.api/swagger/v1/swagger.json"
-    },
-    {
-      "Key": "identity.api",
-      "Config": "/identity.api/swagger/v1/swagger.json"
-    },
-    {
-      "Key": "AggregatedSwagger",
-      "Config": "/swagger/v1/swagger.json" // Aggregated Swagger endpoint
-    }
-  ],
   "GlobalConfiguration": {
     "BaseUrl": "localhost:6002"
     //"ServiceDiscoveryProvider": {
@@ -76,14 +61,5 @@
     //  "Port": 8500,
     //  "Type": "Consul"
     //}
-  },
-  "ReRoutes": [
-    {
-      "DownstreamPathTemplate": "/swagger/{everything}",
-      "UpstreamPathTemplate": "/swagger/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamHttpMethod": [ "Get" ],
-      "SwaggerKey": "AggregatedSwagger"
-    }
-  ]
+  }
 }
