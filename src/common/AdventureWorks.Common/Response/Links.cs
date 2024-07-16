@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AdventureWorks.Common.Response;
+﻿namespace AdventureWorks.Common.Response;
 
 public record Links
 {

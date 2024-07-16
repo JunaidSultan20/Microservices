@@ -19,10 +19,26 @@ var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration configuration = builder.Configuration;
 
-builder.Services.AddCors(options => options.AddPolicy("SalesCorsPolicy", build =>
+//builder.Services.AddCors(options => options.AddPolicy("SalesCorsPolicy", build =>
+//{
+//    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+//}));
+
+builder.Services.AddCors(options =>
 {
-    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-}));
+    options.AddPolicy("CorsPolicy", 
+        cors => cors.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().SetIsOriginAllowed(origin => true));
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalHost6002", cors =>
+    {
+        cors.WithOrigins("https://localhost:6002")
+            .AllowAnyHeader()
+            .AllowAnyMethod().AllowAnyOrigin();
+    });
+});
 
 //Options configuration begin
 builder.Services.ConfigureOptions<SeqOptionsSetup>();
@@ -117,6 +133,8 @@ builder.Services.AddCustomMediaTypes(new[] { "application/vnd.api.hateoas+json" 
 
 builder.Services.AddScoped<RequestHeaderFilter>();
 
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
+
 //builder.Services.AddConsul(configuration);
 
 var app = builder.Build();
@@ -134,15 +152,17 @@ app.UseSwaggerUI();
 
 app.UseStaticFiles();
 
-app.UseCors("SalesCorsPolicy");
+//app.UseCors("SalesCorsPolicy");
 
 //app.UseConsul(configuration);
+
+app.UseCors("CorsPolicy");
+
+app.UseCors("AllowLocalhost6002");
 
 app.UseRouting();
 
 app.MapHeartbeatEndpoint();
-
-
 
 //app.UseCors("AllowSpecificOrigin");
 
@@ -155,7 +175,7 @@ app.MapHealthChecksUI();
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<RequestLoggingMiddleware>(ServiceName.Sales);
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 app.UseAuthorization();
 
