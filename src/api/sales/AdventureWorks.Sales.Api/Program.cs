@@ -19,24 +19,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 IConfiguration configuration = builder.Configuration;
 
-//builder.Services.AddCors(options => options.AddPolicy("SalesCorsPolicy", build =>
-//{
-//    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-//}));
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy", 
-        cors => cors.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().SetIsOriginAllowed(origin => true));
-});
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowLocalHost6002", cors =>
+    options.AddPolicy("AllowAllOrigins", builder =>
     {
-        cors.WithOrigins("https://localhost:6002")
-            .AllowAnyHeader()
-            .AllowAnyMethod().AllowAnyOrigin();
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
 
@@ -53,18 +42,6 @@ builder.Services.AddSingleton<IOptionsMonitor<RequestLogOptions>, OptionsMonitor
 //Options configuration end
 
 builder.Host.UseCustomSeriLog(builder.Services);
-
-//builder.Services.AddCorsPolicy("SalesCorsPolicy");
-
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowSpecificOrigin",
-//                      policy =>
-//                      {
-//                          policy.WithOrigins("https://localhost:6002").AllowAnyHeader().AllowAnyMethod();
-//                          policy.WithOrigins("http://localhost:6001").AllowAnyHeader().AllowAnyMethod();
-//                      });
-//});
 
 builder.Services.AddResponseCaching();
 
@@ -139,6 +116,8 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 var app = builder.Build();
 
+app.UseCors("AllowAllOrigins");
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -151,14 +130,6 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseStaticFiles();
-
-//app.UseCors("SalesCorsPolicy");
-
-//app.UseConsul(configuration);
-
-app.UseCors("CorsPolicy");
-
-app.UseCors("AllowLocalhost6002");
 
 app.UseRouting();
 

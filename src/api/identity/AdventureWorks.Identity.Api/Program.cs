@@ -1,12 +1,23 @@
 using AdventureWorks.Common.Extensions;
-using AdventureWorks.Common.Options;
 using AdventureWorks.Identity.Application;
 using AdventureWorks.Identity.Infrastructure;
 using System.Reflection;
-using AdventureWorks.Common.Options.Setup;
 using AdventureWorks.Events;
+using AdventureWorks.Identity.Application.Features.Login.Request;
+using AdventureWorks.Identity.Application.Features.Login.Response;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 //builder.Services.ConfigureOptions<EventStoreOptionsSetup>();
 
@@ -35,7 +46,17 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSwaggerGen(options =>
+{
+    options.ExampleFilters();
+});
+
+builder.Services.AddSwaggerExamplesFromAssemblyOf<PostLoginResponse>();
+builder.Services.AddSwaggerExamplesFromAssemblyOf<PostLoginRequest>();
+
 var app = builder.Build();
+
+app.UseCors("AllowAllOrigins");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
