@@ -6,7 +6,7 @@ public class ValidationException : ApiResult
     /// Validation error list
     /// </summary>
     [JsonProperty(PropertyName = "errors", Order = 3)]
-    internal IReadOnlyList<ValidationError>? Errors { get; set; }
+    public IReadOnlyList<ValidationError>? Errors { get; set; }
 
     private ValidationException() : base(statusCode: HttpStatusCode.UnprocessableEntity,
                                          message: Messages.ValidationError)

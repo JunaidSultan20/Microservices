@@ -45,8 +45,8 @@ public class ExceptionMiddlewareTest : ExceptionMiddlewareTestData
         ApiException? response = JsonConvert.DeserializeObject<ApiException>(responseBody);
         response.Should().NotBeNull();
         response.Should().BeOfType(typeof(ApiException));
+        
         Type type = typeof(ApiException);
-
         PropertyInfo? messageProperty = type.GetProperty("Message", BindingFlags.NonPublic | BindingFlags.Instance);
         PropertyInfo? detailsProperty = type.GetProperty("Details", BindingFlags.NonPublic | BindingFlags.Instance);
 
