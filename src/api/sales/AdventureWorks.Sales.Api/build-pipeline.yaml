@@ -38,7 +38,7 @@ steps:
   displayName: 'Build Sales Service'
   inputs:
     command: 'build'
-    projects: 'src/services/sales/*.csproj'
+    projects: 'src/api/sales/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
