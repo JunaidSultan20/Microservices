@@ -1,4 +1,4 @@
-﻿#Sales.Api Build Pipeline
+#Sales.Api Build Pipeline
  
 trigger:
   branches:
