@@ -10,40 +10,73 @@ trigger:
       - src/services/sales/AdventureWorks.Sales/**
       - test/services/sales/AdventureWorks.Sales/**
 
-pool:
-  vmImage: 'windows-latest'
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- checkout: self
-  displayName: 'Checkout'
+stages:
+- stage: Build
+  displayName: Build and Test
+  
+  jobs:
+  - job: Build
+    displayName: Build Job
+    
+    pool:
+      vmImage: 'windows-latest'
+    
+    steps:
+      - checkout: self
+        displayName: 'Checkout'
 
-- task: UseDotNet@2
-  inputs:
-    packageType: sdk
-    version: '8.x'
+      - task: UseDotNet@2
+        inputs:
+          packageType: sdk
+          version: '8.x'
 
-- task: DotNetCoreCLI@2
-  displayName: Restore Nuget Packages
-  inputs:
-    command: 'restore'
-    projects: 'src/services/sales/*.csproj'
-    feedsToUse: 'select'
+      - task: DotNetCoreCLI@2
+        displayName: Restore Nuget Packages
+        inputs:
+          command: 'restore'
+          projects: 'src/services/sales/*.csproj'
+          feedsToUse: 'select'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Build Sales Service'
-  inputs:
-    command: 'build'
-    projects: 'src/api/sales/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+      - task: DotNetCoreCLI@2
+        displayName: 'Build Sales Service'
+        inputs:
+          command: 'build'
+          projects: 'src/api/sales/*.csproj'
+          arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Run Unit Test'
-  inputs:
-    command: 'test'
-    projects: 'test/services/sales/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+      - task: DotNetCoreCLI@2
+        displayName: 'Run Unit Test'
+        inputs:
+          command: 'test'
+          projects: 'test/services/sales/*.csproj'
+          arguments: '--configuration $(buildConfiguration)'
+
+- stage: Publish
+  displayName: Publish Docker Image
+  
+  jobs:
+    - job: PublishDocker
+      displayName: Build and Publish Docker Image
+      
+      pool:
+        vmImage: 'ubuntu-latest'
+      
+      steps:
+        - task: Docker@2
+          inputs:
+            command: 'build'
+            Dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
+    
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'Docker Hub Connection'
+            repository: 'junaidsultan20/microservices-sales-api'
+            command: 'push'
+            tags: |
+              $(Build.BuildId)
+              latest
