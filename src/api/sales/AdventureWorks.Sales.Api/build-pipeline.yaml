@@ -6,9 +6,21 @@ trigger:
       - main
   paths:
     include:
-      - src/api/AdventureWorks.Sales.Api/**
-      - src/services/sales/AdventureWorks.Sales/**
-      - test/services/sales/AdventureWorks.Sales/**
+      - src/api/sales/AdventureWorks.Sales.Api/**
+      - src/common/AdventureWorks.Common/**
+      - src/common/AdventureWorks.Messaging/**
+      - src/common/AdventureWorks.Contracts/**
+      - src/common/AdventureWorks.Events/**
+      - src/common/AdventureWorks.Middlewares/**
+      - src/services/sales/AdventureWorks.Sales.Customers/**
+      - src/services/sales/AdventureWorks.Sales.Domain/**
+      - src/services/sales/AdventureWorks.Sales.Infrastructure/**
+      - test/api/sales/AdventureWorks.Sales.Api.Test/**
+      - test/common/AdventureWorks.Common.Test/**
+      - test/common/AdventureWorks.Messaging.Test/**
+      - test/common/AdventureWorks.Contracts.Test/**
+      - test/common/AdventureWorks.Events.Test/**
+      - test/common/AdventureWorks.Middlewares.Test/**
 
 variables:
   solution: '**/*.sln'
@@ -40,21 +52,34 @@ stages:
         displayName: Restore Nuget Packages
         inputs:
           command: 'restore'
-          projects: '**/*.csproj'
-          feedsToUse: 'select'
+          projects: |
+            src/api/sales/AdventureWorks.Sales.Api/AdventureWorks.Sales.Api.csproj            
+            src/common/AdventureWorks.Common/AdventureWorks.Common.csproj
+            src/common/AdventureWorks.Contracts/AdventureWorks.Contracts.csproj
+            src/common/AdventureWorks.Events/AdventureWorks.Events.csproj
+            src/common/AdventureWorks.Messaging/AdventureWorks.Messaging.csproj
+            src/common/AdventureWorks.Middlewares/AdventureWorks.Middlewares.csproj
+            src/services/sales/AdventureWorks.Sales.Customers/AdventureWorks.Sales.Customers.csproj
+            src/services/sales/AdventureWorks.Sales.Domain/AdventureWorks.Sales.Domain.csproj
+            src/services/sales/AdventureWorks.Sales.Infrastructure/AdventureWorks.Sales.Infrastructure.csproj
+            
 
       - task: DotNetCoreCLI@2
         displayName: 'Build Sales Service'
         inputs:
           command: 'build'
-          projects: '**/*.csproj'
+          projects: 'src/api/sales/AdventureWorks.Sales.Api/AdventureWorks.Sales.Api.csproj'
           arguments: '--configuration $(buildConfiguration)'
 
       - task: DotNetCoreCLI@2
         displayName: 'Run Unit Test'
         inputs:
           command: 'test'
-          projects: 'test/services/sales/*.csproj'
+          projects: |
+            test/api/sales/AdventureWorks.Sales.Api.Test.csproj
+            test/common/AdventureWorks.Common.Test/AdventureWorks.Common.Test.csproj
+            test/common/AdventureWorks.Events.Test/AdventureWorks.Events.Test.csproj
+            test/common/AdventureWorks.Middlewares.Test/AdventureWorks.Middlewares.Test.csproj
           arguments: '--configuration Release --no-build --verbosity normal'
 
 - stage: Publish
