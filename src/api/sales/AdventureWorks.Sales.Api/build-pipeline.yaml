@@ -32,9 +32,6 @@ pr:
       - src/api/sales/AdventureWorks.Sales.Api/pipeline/version.txt
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
   major: 1
   minor: 0
   patch: 0
@@ -57,14 +54,12 @@ stages:
       - checkout: self
         displayName: 'Checkout Code'
 
-      # Read the current version from version.txt
-      - powershell: |
-          $version = Get-Content $(versionFile)
-          Write-Output "##vso[task.setvariable variable=version]$version"
-          displayName: 'Read Version'
-
       # Increment the minor version
       - powershell: |
+          # Check if the version file exists, if not create it
+          if (-Not (Test-Path -Path $(versionFile))) {
+              "$(major).$(minor).$(patch)" | Out-File -FilePath $(versionFile)
+          }
           $version = "$(version)"
           $parts = $version -split '\.'
           $major = [int]$parts[0]
@@ -74,6 +69,12 @@ stages:
           Set-Content -Path $(versionFile) -Value $newVersion
           Write-Output "##vso[task.setvariable variable=newVersion]$newVersion"
         displayName: 'Increment Minor Version'
+
+      # Read and update the current version from version.txt
+      - powershell: |
+          $version = Get-Content $(versionFile)
+          Write-Output "##vso[task.setvariable variable=version]$version"
+          displayName: 'Read Version'
 
       # Commit the updated version.txt back to the repository
       - checkout: self
