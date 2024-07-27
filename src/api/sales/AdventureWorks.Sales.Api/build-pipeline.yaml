@@ -21,23 +21,11 @@ trigger:
       - test/common/AdventureWorks.Contracts.Test/**
       - test/common/AdventureWorks.Events.Test/**
       - test/common/AdventureWorks.Middlewares.Test/**
-    exclude:
-      - src/api/sales/AdventureWorks.Sales.Api/pipeline/version.txt
 
 pr:
   branches:
     include:
       - main
-    exclude:
-      - src/api/sales/AdventureWorks.Sales.Api/pipeline/version.txt
-
-variables:
-  major: 1
-  minor: 0
-  patch: 0
-  version: '$(major).$(minor).$(patch)'
-  versionFile: 'src/api/sales/AdventureWorks.Sales.Api/pipeline/version.txt'
-  commitMessage: '[skip ci] Update version to'
 
 stages:
 - stage: Build
@@ -53,40 +41,6 @@ stages:
     steps:
       - checkout: self
         displayName: 'Checkout Code'
-
-      # Increment the minor version
-      - powershell: |
-          # Check if the version file exists, if not create it
-          if (-Not (Test-Path -Path $(versionFile))) {
-              "$(major).$(minor).$(patch)" | Out-File -FilePath $(versionFile)
-          }
-          $version = "$(version)"
-          $parts = $version -split '\.'
-          $major = [int]$parts[0]
-          $minor = [int]$parts[1] + 1
-          $patch = [int]$parts[2]
-          $newVersion = "$major.$minor.$patch"
-          Set-Content -Path $(versionFile) -Value $newVersion
-          Write-Output "##vso[task.setvariable variable=newVersion]$newVersion"
-        displayName: 'Increment Minor Version'
-
-      # Read and update the current version from version.txt
-      - powershell: |
-          $version = Get-Content $(versionFile)
-          Write-Output "##vso[task.setvariable variable=version]$version"
-          displayName: 'Read Version'
-
-      # Commit the updated version.txt back to the repository
-      - checkout: self
-        persistCredentials: true
-      
-      - script: |  
-          git config --global user.email "junaid.sultan20@outlook.com"
-          git config --global user.name "Junaid Sultan"
-          git add $(versionFile)
-          git commit -m "$(commitMessage) $(newVersion)"
-          git push
-        displayName: 'Commit Updated Version'
 
       - task: UseDotNet@2
         inputs:
@@ -148,7 +102,7 @@ stages:
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                $(version)
+                $(Build.BuildId)
                 latest
 
 
@@ -159,5 +113,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'  # Use your service connection name
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                $(version)
+                $(Build.BuildId)
                 latest
