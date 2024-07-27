@@ -27,6 +27,9 @@ pr:
     include:
       - main
 
+variables:
+  imageTag: '$(major).$(Rev:.r).$(patch)'
+
 stages:
 - stage: Build
   displayName: Build and Test
@@ -112,7 +115,7 @@ stages:
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                $(major).$(Rev:.r).$(patch)
+                $(imageTag)
                 latest
 
         - task: Docker@2
@@ -122,5 +125,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                $(major).$(Rev:.r).$(patch)
+                $(imageTag)
                 latest
