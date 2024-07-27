@@ -28,7 +28,9 @@ pr:
       - main
 
 variables:
-  imageTag: '$(major).$(Rev:.r).$(patch)'
+  buildNumber: $(Build.BuildNumber)
+  rev: ${buildNumber##*.}
+  imageTag: '$(major).rev.$(patch)'
 
 stages:
 - stage: Build
