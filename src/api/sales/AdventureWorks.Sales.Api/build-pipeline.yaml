@@ -39,7 +39,7 @@ variables:
   minor: 0
   patch: 0
   version: '$(major).$(minor).$(patch)'
-  versionFile: 'version.txt'
+  versionFile: 'src/api/sales/AdventureWorks.Sales.Api/pipeline/version.txt'
   commitMessage: '[skip ci] Update version to'
 
 stages:

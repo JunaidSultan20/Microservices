@@ -35,4 +35,8 @@
     <ProjectReference Include="..\..\..\services\sales\AdventureWorks.Sales.Infrastructure\AdventureWorks.Sales.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="pipeline\" />
+  </ItemGroup>
+
 </Project>
