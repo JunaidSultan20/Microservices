@@ -42,6 +42,8 @@ stages:
       vmImage: 'windows-latest'
     
     steps:      
+      - script: |
+          echo "Revision: $(Rev:.r)"
       - checkout: self
         displayName: 'Checkout Code'
 
