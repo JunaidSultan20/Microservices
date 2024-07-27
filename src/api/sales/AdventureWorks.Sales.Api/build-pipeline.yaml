@@ -22,10 +22,6 @@ trigger:
       - test/common/AdventureWorks.Events.Test/**
       - test/common/AdventureWorks.Middlewares.Test/**
 
-variables:
-  minor: $(MINOR)
-  revision: $[counter(variables['minor'], 0)]
-
 pr:
   branches:
     include:
@@ -57,7 +53,7 @@ stages:
         inputs:
           command: 'restore'
           projects: |
-            src/api/sales/AdventureWorks.Sales.Api/AdventureWorks.Sales.Api.csproj            
+            src/api/sales/AdventureWorks.Sales.Api/AdventureWorks.Sales.Api.csproj
             src/common/AdventureWorks.Common/AdventureWorks.Common.csproj
             src/common/AdventureWorks.Contracts/AdventureWorks.Contracts.csproj
             src/common/AdventureWorks.Events/AdventureWorks.Events.csproj
@@ -96,23 +92,6 @@ stages:
           mergeTestResults: true
           failTaskOnFailedTests: true
 
-      - task: Bash@3
-        displayName: Increment Minor Version
-        inputs:
-          targetType: 'inline'
-          script: |
-            # Fetch the current minor version
-            current_minor=$(echo $(minor_variable))
-
-            # Increment the minor version
-            new_minor=$((current_minor + 1))
-            echo "New minor version: $new_minor"
-
-            # Set the new minor version as an output variable
-            echo "##vso[task.setVariable variable=minor]$new_minor"
-
-            echo "Revision: $revision"
-
 - stage: Publish
   displayName: Publish Docker Image
   
@@ -128,20 +107,20 @@ stages:
           displayName: 'Build Docker Image'
           inputs:
             command: 'build'
-            containerRegistry: 'Docker Hub Connection'  # Use your service connection name
+            containerRegistry: 'Docker Hub Connection'
             repository: 'junaidsultan20/microservices-sales-api'
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                $(major).$(minor).$(patch)
+                $(major).$(Build.BuildId).$(patch)
                 latest
 
         - task: Docker@2
           displayName: 'Push Docker Image'
           inputs:
             command: 'push'
-            containerRegistry: 'Docker Hub Connection'  # Use your service connection name
+            containerRegistry: 'Docker Hub Connection'
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                $(major).$(minor).$(patch)
+                $(major).$(Build.BuildId).$(patch)
                 latest
