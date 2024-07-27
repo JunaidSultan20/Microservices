@@ -77,9 +77,9 @@ stages:
           command: 'test'
           projects: |
             test/api/sales/AdventureWorks.Sales.Api.Test.csproj
-            test/common/AdventureWorks.Common.Test/AdventureWorks.Common.Test.csproj
-            test/common/AdventureWorks.Events.Test/AdventureWorks.Events.Test.csproj
-            test/common/AdventureWorks.Middlewares.Test/AdventureWorks.Middlewares.Test.csproj
+            test/common/AdventureWorks.Common.Test.csproj
+            test/common/AdventureWorks.Events.Test.csproj
+            test/common/AdventureWorks.Middlewares.Test.csproj
           arguments: '--configuration Release --no-build --verbosity normal'
 
 - stage: Publish
