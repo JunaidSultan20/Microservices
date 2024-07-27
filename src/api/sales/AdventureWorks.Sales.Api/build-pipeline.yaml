@@ -30,7 +30,7 @@ pr:
 variables:
   buildNumber: $(Build.BuildNumber)
   rev: ${buildNumber##*.}
-  imageTag: '$(major).rev.$(patch)'
+  imageTag: '$(major).$(rev).$(patch)'
 
 stages:
 - stage: Build
@@ -45,7 +45,7 @@ stages:
     
     steps:      
       - script: |
-          echo "Revision: $(Rev:.r)"
+          echo "Revision: $(imageTag)"
       - checkout: self
         displayName: 'Checkout Code'
 
