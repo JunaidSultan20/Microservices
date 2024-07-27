@@ -23,8 +23,7 @@ trigger:
       - test/common/AdventureWorks.Middlewares.Test/**
 
 variables:
-  major-minor: 1.0
-  revision: $[counter(variables['major-minor'],0)]
+  revision: $[counter(variables['minor'], 0)]
 
 pr:
   branches:
@@ -131,7 +130,7 @@ stages:
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                $(version)
+                $(major).$(minor).$(patch)
                 latest
 
         - task: Docker@2
@@ -141,5 +140,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'  # Use your service connection name
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                $(version)
+                $(major).$(minor).$(patch)
                 latest
