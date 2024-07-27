@@ -23,6 +23,7 @@ trigger:
       - test/common/AdventureWorks.Middlewares.Test/**
 
 variables:
+  minor: $(MINOR)
   revision: $[counter(variables['minor'], 0)]
 
 pr:
