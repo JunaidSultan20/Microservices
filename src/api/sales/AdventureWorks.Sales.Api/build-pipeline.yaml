@@ -97,6 +97,7 @@ stages:
           inputs:
             command: 'build'
             Dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
+            buildContext: '$(Build.SourcesDirectory)'
     
         - task: Docker@2
           inputs:
