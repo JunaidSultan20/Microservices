@@ -21,11 +21,17 @@ trigger:
       - test/common/AdventureWorks.Contracts.Test/**
       - test/common/AdventureWorks.Events.Test/**
       - test/common/AdventureWorks.Middlewares.Test/**
+    exclude:
+      - src/api/sales/AdventureWorks.Sales.Api/version.txt
 
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  major: 1
+  minor: 0
+  patch: 0
+  versionFile: 'version.txt'
 
 stages:
 - stage: Build
@@ -41,6 +47,24 @@ stages:
     steps:
       - checkout: self
         displayName: 'Checkout'
+
+      - script: | 
+         # Check if the version file exists, if not create it
+         if [ ! -f $(versionFile) ]; then 
+            echo "$(major).$(minor).$(patch)" > $(versionFile)
+        # Read current version
+        version=$(cat $(versionFile))
+        echo "##vso[task.setvariable variable=currentVersion]$version"
+
+        # Increment version (e.g., increment minor for simplicity)
+        IFS='.' read -r major minor patch <<< "$version"
+        minor=$((minor + 1))
+        newVersion="$major.$minor.$patch"
+
+        # Update version file
+        echo $newVersion > $(versionFile)
+        echo "##vso[task.setvariable variable=newVersion]$newVersion"
+      displayName: 'Update Version'
 
       - task: UseDotNet@2
         inputs:
@@ -94,13 +118,24 @@ stages:
       
       steps:
         - task: Docker@2
-          displayName: 'Build and Push Docker Image'
+          displayName: 'Build Docker Image'
           inputs:
-            containerRegistry: 'Docker Hub Connection'  # Use the name of your service connection
+            command: 'build'
+            containerRegistry: 'Docker Hub Connection'  # Use your service connection name
             repository: 'junaidsultan20/microservices-sales-api'
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
-            buildContext: '$(Build.SourcesDirectory)'  # Ensure the context is the source directory
-            command: 'buildAndPush'
+            buildContext: '$(Build.SourcesDirectory)'
             tags: |
+                $(Build.BuildId)
+                latest
+
+
+        - task: Docker@2
+          displayName: 'Push Docker Image'
+          inputs:
+            command: 'push'
+            containerRegistry: 'Docker Hub Connection'  # Use your service connection name
+            repository: 'junaidsultan20/microservices-sales-api'
+            tags: | 
                 $(Build.BuildId)
                 latest
