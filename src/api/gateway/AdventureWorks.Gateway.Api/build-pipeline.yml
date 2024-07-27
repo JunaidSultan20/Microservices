@@ -1,4 +1,4 @@
-﻿#Gateway.Api Build Pipeline
+#Gateway.Api Build Pipeline
  
 trigger:
   branches:
