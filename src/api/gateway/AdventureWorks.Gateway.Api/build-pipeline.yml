@@ -1,0 +1,98 @@
+﻿#Sales.Api Build Pipeline
+ 
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/api/sales/AdventureWorks.Gateway.Api/**
+      - src/common/AdventureWorks.Common/**
+      - test/common/AdventureWorks.Common.Test/**
+
+variables:
+  major-minor: 1.0
+  revision: $[counter(variables['major-minor'],0)]
+
+pr:
+  branches:
+    include:
+      - main
+
+stages:
+- stage: Build
+  displayName: Build and Test
+  
+  jobs:
+  - job: Build
+    displayName: Build Job
+    
+    pool:
+      vmImage: 'windows-latest'
+    
+    steps:
+      - checkout: self
+        displayName: 'Checkout Code'
+
+      - task: UseDotNet@2
+        inputs:
+          packageType: sdk
+          version: '8.x'
+          installationPath: $(Agent.ToolsDirectory)/dotnet
+
+      - task: DotNetCoreCLI@2
+        displayName: Restore Nuget Packages
+        inputs:
+          command: 'restore'
+          projects: |
+            src/api/sales/AdventureWorks.Gateway.Api/AdventureWorks.Gateway.Api.csproj            
+            src/common/AdventureWorks.Common/AdventureWorks.Common.csproj            
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Build Sales Service'
+        inputs:
+          command: 'build'
+          projects: 'src/api/sales/AdventureWorks.Sales.Api/AdventureWorks.Sales.Api.csproj'
+          arguments: '--configuration $(buildConfiguration)'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Run Unit Test'
+        inputs:
+          command: 'test'
+          projects: |
+            test/common/AdventureWorks.Common.Test.csproj
+          arguments: '--configuration Release --no-build --verbosity normal'
+
+- stage: Publish
+  displayName: Publish Docker Image
+  
+  jobs:
+    - job: PublishDocker
+      displayName: Build and Publish Docker Image
+      
+      pool:
+        vmImage: 'ubuntu-latest'
+      
+      steps:
+        - task: Docker@2
+          displayName: 'Build Docker Image'
+          inputs:
+            command: 'build'
+            containerRegistry: 'Docker Hub Connection'  # Use your service connection name
+            repository: 'junaidsultan20/microservices-gateway-api'
+            dockerfile: 'src/api/sales/AdventureWorks.Gateway.Api/Dockerfile'
+            buildContext: '$(Build.SourcesDirectory)'
+            tags: |
+                $(major-minor).$(revision)
+                latest
+
+
+        - task: Docker@2
+          displayName: 'Push Docker Image'
+          inputs:
+            command: 'push'
+            containerRegistry: 'Docker Hub Connection'  # Use your service connection name
+            repository: 'junaidsultan20/microservices-gateway-api'
+            tags: | 
+                $(major-minor).$(revision)
+                latest
