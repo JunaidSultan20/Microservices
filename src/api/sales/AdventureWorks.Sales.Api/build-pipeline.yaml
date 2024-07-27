@@ -96,7 +96,7 @@ stages:
         - task: Docker@2
           displayName: 'Build and Push Docker Image'
           inputs:
-            containerRegistry: 'DockerHubConnection'  # Use the name of your service connection
+            containerRegistry: 'Docker Hub Connection'  # Use the name of your service connection
             repository: 'junaidsultan20/microservices-sales-api'
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'  # Ensure the context is the source directory
