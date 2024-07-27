@@ -110,6 +110,8 @@ stages:
             # Set the new minor version as an output variable
             echo "##vso[task.setVariable variable=minor]$new_minor"
 
+            echo "Revision: $revision"
+
 - stage: Publish
   displayName: Publish Docker Image
   
