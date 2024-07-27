@@ -42,7 +42,7 @@ stages:
     pool:
       vmImage: 'windows-latest'
     
-    steps:
+    steps:      
       - checkout: self
         displayName: 'Checkout Code'
 
@@ -96,6 +96,21 @@ stages:
           mergeTestResults: true
           failTaskOnFailedTests: true
 
+      - task: Bash@3
+        displayName: Increment Minor Version
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Fetch the current minor version
+            current_minor=$(echo $(minor_variable))
+
+            # Increment the minor version
+            new_minor=$((current_minor + 1))
+            echo "New minor version: $new_minor"
+
+            # Set the new minor version as an output variable
+            echo "##vso[task.setVariable variable=minor]$new_minor"
+
 - stage: Publish
   displayName: Publish Docker Image
   
@@ -116,7 +131,7 @@ stages:
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                $(major-minor).$(revision)
+                $(version)
                 latest
 
         - task: Docker@2
@@ -126,5 +141,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'  # Use your service connection name
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                $(major-minor).$(revision)
+                $(version)
                 latest
