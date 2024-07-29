@@ -48,7 +48,14 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            echo "Minor version: $(minor)"
+            Write-Host "Minor version: $env:minor"
+
+      - task: PowerShell@2
+        displayName: 'List all environment variables'
+        inputs:
+          targetType: 'inline'
+          script: |
+            Get-ChildItem Env:
 
       - checkout: self
         displayName: 'Checkout Code'
