@@ -43,9 +43,14 @@ stages:
       vmImage: 'windows-latest'
     
     steps:
-      - script: |
-          echo "$(minor)"
-        displayName: Minor Version
+      - task: PowerShell@2
+        displayName: 'Log version variables'
+        inputs:
+          targetType: 'inline'
+          script: |
+            Write-Host "Major version: $(major)"
+            Write-Host "Minor version: $(minor)"
+            Write-Host "Patch version: $(patch)"
 
       - checkout: self
         displayName: 'Checkout Code'
@@ -138,7 +143,7 @@ stages:
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                $(major).$(minor).$(patch)
+                '$(major).$(minor).$(patch)'
                 latest
 
         - task: Docker@2
@@ -148,5 +153,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                $(major).$(minor).$(patch)
+                '$(major).$(minor).$(patch)'
                 latest
