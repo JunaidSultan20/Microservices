@@ -29,7 +29,7 @@ pr:
 
 variables:
   group: SalesApiVariableGroup
-  imageTag: "$($env:major).$($env:minor).$($env:patch)"
+  imageTag: $($env:major).$($env:minor).$($env:patch)
 
 
 stages:
@@ -106,23 +106,39 @@ stages:
           mergeTestResults: true
           failTaskOnFailedTests: true
 
-      - task: Bash@3
-        displayName: 'Update variable group'
+      - task: PowerShell@2
         inputs:
           targetType: 'inline'
           script: |
-            # Define variables
-            minorVersion=$(($minorVersion + 1))
-            token=$(System.AccessToken)
-
-            # Update the variable group using REST API
-            curl -X PUT \
-                 -H "Content-Type: application/json" \
-                 -H "Authorization: Bearer $token" \
-                 --data '{"variables": {"minor": {"value": "'"$minorVersion"'"}}}' \
-                 https://dev.azure.com/junaidsultan200282/_apis/distributedtask/variablegroups/3?api-version=7.0
-        env:
-          System.AccessToken: $(System.AccessToken)
+            $authHeader = @{Authorization = "Bearer $(System.AccessToken)"}
+             
+            $newMinor = $minor++
+            
+            $body = @{
+                  description = "Build number"
+                  name = "SalesApiVariableGroup"
+                  type = "Vsts"
+                  variables = @{
+                     minor = @{
+                         isSecret = "false"
+                         isReadOnly = "false"
+                         value = $newMinor
+                       }
+                     }
+                  variableGroupProjectReferences = @(
+                           @{
+                                 name = "SalesApiVariableGroup"
+                                 description = "Build number"
+                                 projectReference = @{
+                                      id = "{ProjectID}"  
+                                      name = "{Projectname}"
+                                  }
+                              }
+                          )
+             }| ConvertTo-Json -Depth 10
+            
+            
+            Invoke-RestMethod -Uri "https://dev.azure.com/junaidsultan200282/Microservices/_apis/distributedtask/variablegroups/3?api-version=7.2-preview.2" -Method Put -Body $body -Headers $authHeader -ContentType "application/json"
 
 - stage: Publish
   displayName: Publish Docker Image
