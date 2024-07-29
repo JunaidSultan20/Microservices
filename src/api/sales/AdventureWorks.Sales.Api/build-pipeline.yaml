@@ -116,7 +116,7 @@ stages:
           targetType: 'inline'
           script: |
             # Define variables
-            new_minor=$((minor + 1))
+            new_minor=1
             token=$(System.AccessToken)
 
             # Update the variable group using REST API
