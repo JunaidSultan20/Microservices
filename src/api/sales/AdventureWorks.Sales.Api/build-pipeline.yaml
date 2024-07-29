@@ -31,6 +31,7 @@ variables:
   buildNumber: $Env:BUILD_BUILDNUMBER
   rev: $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)
   imageTag: '$(major).$(rev).$(patch)'
+  group: SalesApiVariableGroup
 
 stages:
 - stage: Build
@@ -45,9 +46,7 @@ stages:
     
     steps:      
       - script: |
-          echo "Build revision: $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)"
-          echo "Revision: $(rev)"
-          echo "Build number: $(buildNumber)"
+          echo "Using variable group: $(minor)"
         displayName: 'Extract and Show Build Revision'
 
       - checkout: self
