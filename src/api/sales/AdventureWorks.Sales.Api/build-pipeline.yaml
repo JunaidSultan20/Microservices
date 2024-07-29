@@ -28,8 +28,8 @@ pr:
       - main
 
 variables:
-  buildNumber: $(Build.BuildNumber)
-  rev: ${buildNumber##*.}
+  buildNumber: $Env:BUILD_BUILDNUMBER
+  rev: $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)
   imageTag: '$(major).$(rev).$(patch)'
 
 stages:
@@ -45,9 +45,8 @@ stages:
     
     steps:      
       - script: |
-          buildNumber=$(Build.BuildNumber)
-          rev=${buildNumber##*.}  # This extracts the revision number from the build number
-          echo "Build revision: $rev"
+          echo "Build revision: $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)"
+          echo "Revision: $(rev)"
         displayName: 'Extract and Show Build Revision'
 
       - checkout: self
