@@ -47,6 +47,7 @@ stages:
       - script: |
           echo "Build revision: $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)"
           echo "Revision: $(rev)"
+          echo "Build number: $(buildNumber)"
         displayName: 'Extract and Show Build Revision'
 
       - checkout: self
