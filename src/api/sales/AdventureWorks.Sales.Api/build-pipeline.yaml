@@ -45,10 +45,10 @@ stages:
     
     steps:      
       - script: |
-          buildNumber1=$(Build.BuildNumber)
-          rev1=${buildNumber1##*.}
-          echo "Revision: $rev1"
-          
+          buildNumberNew=$(Build.BuildNumber)
+          revNew=${buildNumberNew##*.}  # This extracts the revision number from the build number
+          echo "Build revision: $revNew"
+
       - checkout: self
         displayName: 'Checkout Code'
 
