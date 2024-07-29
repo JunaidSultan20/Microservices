@@ -28,10 +28,8 @@ pr:
       - main
 
 variables:
-  buildNumber: $Env:BUILD_BUILDNUMBER
-  rev: $buildNumber.Substring($buildNumber.LastIndexOf('.') + 1)
-  imageTag: '$(major).$(rev).$(patch)'
   group: SalesApiVariableGroup
+  imageTag: $(major).$(minor).$(patch)
 
 stages:
 - stage: Build
@@ -44,10 +42,10 @@ stages:
     pool:
       vmImage: 'windows-latest'
     
-    steps:      
+    steps:
       - script: |
-          echo "Using variable group: $(minor)"
-        displayName: 'Extract and Show Build Revision'
+          echo "##vso[task.setVariable variable=new_minor;isOutput=true]$new_minor"
+        displayName: Minor Version
 
       - checkout: self
         displayName: 'Checkout Code'
@@ -101,6 +99,15 @@ stages:
               test/common/AdventureWorks.Middlewares.Test/*.trx
           mergeTestResults: true
           failTaskOnFailedTests: true
+
+      - task: Bash@3
+        displayName: Update Variable Group
+        inputs:
+          targetType: 'inline'
+          script: |
+            # Define variables
+            newMinor=$((minor + 1))
+            token=$(System.AccessToken)
 
 - stage: Publish
   displayName: Publish Docker Image
