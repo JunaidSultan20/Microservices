@@ -113,15 +113,14 @@ stages:
           targetType: 'inline'
           script: |
             # Define variables
-            $minorVersion = [int]$env.minor
-            $minorVerion++
+            minorVersion=$(($minorVersion + 1))
             token=$(System.AccessToken)
 
             # Update the variable group using REST API
-            curl -X PATCH \
+            curl -X PUT \
                  -H "Content-Type: application/json" \
                  -H "Authorization: Bearer $token" \
-                 --data '{"variables": {"minor_variable": {"value": "'$minorVersion'"}}}' \
+                 --data '{"variables": {"minor": {"value": "'"$minorVersion"'"}}}' \
                  https://dev.azure.com/junaidsultan200282/Microservices/_apis/distributedtask/variablegroups/3?api-version=7.0
         env:
           System.AccessToken: $(System.AccessToken)
