@@ -46,13 +46,13 @@ stages:
     steps:
       - script: echo $(myhello) # uses macro syntax
       - script: echo $(my-passed-variable)
-      
+
       - task: PowerShell@2
         displayName: 'Log version variables'
         inputs:
           targetType: 'inline'
           script: |
-            Write-Host "Minor version: $env:minor"
+            Write-Host "Minor version: $env:major"
 
       - task: PowerShell@2
         displayName: 'List all environment variables'
