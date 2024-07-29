@@ -28,8 +28,9 @@ pr:
       - main
 
 variables:
-  group: SalesApiVariableGroup
-  imageTag: $(major).$(minor).$(patch)
+  - group: SalesApiVariableGroup
+  - name: my-passed-variables
+    value: $[variables.minor]
 
 stages:
 - stage: Build
@@ -43,6 +44,9 @@ stages:
       vmImage: 'windows-latest'
     
     steps:
+      - script: echo $(myhello) # uses macro syntax
+      - script: echo $(my-passed-variable)
+      
       - task: PowerShell@2
         displayName: 'Log version variables'
         inputs:
