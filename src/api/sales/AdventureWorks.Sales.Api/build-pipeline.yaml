@@ -146,7 +146,7 @@ stages:
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                "$($env:major).$($env:minor).$($env:patch)"
+                $($env:major).$($env:minor).$($env:patch)
                 latest
 
         - task: Docker@2
