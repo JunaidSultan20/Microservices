@@ -44,7 +44,7 @@ stages:
     
     steps:
       - script: |
-          echo "##vso[task.setVariable variable=new_minor;isOutput=true]$new_minor"
+          echo $(minor)
         displayName: Minor Version
 
       - checkout: self
