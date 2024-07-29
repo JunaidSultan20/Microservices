@@ -50,4 +50,4 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            Write-Host "Minor version: $env:major.$env.minor.$env.patch"
+            Write-Host "Minor version: $(env:major).$(env.minor).$(env.patch)"
