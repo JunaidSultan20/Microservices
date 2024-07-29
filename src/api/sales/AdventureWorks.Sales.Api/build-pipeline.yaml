@@ -156,5 +156,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                "$($env:major).$($env:minor).$($env:patch)"
+                $($env:major).$($env:minor).$($env:patch)
                 latest
