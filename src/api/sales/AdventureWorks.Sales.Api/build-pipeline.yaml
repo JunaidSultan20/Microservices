@@ -28,9 +28,8 @@ pr:
       - main
 
 variables:
-  - group: SalesApiVariableGroup
-  - name: my-passed-variables
-    value: $[variables.minor]
+  group: SalesApiVariableGroup
+  imageTag: "$($env:major).$($env:minor).$($env:patch)"
 
 
 stages:
@@ -60,7 +59,7 @@ stages:
       - task: UseDotNet@2
         inputs:
           packageType: sdk
-          version: '8.x'
+          version: '8.0.303'
           installationPath: $(Agent.ToolsDirectory)/dotnet
 
       - task: DotNetCoreCLI@2
@@ -145,7 +144,7 @@ stages:
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                $($env:major).$($env:minor).$($env:patch)
+                $(imageTag)
                 latest
 
         - task: Docker@2
@@ -155,5 +154,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                $($env:major).$($env:minor).$($env:patch)
+                $(imageTag)
                 latest
