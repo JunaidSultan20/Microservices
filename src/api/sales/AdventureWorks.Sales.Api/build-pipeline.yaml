@@ -45,7 +45,10 @@ stages:
     
     steps:      
       - script: |
-          echo "Revision: $(imageTag)"
+          buildNumber1=$(Build.BuildNumber)
+          rev1=${buildNumber1##*.}
+          echo "Revision: $rev1"
+          
       - checkout: self
         displayName: 'Checkout Code'
 
