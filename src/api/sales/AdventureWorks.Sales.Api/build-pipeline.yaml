@@ -44,7 +44,7 @@ stages:
     
     steps:
       - script: |
-          echo $(minor)
+          echo "$(minor)"
         displayName: Minor Version
 
       - checkout: self
