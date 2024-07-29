@@ -120,7 +120,7 @@ stages:
                  -H "Content-Type: application/json" \
                  -H "Authorization: Bearer $token" \
                  --data '{"variables": {"minor": {"value": "'"$minorVersion"'"}}}' \
-                 https://dev.azure.com/junaidsultan200282/Microservices/_apis/distributedtask/variablegroups/3?api-version=7.0
+                 https://dev.azure.com/junaidsultan200282/_apis/distributedtask/variablegroups/3?api-version=7.0
         env:
           System.AccessToken: $(System.AccessToken)
 
