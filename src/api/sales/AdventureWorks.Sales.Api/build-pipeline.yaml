@@ -48,9 +48,7 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            Write-Host "Major version: $(SalesApiVariableGroup.major)"
-            Write-Host "Minor version: $(SalesApiVariableGroup.minor)"
-            Write-Host "Patch version: $(SalesApiVariableGroup.patch)"
+            echo "Minor version: $(minor)"
 
       - checkout: self
         displayName: 'Checkout Code'
