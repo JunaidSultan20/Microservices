@@ -10,14 +10,14 @@ trigger:
       - src/common/AdventureWorks.Common/**
       - test/common/AdventureWorks.Common.Test/**
 
-variables:
-  major-minor: 1.0
-  revision: $[counter(variables['major-minor'],0)]
-
 pr:
   branches:
     include:
       - main
+
+variables:
+  minorValue: 0
+  minorVersion: $[counter(variables['minorvalue'], 1)]
 
 stages:
 - stage: Build
@@ -37,7 +37,7 @@ stages:
       - task: UseDotNet@2
         inputs:
           packageType: sdk
-          version: '8.x'
+          version: '8.0.303'
           installationPath: $(Agent.ToolsDirectory)/dotnet
 
       - task: DotNetCoreCLI@2
@@ -45,8 +45,8 @@ stages:
         inputs:
           command: 'restore'
           projects: |
-            src/api/gateway/AdventureWorks.Gateway.Api/AdventureWorks.Gateway.Api.csproj            
-            src/common/AdventureWorks.Common/AdventureWorks.Common.csproj            
+            src/api/gateway/AdventureWorks.Gateway.Api/AdventureWorks.Gateway.Api.csproj
+            src/common/AdventureWorks.Common/AdventureWorks.Common.csproj
 
       - task: DotNetCoreCLI@2
         displayName: 'Build Gateway Service'
@@ -62,6 +62,14 @@ stages:
           projects: |
             test/common/AdventureWorks.Common.Test.csproj
           arguments: '--configuration Release --no-build --verbosity normal'
+
+      - task: PublishTestResults@2
+        displayName: 'Publish Test Results'
+        inputs:
+          testResultsFiles: | 
+              test/common/AdventureWorks.Common.Test/*.trx
+          mergeTestResults: true
+          failTaskOnFailedTests: true
 
 - stage: Publish
   displayName: Publish Docker Image
@@ -83,7 +91,7 @@ stages:
             dockerfile: 'src/api/gateway/AdventureWorks.Gateway.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                $(major-minor).$(revision)
+                1.$(minorVersion).0
                 latest
 
 
@@ -94,5 +102,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'  # Use your service connection name
             repository: 'junaidsultan20/microservices-gateway-api'
             tags: | 
-                $(major-minor).$(revision)
+                1.$(minorVersion).0
                 latest
