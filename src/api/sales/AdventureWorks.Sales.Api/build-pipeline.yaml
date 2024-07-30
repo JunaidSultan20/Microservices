@@ -117,7 +117,7 @@ stages:
             dockerfile: 'src/api/sales/AdventureWorks.Sales.Api/Dockerfile'
             buildContext: '$(Build.SourcesDirectory)'
             tags: |
-                "1.$(minorVersion).0"
+                1.$(minorVersion).0
                 latest
 
         - task: Docker@2
@@ -127,5 +127,5 @@ stages:
             containerRegistry: 'Docker Hub Connection'
             repository: 'junaidsultan20/microservices-sales-api'
             tags: | 
-                "1.$(minorVersion).0"
+                1.$(minorVersion).0
                 latest
