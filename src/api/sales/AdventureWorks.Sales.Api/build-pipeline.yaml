@@ -30,6 +30,8 @@ pr:
 variables:
   group: SalesApiVariableGroup
   imageTag: $($env:major).$($env:minor).$($env:patch)
+  minorValue: 0
+  minorVersion: $[counter(variables['minorValue'], 1)]
 
 
 stages:
@@ -52,6 +54,7 @@ stages:
           script: |
             $version = "$($env:major).$($env:minor).$($env:patch)"
             Write-Host "Version: $version"
+            Write-Host "Rev: $(minorVersion)"
 
       - checkout: self
         displayName: 'Checkout Code'
