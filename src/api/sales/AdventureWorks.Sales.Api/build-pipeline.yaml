@@ -1,5 +1,6 @@
 #Sales.Api Build Pipeline
- 
+
+name: Microservices.Sales.Api Build
 trigger:
   branches:
     include:
