@@ -21,6 +21,13 @@ trigger:
       - test/common/AdventureWorks.Contracts.Test/**
       - test/common/AdventureWorks.Events.Test/**
       - test/common/AdventureWorks.Middlewares.Test/**
+    exclude:
+      - src/api/gateway/**
+      - src/api/identity/**
+      - src/services/identity/**
+      - src/services/gateway/**
+      - test/services/gateway/**
+      - test/services/identity/**
 
 variables:
   minorValue: 0
