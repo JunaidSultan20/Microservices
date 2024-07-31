@@ -23,15 +23,9 @@ trigger:
       - test/common/AdventureWorks.Events.Test/**
       - test/common/AdventureWorks.Middlewares.Test/**
 
-pr:
-  branches:
-    include:
-      - main
-
 variables:
   minorValue: 0
   minorVersion: $[counter(variables['minorValue'], 1)]
-
 
 stages:
 - stage: Build
