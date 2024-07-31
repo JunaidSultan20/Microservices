@@ -10,11 +10,6 @@ trigger:
       - src/common/AdventureWorks.Common/**
       - test/common/AdventureWorks.Common.Test/**
 
-pr:
-  branches:
-    include:
-      - main
-
 variables:
   minorValue: 0
   minorVersion: $[counter(variables['minorvalue'], 1)]
