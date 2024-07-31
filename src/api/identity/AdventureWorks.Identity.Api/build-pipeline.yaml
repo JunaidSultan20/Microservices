@@ -22,11 +22,6 @@ trigger:
       - test/common/AdventureWorks.Middlewares.Test/**
       - test/services/identity/AdventureWorks.Identity.Test/**
 
-pr:
-  branches:
-    include:
-      - main
-
 variables:variables:
   minorValue: 0
   minorVersion: $[counter(variables['minorValue'], 1)]
