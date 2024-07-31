@@ -1,0 +1,130 @@
+﻿#Identity.Api Build Pipeline
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/api/identity/AdventureWorks.Identity.Api
+      - src/common/AdventureWorks.Common/**
+      - src/common/AdventureWorks.Messaging/**
+      - src/common/AdventureWorks.Contracts/**
+      - src/common/AdventureWorks.Events/**
+      - src/common/AdventureWorks.Middlewares/**
+      - src/services/identity/AdventureWorks.Identity.Application/**
+      - src/services/identity/AdventureWorks.Identity.Domain/**
+      - src/services/identity/AdventureWorks.Identity.Infrastructure/**
+      - test/common/AdventureWorks.Common.Test/**
+      - test/common/AdventureWorks.Messaging.Test/**
+      - test/common/AdventureWorks.Contracts.Test/**
+      - test/common/AdventureWorks.Events.Test/**
+      - test/common/AdventureWorks.Middlewares.Test/**
+      - test/services/identity/AdventureWorks.Identity.Test/**
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:variables:
+  minorValue: 0
+  minorVersion: $[counter(variables['minorValue'], 1)]
+
+stages:
+  - stage: Build
+    displayName: Build and Test
+
+    jobs:
+      - job: Build
+        displayName: Build Job
+        
+        pool:
+          vmImage: 'windows-latest'
+
+        steps:
+          - checkout: self
+            displayName: 'Checkout code'
+          
+          - task: UseDotNet@2
+            inputs:
+              packageType: sdk
+              version: '8.0.303'
+              installationPath: $(Agent.ToolsDirectory)/dotnet
+          
+          - task: DotNetCoreCLI@2
+            displayName: Restore Nuget Package
+            inputs:
+              command: 'restore'
+              projects: |
+                src/api/identity/AdventureWorks.Identity.Api/AdventureWorks.Identity.Api.csproj
+                src/common/AdventureWorks.Common/AdventureWorks.Common.csproj
+                src/common/AdventureWorks.Contracts/AdventureWorks.Contracts.csproj
+                src/common/AdventureWorks.Events/AdventureWorks.Events.csproj
+                src/common/AdventureWorks.Messaging/AdventureWorks.Messaging.csproj
+                src/common/AdventureWorks.Middlewares/AdventureWorks.Middlewares.csproj
+                src/services/identity/AdventureWorks.Identity.Application/AdventureWorks.Identity.Application.csproj
+                src/services/identity/AdventureWorks.Identity.Domain/AdventureWorks.Identity.Domain.csproj
+                src/services/identity/AdventureWorks.Identity.Infrastructure/AdventureWorks.Identity.Infrastructure.csproj
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Build Identity Service'
+            inputs:
+              command: 'build'
+              projects: 'src/api/identity/AdventureWorks.Identity.Api/AdventureWorks.Identity.Api.csproj'
+              arguments: '--configuration $(buildConfiguration)'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'Run Unit Test'
+            inputs:
+              command: 'test'
+              projects: |
+                test/common/AdventureWorks.Common.Test/AdventureWorks.Common.Test.csproj
+                test/common/AdventureWorks.Events.Test/AdventureWorks.Events.Test.csproj
+                test/common/AdventureWorks.Middlewares.Test/AdventureWorks.Middlewares.Test.csproj
+                test/services/identity/AdventureWorks.Identity.Test/AdventureWorks.Identity.Test.csproj
+              arguments: '--configuration Release --no-build --verbosity normal'
+
+          - task: PublishTestResults@2
+            displayName: 'Publish Test Results'
+            inputs:
+              testResultsFiles: | 
+                test/common/AdventureWorks.Common.Test/*.trx
+                test/common/AdventureWorks.Events.Test/*.trx
+                test/common/AdventureWorks.Middlewares.Test/*.trx
+                test/services/identity/AdventureWorks.Identity.Test/*.trx
+              mergeTestResults: true
+              failTaskOnFailedTests: true
+
+  - stage: Publish
+    displayName: Publish Docker Image
+
+    jobs:
+      - job: PublishDocker
+        displayName: Build and Publish Docker Image
+
+        pool:
+          vmImage: 'ubuntu-latest'
+
+          steps:
+            - task: Docker@2
+              displayName: 'Build Docker Image'
+              inputs:
+                command: 'build'
+                containerRegistry: 'Docker Hub Connection'
+                repository: 'junaidsultan20/microservices-identity-api'
+                dockerfile: 'src/api/identity/AdventureWorks.Identity.Api/Dockerfile'
+                buildContext: '$(Build.SourcesDirectory)'
+                tags: |
+                  1.$(minorVersion).0
+                  latest
+
+            - task: Docker@2
+              displayName: 'Push Docker Image'
+              inputs:
+                command: 'push'
+                containerRegistry: 'Docker Hub Connection'
+                repository: 'junaidsultan20/microservices-identity-api'
+                tags: | 
+                  1.$(minorVersion).0
+                  latest
