@@ -6,21 +6,15 @@ trigger:
       - main
   paths:
     include:
-      - src/api/identity/AdventureWorks.Identity.Api
-      - src/common/AdventureWorks.Common/**
-      - src/common/AdventureWorks.Messaging/**
-      - src/common/AdventureWorks.Contracts/**
-      - src/common/AdventureWorks.Events/**
-      - src/common/AdventureWorks.Middlewares/**
-      - src/services/identity/AdventureWorks.Identity.Application/**
-      - src/services/identity/AdventureWorks.Identity.Domain/**
-      - src/services/identity/AdventureWorks.Identity.Infrastructure/**
-      - test/common/AdventureWorks.Common.Test/**
-      - test/common/AdventureWorks.Messaging.Test/**
-      - test/common/AdventureWorks.Contracts.Test/**
-      - test/common/AdventureWorks.Events.Test/**
-      - test/common/AdventureWorks.Middlewares.Test/**
-      - test/services/identity/AdventureWorks.Identity.Test/**
+      - src/api/identity/**/*.cs
+      - src/api/identity/**/*.csproj
+      - src/services/identity/**/*.cs
+      - src/services/identity/*.csproj
+      - src/api/identity/**/Dockerfile
+      - src/api/identity/**/*.*
+      - src/services/identity/**/*.*
+      - test/services/identity/**/*.cs
+      - test/services/identity/*.csproj
 
 variables:variables:
   minorValue: 0
