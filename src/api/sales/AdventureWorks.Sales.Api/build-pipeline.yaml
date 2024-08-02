@@ -7,21 +7,14 @@ trigger:
       - main
   paths:
     include:
-      - src/api/sales/AdventureWorks.Sales.Api/**
-      - src/common/AdventureWorks.Common/**
-      - src/common/AdventureWorks.Messaging/**
-      - src/common/AdventureWorks.Contracts/**
-      - src/common/AdventureWorks.Events/**
-      - src/common/AdventureWorks.Middlewares/**
-      - src/services/sales/AdventureWorks.Sales.Customers/**
-      - src/services/sales/AdventureWorks.Sales.Domain/**
-      - src/services/sales/AdventureWorks.Sales.Infrastructure/**
-      - test/api/sales/AdventureWorks.Sales.Api.Test/**
-      - test/common/AdventureWorks.Common.Test/**
-      - test/common/AdventureWorks.Messaging.Test/**
-      - test/common/AdventureWorks.Contracts.Test/**
-      - test/common/AdventureWorks.Events.Test/**
-      - test/common/AdventureWorks.Middlewares.Test/**
+      - src/api/sales/**/*.cs
+      - src/api/sales/**/*.csproj
+      - src/services/sales/**/*.cs
+      - src/services/sales/*.csproj
+      - src/api/sales/**/Dockerfile
+      - src/api/sales/**/*.*
+      - src/services/sales/**/*.*
+      - test/api/sales/**/*.*
 
 variables:
   minorValue: 0
