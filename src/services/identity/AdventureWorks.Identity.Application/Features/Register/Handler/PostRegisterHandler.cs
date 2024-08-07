@@ -10,7 +10,6 @@ namespace AdventureWorks.Identity.Application.Features.Register.Handler;
 public class PostRegisterHandler(UserManager<User> userManager, 
                                  RoleManager<Role> roleManager,
                                  UserAggregate userAggregate,
-                                 RoleAggregate roleAggregate,
                                  IEventStore eventStore) : IRequestHandler<PostRegisterRequest, PostRegisterResponse>
 {
     public async Task<PostRegisterResponse> Handle(PostRegisterRequest request,
@@ -27,39 +26,34 @@ public class PostRegisterHandler(UserManager<User> userManager,
                         normalizedEmail: request.RegistrationDto.Email.ToUpper(),
                         emailConfirmed: true);
 
-        IdentityResult result = await userManager.CreateAsync(user: user, 
-                                                              password: request.RegistrationDto.Password);
+        IdentityResult result = await userManager.CreateAsync(user: user, password: request.RegistrationDto.Password);
 
         if (!result.Succeeded)
             return new BadRequestPostRegisterResponse(Messages.UnableToCreateUser);
 
         bool roleExists = await roleManager.RoleExistsAsync(request.RegistrationDto.Role);
 
-        Role role = new Role(name: request.RegistrationDto.Role, normalizedName: request.RegistrationDto.Role.ToUpper());
-
         if (!roleExists)
-            await roleManager.CreateAsync(role);
+            return new NotFoundPostRegisterResponse(Messages.RoleNotFound);
 
         result = await userManager.AddToRoleAsync(user: user, role: request.RegistrationDto.Role);
 
         if (!result.Succeeded)
             return new BadRequestPostRegisterResponse(Messages.UnableToAssignRole);
 
+        Role? role = await roleManager.FindByNameAsync(request.RegistrationDto.Role);
+
         userAggregate.UserCreatedEvent(username: user.UserName ?? string.Empty, 
                                        email: user.Email ?? string.Empty, 
                                        password: user.PasswordHash ?? string.Empty, 
-                                       role: role.Name ?? string.Empty);
+                                       role: role?.Name ?? string.Empty);
 
-        if (role.Name != null)
-            roleAggregate.RoleCreatedEvent(role.Name);
+        if (role != null)
+        {
+            userAggregate.UserRoleChangedEvent(null, role.Id);
 
-        userAggregate.UserRoleChangedEvent(null, role.Id);
-
-        Task roleAggregateTask = eventStore.SaveAsync(roleAggregate, role.Id.ToString(), IdentityStreams.RoleStream);
-
-        Task userAggregateTask = eventStore.SaveAsync(userAggregate, user.Id.ToString(), IdentityStreams.UserStream);
-
-        await Task.WhenAll(roleAggregateTask, userAggregateTask);
+            await eventStore.SaveAsync(userAggregate, user.Id.ToString(), IdentityStreams.UserStream);
+        }
 
         return new PostRegisterResponse(statusCode: HttpStatusCode.Created, 
                                         message: Messages.UserCreatedSuccessfully, 

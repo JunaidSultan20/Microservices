@@ -22,6 +22,7 @@ public static class Messages
     public const string UserCreatedSuccessfully = "User created successfully";
     public const string UserCreatedFailed = "Unable to create new user";
     public const string UserNotFound = "User not found";
+    public const string RoleNotFound = "No role exists against the specified role in request";
     public const string InvalidAccessToken = "Invalid access token provided";
     public const string RefreshTokenExpired = "Refresh token has expired";
     public const string RefreshTokenNotFound = "Refresh token not found";

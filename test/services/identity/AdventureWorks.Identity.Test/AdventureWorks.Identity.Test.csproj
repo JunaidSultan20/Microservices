@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\PostLogin\Handler\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\src\common\AdventureWorks.Common\AdventureWorks.Common.csproj" />
     <ProjectReference Include="..\..\..\..\src\services\identity\AdventureWorks.Identity.Application\AdventureWorks.Identity.Application.csproj" />
     <ProjectReference Include="..\..\..\..\src\services\identity\AdventureWorks.Identity.Domain\AdventureWorks.Identity.Domain.csproj" />
