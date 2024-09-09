@@ -22,9 +22,8 @@ public class RefreshTokenHandler(UserManager<User> userManager,
         if (user is null)
             return new NotFoundRefreshTokenResponse(Messages.UserNotFound);
 
-        string? refreshToken = await userManager.GetAuthenticationTokenAsync(user: user, 
-                                                                             loginProvider: Constants.LoginProviderName, 
-                                                                             tokenName: Constants.TokenName);
+        string? refreshToken = await userManager.GetAuthenticationTokenAsync(user: user, loginProvider: Constants.LoginProviderName, tokenName: Constants.TokenName);
+        
         if (string.IsNullOrEmpty(refreshToken)) 
             throw new RefreshTokenException();
 
@@ -40,14 +39,9 @@ public class RefreshTokenHandler(UserManager<User> userManager,
 
         JwtSecurityToken refreshedBearerToken = GenerateAccessToken(claims: principal.Claims);
 
-        string newRefreshToken = await userManager.GenerateUserTokenAsync(user: user, 
-                                                                          tokenProvider: Constants.LoginProviderName, 
-                                                                          purpose: Constants.TokenName);
+        string newRefreshToken = await userManager.GenerateUserTokenAsync(user: user, tokenProvider: Constants.LoginProviderName, purpose: Constants.TokenName);
 
-        await userManager.SetAuthenticationTokenAsync(user: user, 
-                                                      loginProvider: Constants.LoginProviderName, 
-                                                      tokenName: Constants.TokenName, 
-                                                      tokenValue: newRefreshToken);
+        await userManager.SetAuthenticationTokenAsync(user: user, loginProvider: Constants.LoginProviderName, tokenName: Constants.TokenName,                                                       tokenValue: newRefreshToken);
 
         httpContextAccessor.HttpContext?.Response.Cookies.Append(key: Constants.BearerToken, 
                                                                  value: tokenHandler.WriteToken(refreshedBearerToken), 
@@ -69,7 +63,7 @@ public class RefreshTokenHandler(UserManager<User> userManager,
             ValidateAudience = false,
             ValidateIssuer = false,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(s: _jwtOptions.Secret ?? string.Empty)),
+            IssuerSigningKey = new SymmetricSecurityKey(key: Encoding.UTF32.GetBytes(s: _jwtOptions.Secret)),
             ValidateLifetime = false
         };
 
@@ -95,7 +89,7 @@ public class RefreshTokenHandler(UserManager<User> userManager,
         SigningCredentials signinCredentials = new SigningCredentials(key: secretKey, algorithm: SecurityAlgorithms.HmacSha256Signature);
 
         JwtSecurityToken token = new JwtSecurityToken(issuer: _jwtOptions.Issuer,
-                                                      audience: "http://localhost:4100",
+                                                      audience: _jwtOptions.Audience,
                                                       claims: claims,
                                                       expires: DateTime.Now.AddMinutes(_jwtOptions.ExpirationMinutes),
                                                       signingCredentials: signinCredentials);

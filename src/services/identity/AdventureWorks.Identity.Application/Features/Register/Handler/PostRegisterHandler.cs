@@ -1,7 +1,6 @@
 ﻿using AdventureWorks.Contracts.EventStreaming;
 using AdventureWorks.Events.Streams;
 using AdventureWorks.Identity.Application.DomainEvents;
-using AdventureWorks.Identity.Application.DomainEvents.Roles;
 using AdventureWorks.Identity.Application.Features.Register.Request;
 using AdventureWorks.Identity.Application.Features.Register.Response;
 
@@ -48,7 +47,7 @@ public class PostRegisterHandler(UserManager<User> userManager,
                                        password: user.PasswordHash ?? string.Empty, 
                                        role: role?.Name ?? string.Empty);
 
-        if (role != null)
+        if (role is not null)
         {
             userAggregate.UserRoleChangedEvent(null, role.Id);
 

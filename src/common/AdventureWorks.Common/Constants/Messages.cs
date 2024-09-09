@@ -9,6 +9,7 @@ public static class Messages
     public const string BearerTokenRefreshed = "Bearer token refreshed successfully";
     public const string RecordsRetrievedSuccessfully = "Records retrieved successfully";
     public const string RecordDeleted = "Record deleted successfully";
+    public const string RoleCreated = "Role created successfully";
 
     //Error Messages
     public const string InvalidUsername = "Invalid username";
@@ -32,6 +33,8 @@ public static class Messages
     public const string NotFoundById = "No record found against the id specified";
     public const string UnableToCreateCustomer = "Unable to create customer";
     public const string UnableToDeleteRecord = "Unable to delete record";
+    public const string UnableToCreateRole = "Unable to create role";
+    public const string DuplicateRecordError = "Duplicate record exists with same details";
 
     //Exception Messages
     public const string ArgumentNullExceptionMessage = "Argument null exception";

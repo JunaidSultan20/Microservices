@@ -1,4 +1,5 @@
-﻿using AdventureWorks.Sales.Customers.Dto;
+﻿using AdventureWorks.Controllers;
+using AdventureWorks.Sales.Customers.Dto;
 using AdventureWorks.Sales.Customers.Features.DeleteCustomer.Request;
 using AdventureWorks.Sales.Customers.Features.DeleteCustomer.Response;
 using AdventureWorks.Sales.Customers.Features.GetCustomerById.Request;
@@ -7,24 +8,18 @@ using AdventureWorks.Sales.Customers.Features.GetCustomers.Request;
 using AdventureWorks.Sales.Customers.Features.GetCustomers.Response;
 using AdventureWorks.Sales.Customers.Features.PostCustomer.Request;
 using AdventureWorks.Sales.Customers.Features.PostCustomer.Response;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AdventureWorks.Sales.Api.Controllers;
 
 /// <summary>
 /// Customer controller
 /// </summary>
-/// <param name="mediator"></param>
-/// <param name="httpContextAccessor"></param>
-/// <param name="logger"></param>
 [Produces(contentType: Constants.ContentTypeJson, Constants.ContentTypeJsonHateoas,
           Constants.ContentTypeTextPlain,
           Constants.ContentTypeTextJson)]
-public class CustomerController(IMediator mediator, 
-                                IHttpContextAccessor httpContextAccessor, 
-                                ILogger<CustomerController> logger) : 
-             BaseController<CustomerController>(mediator: mediator, 
-                                                httpContextAccessor: httpContextAccessor, 
-                                                logger: logger)
+[Authorize]
+public class CustomerController(IServiceProvider serviceProvider) : BaseController<CustomerController>(serviceProvider)
 {
     /// <summary>
     /// Retrieves a list of customers based on pagination parameters.

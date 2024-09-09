@@ -148,6 +148,8 @@ app.UseHttpsRedirection();
 
 app.UseMiddleware<RequestLoggingMiddleware>();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.UseForwardedHeaders();
