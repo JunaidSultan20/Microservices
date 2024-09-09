@@ -5,7 +5,6 @@ using System.Reflection;
 using AdventureWorks.Events;
 using AdventureWorks.Identity.Application.Features.Login.Request;
 using AdventureWorks.Identity.Application.Features.Login.Response;
-using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,8 +13,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAllOrigins", builder =>
     {
         builder.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader();
+               .AllowAnyMethod()
+               .AllowAnyHeader();
     });
 });
 
@@ -44,7 +43,11 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(swagger =>
+{
+    string filePath = Path.Combine(AppContext.BaseDirectory, "AdventureWorks.Identity.Api.xml");
+    swagger.IncludeXmlComments(filePath);
+});
 
 builder.Services.AddSwaggerGen(options =>
 {

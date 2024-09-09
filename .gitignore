@@ -407,3 +407,7 @@ src/*/bin
 src/*/obj
 src/*/bin/*
 src/*/obj/*
+/.idea/.idea.AdventureWorks/.idea/.name
+/.idea/.idea.AdventureWorks/.idea/encodings.xml
+/.idea/.idea.AdventureWorks/.idea/indexLayout.xml
+/.idea/.idea.AdventureWorks/.idea/vcs.xml

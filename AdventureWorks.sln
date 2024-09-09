@@ -82,7 +82,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Events.Test"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Messaging.Test", "test\common\AdventureWorks.Messaging.Test\AdventureWorks.Messaging.Test.csproj", "{74BE083D-EDC2-4316-9773-FC887A7CA074}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Middlewares.Test", "test\common\AdventureWorks.Middlewares.Test\AdventureWorks.Middlewares.Test.csproj", "{7A92F821-3C32-4D39-A102-810E72CC5726}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventureWorks.Middlewares.Test", "test\common\AdventureWorks.Middlewares.Test\AdventureWorks.Middlewares.Test.csproj", "{7A92F821-3C32-4D39-A102-810E72CC5726}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventureWorks.Controllers", "src\common\AdventureWorks.Controllers\AdventureWorks.Controllers.csproj", "{7C492DFD-96E2-4693-A600-54DFB0CE8560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -178,6 +180,10 @@ Global
 		{7A92F821-3C32-4D39-A102-810E72CC5726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A92F821-3C32-4D39-A102-810E72CC5726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A92F821-3C32-4D39-A102-810E72CC5726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C492DFD-96E2-4693-A600-54DFB0CE8560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C492DFD-96E2-4693-A600-54DFB0CE8560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C492DFD-96E2-4693-A600-54DFB0CE8560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C492DFD-96E2-4693-A600-54DFB0CE8560}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -219,6 +225,7 @@ Global
 		{893999FD-8EBA-4E06-9603-A4D704F6B550} = {4C0B984A-7D73-4504-896A-28567BA28695}
 		{74BE083D-EDC2-4316-9773-FC887A7CA074} = {4C0B984A-7D73-4504-896A-28567BA28695}
 		{7A92F821-3C32-4D39-A102-810E72CC5726} = {4C0B984A-7D73-4504-896A-28567BA28695}
+		{7C492DFD-96E2-4693-A600-54DFB0CE8560} = {26ED7CD2-D784-4B62-9E5E-0EE7227C7BA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {80260F81-A5B4-4306-B500-7EAE6324FF65}
