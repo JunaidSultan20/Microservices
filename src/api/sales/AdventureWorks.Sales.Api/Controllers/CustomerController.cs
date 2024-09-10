@@ -157,7 +157,7 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
     {
         PostCustomerResponse response = await Mediator.Send(new PostCustomerRequest(dto), cancellationToken);
 
-        return CreatedAtRoute(nameof(GetCustomerById), new { id = response.Result?.CustomerId });
+        return CreatedAtRoute(nameof(GetCustomerById), new { id = response.Result?.CustomerId }, response);
     }
 
     /// <summary>

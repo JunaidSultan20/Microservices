@@ -28,10 +28,10 @@ public class PostCustomerHandler(IUnitOfWork unitOfWork,
                                                Guid.Parse(request.Customer.Rowguid), 
                                                request.Customer.ModifiedDate);
 
-        await eventStore.SaveAsync(customerAggregate, request.Customer.ToString(), "customer");
+        await eventStore.SaveAsync(customerAggregate, request.Customer.CustomerId.ToString(), "customer");
 
         //if (result > 0)
-            return new PostCustomerResponse(request.Adapt<CustomerDto>());
+            return new PostCustomerResponse(request.Customer.Adapt<CustomerDto>());
 
         //return new PostCustomerResponse(HttpStatusCode.BadRequest, Messages.UnableToCreateCustomer);
     }
