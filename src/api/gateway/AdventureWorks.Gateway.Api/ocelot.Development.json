@@ -28,6 +28,27 @@
       "RouteIsCaseSensitive": false
     },
     {
+      "DownstreamPathTemplate": "/api/customer",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "sales.api",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/customer",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      },
+      "DownstreamheaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      },
+      "SwaggerKey": "customer",
+      "RouteIsCaseSensitive": false
+    },
+    {
       "DownstreamPathTemplate": "/api/account/login",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [

@@ -7,4 +7,8 @@ public class CustomerCreated
     public int? PersonId { get; set; }
 
     public string AccountNumber { get; set; }
+
+    public Guid Rowguid { get; set; }
+
+    public DateTime ModifiedDate { get; set; }
 }

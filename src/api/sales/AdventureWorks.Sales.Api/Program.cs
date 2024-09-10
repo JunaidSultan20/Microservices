@@ -14,6 +14,7 @@ using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using AdventureWorks.Common.Options;
 using Microsoft.Extensions.Options;
+using AdventureWorks.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,8 @@ builder.Services.CustomersLayer(configuration);
 builder.Services.AddSalesInfrastructureLayer(configuration);
 
 builder.Services.CommonLayer();
+
+builder.Services.AddEventStoreLayer();
 
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 

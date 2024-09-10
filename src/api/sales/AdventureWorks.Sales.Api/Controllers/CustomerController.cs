@@ -18,7 +18,7 @@ namespace AdventureWorks.Sales.Api.Controllers;
 [Produces(contentType: Constants.ContentTypeJson, Constants.ContentTypeJsonHateoas,
           Constants.ContentTypeTextPlain,
           Constants.ContentTypeTextJson)]
-[Authorize]
+//[Authorize]
 public class CustomerController(IServiceProvider serviceProvider) : BaseController<CustomerController>(serviceProvider)
 {
     /// <summary>

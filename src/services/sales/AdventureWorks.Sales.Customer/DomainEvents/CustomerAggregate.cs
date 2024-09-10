@@ -35,13 +35,15 @@ public class CustomerAggregate : Aggregate
         }
     }
 
-    public void CustomerCreatedEvent(int customerId, int? personId, string accountNumber)
+    public void CustomerCreatedEvent(int customerId, int? personId, string accountNumber, Guid rowguid, DateTime modifiedDate)
     {
         Apply(new CustomerCreated
         {
             CustomerId = customerId,
             PersonId = personId,
-            AccountNumber = accountNumber
+            AccountNumber = accountNumber,
+            Rowguid = rowguid,
+            ModifiedDate = modifiedDate
         });
     }
 
@@ -79,6 +81,8 @@ public class CustomerAggregate : Aggregate
         CustomerId = @event.CustomerId;
         PersonId = @event.PersonId;
         AccountNumber = @event.AccountNumber;
+        Rowguid = @event.Rowguid;
+        ModifiedDate = @event.ModifiedDate;
     }
 
     private void OnStoreIdChanged(CustomerStoreIdChanged @event)

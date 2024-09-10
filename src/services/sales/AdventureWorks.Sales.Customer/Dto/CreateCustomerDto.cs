@@ -2,6 +2,9 @@
 
 public class CreateCustomerDto
 {
+    [JsonProperty(PropertyName = "customerId")]
+    public int CustomerId { get; set; }
+
     /// <summary>
     /// Person id field.
     /// </summary>
@@ -25,4 +28,10 @@ public class CreateCustomerDto
     /// </summary>
     [JsonProperty(PropertyName = "accountNumber", Order = 5)]
     public string? AccountNumber { get; set; }
+
+    [JsonProperty(PropertyName = "rowguid")]
+    public string Rowguid { get; set; }
+
+    [JsonProperty(PropertyName = "modifiedDate")]
+    public DateTime ModifiedDate { get; set; }
 }
