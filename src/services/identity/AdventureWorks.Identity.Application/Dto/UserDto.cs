@@ -1,13 +1,8 @@
 ﻿namespace AdventureWorks.Identity.Application.Dto;
 
-public record UserDto
-{
-    public string? UserName { get; set; }
-    public string? Email { get; set; }
-
-    public UserDto()
-    {
-    }
-
-    public UserDto(string? userName, string? email) => (UserName, Email) = (userName, email);
-}
+/// <summary>
+/// The user data transfer object with properties to manage the user details.
+/// </summary>
+/// <param name="Username" example="jane.doe"></param>
+/// <param name="Email" example="jane.doe@example.com"></param>
+public record UserDto(string? Username, string? Email);

@@ -75,6 +75,20 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
     ///             "nextPageLink": "/api/customers?page=2&amp;pageSize=10"
     ///         }
     ///     }
+    ///     
+    ///     OR
+    ///     
+    ///     GET /api/customers?page=1&amp;pageSize=10
+    ///     Response:
+    ///     HTTP/1.1 404 Not Found
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 404,
+    ///         "message": "No customer record exists in database",
+    ///         "isSuccessful: false,
+    ///         "result": null,
+    ///         "pagination": null
+    ///     }
     /// </example>
     [HttpGet(Name = "GetCustomers", Order = 1)]
     [ProducesResponseType(typeof(GetCustomersResponse), (int)HttpStatusCode.OK)]
@@ -120,6 +134,59 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
     /// <returns>An ActionResult of type BaseResponse</returns>
     /// <resposne code="200">Returns the matched customer</resposne>
     /// <response code="404">If no user exists against the id provided</response>
+    /// <example>
+    ///     GET /api/customers?page=1&amp;pageSize=10
+    ///     Response:
+    ///     HTTP/1.1 200 OK
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 200,
+    ///         "message": "Records found successfully",
+    ///         "isSuccessful: true,
+    ///         "result": [
+    ///             {
+    ///                 "customerId": 1,
+    ///                 "personId": 10,
+    ///                 "storeId": 468,
+    ///                 "territoryId": 197,
+    ///                 "accountNumber": "AWN256GD298",
+    ///                 "modifiedDate": null,
+    ///                 "links": [
+    ///                     {
+    ///                         "rel": "self",
+    ///                         "href": "/api/customers/1"
+    ///                     },
+    ///                     // Additional link objects
+    ///                 ]
+    ///             },
+    ///             // Additional customer objects
+    ///         ],
+    ///         "pagination": {
+    ///             "totalRecords": 100,
+    ///             "currentPage": 1,
+    ///             "pageSize": 10,
+    ///             "totalPages": 10,
+    ///             "hasPrevious": false,
+    ///             "hasNext": true,
+    ///             "previousPageLink": null,
+    ///             "nextPageLink": "/api/customers?page=2&amp;pageSize=10"
+    ///         }
+    ///     }
+    ///     
+    ///     OR
+    ///     
+    ///     GET /api/customers?page=1&amp;pageSize=10
+    ///     Response:
+    ///     HTTP/1.1 404 Not Found
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 404,
+    ///         "message": "No customer record exists in database",
+    ///         "isSuccessful: false,
+    ///         "result": null,
+    ///         "pagination": null
+    ///     }
+    /// </example>
     [HttpGet(template: "{id:int:min(1):required}", Name = "GetCustomerById", Order = 2)]
     [ProducesResponseType(typeof(GetCustomerByIdResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(NotFoundCustomerByIdResponse), (int)HttpStatusCode.NotFound)]
@@ -146,18 +213,65 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
     }
 
     /// <summary>
-    /// Creates new customer
+    /// Creates a new customer in the system.
     /// </summary>
-    /// <param name="dto"></param>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
+    /// <remarks>
+    /// This endpoint creates a new customer based on the provided data in the request body. 
+    /// The customer information is validated and then stored in the database.
+    /// The endpoints also returns the newly created customer deatils in the response
+    /// </remarks>
+    /// <param name="dto">Data Transfer Object containing customer details.</param>
+    /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>
+    /// <returns>
+    ///   <para>Returns a response containing the created customer's details.</para>
+    ///   <para>If successful, returns HTTP status code 201 (Created).</para>
+    ///   <para>If the creation fails, returns appropriate HTTP status code and error details.</para>
+    /// </returns>
+    /// <response code="201">The customer was successfully created.</response>
+    /// <response code="400">Invalid customer data provided.</response>
+    /// <example>
+    ///     POST /api/customers
+    ///     Request Body:
+    ///     {
+    ///         "personId": 10,
+    ///         "storeId": 468,
+    ///         "territoryId": 197,
+    ///         "accountNumber": "AWN256GD298"
+    ///     }
+    ///     Response:
+    ///     HTTP/1.1 201 Created
+    ///     Location: /api/customers/1
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 201,
+    ///         "message": "Customer created successfully",
+    ///         "isSuccessful": true,
+    ///         "result": {
+    ///             "customerId": 1,
+    ///             "personId": 10,
+    ///             "storeId": 468,
+    ///             "territoryId": 197,
+    ///             "accountNumber": "AWN256GD298",
+    ///             "links": [
+    ///                 {
+    ///                     "rel": "self",
+    ///                     "href": "/api/customers/1"
+    ///                 }
+    ///                 // Additional link objects
+    ///             ]
+    ///         }
+    ///     }
+    /// </example>
     [HttpPost(Name = "PostCustomer", Order = 3)]
+    [ProducesResponseType(typeof(PostCustomerResponse), (int)HttpStatusCode.Created)]
+    [ProducesResponseType(typeof(ConflictCustomerResponse), (int)HttpStatusCode.Conflict)]
+    [RequiresParameter(Name = nameof(CreateCustomerDto), Required = true, Source = OpenApiParameterLocation.Body, Type = typeof(CreateCustomerDto))]
+    [MapToApiVersion("1.0")]
     public async Task<ActionResult<PostCustomerResponse>> PostCustomer([FromBody] CreateCustomerDto dto, 
                                                                        CancellationToken cancellationToken = default)
     {
         PostCustomerResponse response = await Mediator.Send(new PostCustomerRequest(dto), cancellationToken);
-
-        return CreatedAtRoute(nameof(GetCustomerById), new { id = response.Result?.CustomerId });
+        return CreatedAtRoute(nameof(GetCustomerById), new { id = response.Result?.CustomerId }, response);
     }
 
     /// <summary>
@@ -195,9 +309,7 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
     ///     {
     ///         "message": "The request is invalid.",
     ///         "errors": {
-    ///             "id": [
-    ///                 "The value 'abc' is not valid."
-    ///             ]
+    ///             "id": ["The value 'abc' is not valid."]
     ///         }
     ///     }
     /// </example>
@@ -218,16 +330,13 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
 
     private IReadOnlyList<Links> CreateCustomerLinks(int id, string? fields)
     {
-        var context = HttpContextAccessor.HttpContext;
-
-        Links link;
-
+        HttpContext? context = HttpContextAccessor?.HttpContext;
         List<Links> links = new ();
 
-        link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl(nameof(GetCustomerById), 
-                         !string.IsNullOrWhiteSpace(fields) ? new { id, fields } : new { id })}", 
-                         Constants.SelfRel, 
-                         Constants.GetMethod);
+        Links link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl(nameof(GetCustomerById), 
+                               !string.IsNullOrWhiteSpace(fields) ? new { id, fields } : new { id })}", 
+                               Constants.SelfRel, 
+                               Constants.GetMethod);
         links.Add(link);
 
         link = new Links($"{context?.Request.Scheme}://{RemoteIpAddress}{Url.RouteUrl(nameof(DeleteCustomerById), 

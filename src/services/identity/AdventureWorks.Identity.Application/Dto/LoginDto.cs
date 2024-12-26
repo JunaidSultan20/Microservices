@@ -1,26 +1,10 @@
 ﻿namespace AdventureWorks.Identity.Application.Dto;
 
-public record LoginDto
-{
-    public string? Token { get; }
-    public DateTime? Expiration { get; }
-    public string? RefreshToken { get; }
-    public DateTime? RefreshTokenExpiration { get; }
-
-    public LoginDto()
-    {
-    }
-
-    public LoginDto(string? token,
-                    DateTime? expiration,
-                    string? refreshToken,
-                    DateTime? refreshTokenExpiration) =>
-                   (Token,
-                    Expiration,
-                    RefreshToken,
-                    RefreshTokenExpiration) =
-                   (token,
-                    expiration,
-                    refreshToken,
-                    refreshTokenExpiration);
-}
+/// <summary>
+/// The login data transfer object with properties to return the access and refresh tokens after successful authentication.
+/// </summary>
+/// <param name="Token" example="accessTokem"></param>
+/// <param name="Expiration"  example="2025-01-31"></param>
+/// <param name="RefreshToken" example="refreshToken"></param>
+/// <param name="RefreshTokenExpiration" example="2025-02-31"></param>
+public record LoginDto(string? Token, DateTime? Expiration, string? RefreshToken, DateTime? RefreshTokenExpiration);

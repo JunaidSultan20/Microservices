@@ -1,7 +1,15 @@
 ﻿namespace AdventureWorks.Sales.Customers.Features.GetCustomerById.Response;
 
+/// <summary>
+/// Provides example data for <see cref="GetCustomerByIdResponse"/>.
+/// Implements <see cref="IExamplesProvider{T}"/> for providing examples in documentation.
+/// </summary>
 public class GetCustomerByIdResponseExample : IExamplesProvider<GetCustomerByIdResponse>
 {
+    /// <summary>
+    /// Gets an example of <see cref="GetCustomerByIdResponse"/>.
+    /// </summary>
+    /// <returns>A sample response containing a customer DTO.</returns>
     public GetCustomerByIdResponse GetExamples()
     {
         CustomerDto customer = new CustomerDto(customerId: 1,

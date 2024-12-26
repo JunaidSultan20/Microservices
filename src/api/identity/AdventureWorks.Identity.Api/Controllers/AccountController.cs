@@ -13,6 +13,7 @@ namespace AdventureWorks.Identity.Api.Controllers;
 /// <param name="serviceProvider">
 /// An instance of IServiceProvider that is used to resolve services.
 /// </param>
+[Produces(contentType: Constants.ContentTypeJson)]
 public class AccountController(IServiceProvider serviceProvider) : BaseController<AccountController>(serviceProvider)
 {
     /// <summary>
@@ -67,6 +68,7 @@ public class AccountController(IServiceProvider serviceProvider) : BaseControlle
     [SwaggerRequestExample(typeof(PostLoginRequest), typeof(PostLoginRequestExample))]
     [ProducesResponseType(typeof(PostLoginResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(PostUnauthorizedAttemptResponse), (int)HttpStatusCode.Unauthorized)]
+    [RequiresParameter(Name = nameof(AuthenticationDto), Required = true, Source = OpenApiParameterLocation.Body, Type = typeof(AuthenticationDto))]
     public async Task<ActionResult<PostLoginResponse>> Login([FromBody] AuthenticationDto authenticationDto, 
                                                              CancellationToken cancellationToken = default)
     {
@@ -158,6 +160,7 @@ public class AccountController(IServiceProvider serviceProvider) : BaseControlle
     [ProducesResponseType(typeof(PostRegisterResponse), (int)HttpStatusCode.Created)]
     [ProducesResponseType(typeof(BadRequestPostRegisterResponse), (int)HttpStatusCode.BadRequest)]
     [ProducesResponseType(typeof(ConflictPostRegisterResponse), (int)HttpStatusCode.Conflict)]
+    [RequiresParameter(Name = nameof(RegistrationDto), Required = true, Source = OpenApiParameterLocation.Body, Type = typeof(RegistrationDto))]
     public async Task<ActionResult<PostRegisterResponse>> Register([FromBody] RegistrationDto registrationDto,
                                                                    CancellationToken cancellationToken = default)
     {
@@ -173,19 +176,78 @@ public class AccountController(IServiceProvider serviceProvider) : BaseControlle
     }
 
     /// <summary>
-    /// Handles the refreshing of an expired authentication token.
+    /// Refreshes the authentication token and returns the appropriate response based on the result.
     /// </summary>
     /// <remarks>
-    /// This endpoint handles refreshing the expired access token by regenerating it and returns the refreshed token via the cookie
+    /// This endpoint handles token refreshing by sending a request to refresh the token, and returns a response
+    /// indicating whether the refresh was successful or not.
     /// </remarks>
     /// <param name="cancellationToken">A token that can be used to cancel the operation.</param>
     /// <returns>
-    ///   <para code="200">Returns the <see cref="RefreshTokenResponse"/> if the token is refreshed successfully.</para>
-    ///   <para code="401">If the access token is not present in the cookie, returns <see cref="UnauthorizedRefreshTokenResponse"/> with status code 401 (Unauthorized).</para>
+    ///   <para>Returns the <see cref="RefreshTokenResponse"/> indicating the result of the token refresh operation.</para>
+    ///   <para>If successful, returns HTTP status code 200 (OK) along with the new token information.</para>
+    ///   <para>If the refresh is forbidden, returns HTTP status code 403 (Forbidden).</para>
+    ///   <para>If the token is not found, returns HTTP status code 404 (Not Found).</para>
+    ///   <para>If unauthorized, returns HTTP status code 401 (Unauthorized).</para>
+    ///   <para>For other issues, returns HTTP status code 400 (Bad Request).</para>
     /// </returns>
-    /// <response code="403">Returns a <see cref="ForbiddenRefreshTokenResponse"/> if the user is forbidden from refreshing the token.</response>
-    /// <response code="404">Returns a <see cref="NotFoundRefreshTokenResponse"/> if the token or user is not found.</response>
-    /// <response code="401">Returns an <see cref="UnauthorizedRefreshTokenResponse"/> if the request is unauthorized.</response>
+    /// <response code="200">Returns the <see cref="RefreshTokenResponse"/> if the token is successfully refreshed.</response>
+    /// <response code="403">Returns a <see cref="ForbiddenRefreshTokenResponse"/> if the refresh is forbidden.</response>
+    /// <response code="404">Returns a <see cref="NotFoundRefreshTokenResponse"/> if the token is not found.</response>
+    /// <response code="401">Returns a <see cref="UnauthorizedRefreshTokenResponse"/> if unauthorized access is detected.</response>
+    /// <response code="400">Returns a <see cref="BadRequest"/> if the request is invalid or an error occurred during the process.</response>
+    /// <example>
+    ///     GET /api/token/refresh
+    ///     Request:
+    ///     {
+    ///         "refreshToken": "some-valid-refresh-token"
+    ///     }
+    ///     Response:
+    ///     HTTP/1.1 200 OK
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 200,
+    ///         "message": "Token refreshed successfully",
+    ///         "token": "new-access-token",
+    ///         "refreshToken": "new-refresh-token"
+    ///     }
+    /// 
+    ///     OR
+    /// 
+    ///     HTTP/1.1 403 Forbidden
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 403,
+    ///         "message": "Refresh token is forbidden"
+    ///     }
+    /// 
+    ///     OR
+    /// 
+    ///     HTTP/1.1 404 Not Found
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 404,
+    ///         "message": "Refresh token not found"
+    ///     }
+    /// 
+    ///     OR
+    /// 
+    ///     HTTP/1.1 401 Unauthorized
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 401,
+    ///         "message": "Unauthorized access"
+    ///     }
+    /// 
+    ///     OR
+    /// 
+    ///     HTTP/1.1 400 Bad Request
+    ///     Content-Type: application/json
+    ///     {
+    ///         "statusCode": 400,
+    ///         "message": "Invalid request"
+    ///     }
+    /// </example>
     [HttpGet(template: "[action]", Name = nameof(Refresh))]
     [ProducesResponseType(typeof(RefreshTokenResponse), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(ForbiddenRefreshTokenResponse), (int)HttpStatusCode.Forbidden)]

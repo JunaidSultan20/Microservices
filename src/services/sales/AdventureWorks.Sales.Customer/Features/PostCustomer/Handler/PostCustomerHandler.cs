@@ -15,7 +15,6 @@ public class PostCustomerHandler(IUnitOfWork unitOfWork,
     {
         Customer customer = await UnitOfWork.Repository<Customer>()
                                             .AddAsync(request.Customer.Adapt<Customer>(), cancellationToken);
-
         int result = await UnitOfWork.CommitAsync();
 
         if (result > 0)

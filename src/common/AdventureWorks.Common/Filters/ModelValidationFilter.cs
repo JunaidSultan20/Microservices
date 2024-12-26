@@ -2,8 +2,19 @@
 
 namespace AdventureWorks.Common.Filters;
 
+/// <summary>
+/// A filter that performs model validation before an action is executed.
+/// If the model state is invalid, it returns a 422 Unprocessable Entity response with validation errors.
+/// </summary>
 public class ModelValidationFilter : IAsyncActionFilter
 {
+    /// <summary>
+    /// Called before an action is executed to check the validity of the model state.
+    /// If the model state is invalid, it returns a validation error response.
+    /// </summary>
+    /// <param name="context">The context in which the action is executed, containing information about the request and the model state.</param>
+    /// <param name="next">The delegate representing the next action to execute if the model state is valid.</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         if (!context.ModelState.IsValid)

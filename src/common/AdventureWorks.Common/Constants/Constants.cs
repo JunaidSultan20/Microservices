@@ -36,4 +36,8 @@ public static class Constants
     public const string SalesQueue = "salesQueue";
     public const string ProductionQueue = "productionQueue";
     public const string IdentityQueue = "identityQueue";
+
+    public const string SalesExchange = "SalesExchange";
+
+    public const string SalesRoute = "sales_route";
 }

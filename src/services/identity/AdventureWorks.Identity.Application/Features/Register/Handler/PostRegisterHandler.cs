@@ -56,6 +56,6 @@ public class PostRegisterHandler(UserManager<User> userManager,
 
         return new PostRegisterResponse(statusCode: HttpStatusCode.Created, 
                                         message: Messages.UserCreatedSuccessfully, 
-                                        result: new UserDto(userName: user.UserName, email: user.Email));
+                                        result: new UserDto(Username: user.UserName, Email: user.Email));
     }
 }

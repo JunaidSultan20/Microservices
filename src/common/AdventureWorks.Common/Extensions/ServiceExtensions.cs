@@ -4,34 +4,35 @@ using Newtonsoft.Json.Serialization;
 namespace AdventureWorks.Common.Extensions;
 
 /// <summary>
-/// Services extensions class.
+/// A collection of extension methods for configuring various services in the application, 
+/// such as JWT authentication, custom media types, CORS policies, API versioning, and more.
 /// </summary>
 public static class ServiceExtensions
 {
     /// <summary>
-    /// Custom media type services extension.
+    /// Adds support for custom media types for JSON and XML formatters.
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="mediaTypes"></param>
+    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="mediaTypes">An array of custom media types to support.</param>
     public static void AddCustomMediaTypes(this IServiceCollection services, string[] mediaTypes)
     {
         services.Configure<MvcOptions>(config =>
         {
-            var newtonsoftJsonOutputFormatter = config.OutputFormatters
-                                                      .OfType<NewtonsoftJsonOutputFormatter>()
-                                                      .FirstOrDefault();
+            NewtonsoftJsonOutputFormatter? outputFormatter= config.OutputFormatters
+                                                                  .OfType<NewtonsoftJsonOutputFormatter>()
+                                                                  .FirstOrDefault();
 
-            if (newtonsoftJsonOutputFormatter is not null)
+            if (outputFormatter is not null)
             {
                 foreach (string type in mediaTypes)
                 {
-                    newtonsoftJsonOutputFormatter.SupportedMediaTypes.Add(type);
+                    outputFormatter.SupportedMediaTypes.Add(type);
                 }
             }
 
-            var xmlOutputFormatter = config.OutputFormatters
-                                           .OfType<XmlDataContractSerializerOutputFormatter>()
-                                           .FirstOrDefault();
+            XmlDataContractSerializerOutputFormatter? xmlOutputFormatter = config.OutputFormatters
+                                                                                 .OfType<XmlDataContractSerializerOutputFormatter>()
+                                                                                 .FirstOrDefault();
 
             if (xmlOutputFormatter is not null)
             {
@@ -44,12 +45,12 @@ public static class ServiceExtensions
     }
 
     /// <summary>
-    /// Jwt authentication services extension
+    /// Configures JWT authentication for the application.
     /// </summary>
-    /// <param name="services"></param>
+    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
     public static void AddJwtAuthentication(this IServiceCollection services)
     {
-        var jwtOptions = services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>();
+        IOptions<JwtOptions> jwtOptions = services.BuildServiceProvider().GetRequiredService<IOptions<JwtOptions>>();
 
         services.AddAuthentication(options =>
         {
@@ -66,7 +67,6 @@ public static class ServiceExtensions
                 ClockSkew = TimeSpan.Zero,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF32.GetBytes(jwtOptions.Value.Secret ?? string.Empty)),
                 ValidateAudience = false,
-                //ValidAudiences = configuration.GetValue<string>("JwtOptions:Audience")!.Split(',').Select(x => x.Trim()).ToList(),
                 ValidAudiences = new List<string>
                 {
                     "https://sales.api"
@@ -82,10 +82,10 @@ public static class ServiceExtensions
     }
 
     /// <summary>
-    /// Caching extension for the controllers
+    /// Adds caching profiles and configuration for the controllers.
     /// </summary>
-    /// <param name="service"></param>
-    /// <param name="profileName"></param>
+    /// <param name="service">The <see cref="IServiceCollection"/> to configure.</param>
+    /// <param name="profileName">The name of the caching profile.</param>
     public static void AddControllerExtension(this IServiceCollection service, string profileName)
     {
         service.AddControllers(options =>
@@ -95,13 +95,9 @@ public static class ServiceExtensions
                 Duration = 120,
                 Location = ResponseCacheLocation.Any
             });
-
             options.Filters.Add<ModelValidationFilter>();
-
             options.ReturnHttpNotAcceptable = true;
-
             options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
-
             options.RespectBrowserAcceptHeader = true;
         }).AddNewtonsoftJson(options =>
         {
@@ -117,23 +113,12 @@ public static class ServiceExtensions
     }
 
     /// <summary>
-    /// Extension method to add cors policy
+    /// Configures CORS policy for the application.
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="policyName"></param>
+    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="policyName">The name of the CORS policy.</param>
     public static void AddCorsPolicy(this IServiceCollection services, string policyName)
     {
-        //services.AddCors(options =>
-        //{
-        //    options.AddPolicy(policyName, 
-        //        cors => 
-        //        {
-        //            cors.AllowAnyOrigin()
-        //                .AllowAnyHeader()
-        //                .AllowAnyMethod();
-        //        });
-        //});
-
         services.AddCors(options => options.AddPolicy(policyName, builder =>
         {
             builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
@@ -141,11 +126,11 @@ public static class ServiceExtensions
     }
 
     /// <summary>
-    /// Extension method for adding the api versioning
+    /// Configures API versioning for the application.
     /// </summary>
-    /// <param name="services"></param>
-    /// <param name="majorVersion"></param>
-    /// <param name="minorVersion"></param>
+    /// <param name="services">The <see cref="IServiceCollection"/> to add services to.</param>
+    /// <param name="majorVersion">The major version number for the API.</param>
+    /// <param name="minorVersion">The minor version number for the API.</param>
     public static void AddApiVersioning(this IServiceCollection services, int majorVersion, int minorVersion)
     {
         services.AddApiVersioning(options =>
@@ -158,9 +143,9 @@ public static class ServiceExtensions
     }
 
     /// <summary>
-    /// Extension method for suppressing the default model validation filter
+    /// Suppresses the default model state validation filter.
     /// </summary>
-    /// <param name="services"></param>
+    /// <param name="services">The <see cref="IServiceCollection"/> to configure.</param>
     public static void SuppressDefaultModelState(this IServiceCollection services)
     {
         services.Configure<ApiBehaviorOptions>(options =>
@@ -170,9 +155,9 @@ public static class ServiceExtensions
     }
 
     /// <summary>
-    /// Extension method for configuring the forwarded header options
+    /// Configures forwarded headers options for the application.
     /// </summary>
-    /// <param name="services"></param>
+    /// <param name="services">The <see cref="IServiceCollection"/> to configure.</param>
     public static void ConfigureForwardedHeaders(this IServiceCollection services)
     {
         services.Configure<ForwardedHeadersOptions>(options =>
@@ -183,15 +168,15 @@ public static class ServiceExtensions
     }
 
     /// <summary>
-    /// Registers each event specific aggregate class that is inherited from Aggregate class
+    /// Registers event-specific aggregate classes derived from the <see cref="Aggregate"/> class.
     /// </summary>
-    /// <param name="services"></param>
+    /// <param name="services">The <see cref="IServiceCollection"/> to configure.</param>
     public static void AddScopedAggregates(this IServiceCollection services)
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        var aggregateType = typeof(Aggregate);
+        Assembly assembly = Assembly.GetExecutingAssembly();
+        Type aggregateType = typeof(Aggregate);
 
-        foreach (var type in assembly.GetTypes())
+        foreach (Type type in assembly.GetTypes())
         {
             if (type.IsSubclassOf(aggregateType) && !type.IsAbstract)
                 services.AddScoped(type);

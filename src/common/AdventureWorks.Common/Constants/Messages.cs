@@ -8,6 +8,7 @@ public static class Messages
     public const string LogoutSuccessful = "User logged out successfully";
     public const string BearerTokenRefreshed = "Bearer token refreshed successfully";
     public const string RecordsRetrievedSuccessfully = "Records retrieved successfully";
+    public const string RecordAddedSuccessfully = "Record added successfully";
     public const string RecordDeleted = "Record deleted successfully";
     public const string RoleCreated = "Role created successfully";
 

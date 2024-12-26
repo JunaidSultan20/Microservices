@@ -1,56 +1,51 @@
 ﻿namespace AdventureWorks.Common.Extensions;
 
+/// <summary>
+/// Provides extension methods for <see cref="IReadOnlyList{T}"/> for shaping data.
+/// </summary>
 public static class ReadOnlyListExtensions
 {
     /// <summary>
-    /// Readonly list extension method for data shaping the contents of the source
+    /// Shapes the data of the source list into a list of <see cref="ExpandoObject"/> based on the specified fields.
     /// </summary>
-    /// <typeparam name="TSource"></typeparam>
-    /// <param name="source"></param>
-    /// <param name="fields"></param>
-    /// <returns></returns>
-    /// <exception cref="Exception"></exception>
+    /// <typeparam name="TSource">The type of the objects in the source list.</typeparam>
+    /// <param name="source">The source list of objects to shape.</param>
+    /// <param name="fields">A comma-separated list of field names to include in the shaped data. If null or empty, all properties are included.</param>
+    /// <returns>A read-only list of <see cref="ExpandoObject"/> representing the shaped data.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when the <paramref name="source"/> is null.</exception>
+    /// <exception cref="Exception">Thrown when a specified property in <paramref name="fields"/> is not found on <typeparamref name="TSource"/>.</exception>
     public static IReadOnlyList<ExpandoObject> ShapeData<TSource>(this IReadOnlyList<TSource> source, string? fields)
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
-
         List<ExpandoObject> expandoObjectList = new List<ExpandoObject>();
-
         List<PropertyInfo> propertyInfoList = new List<PropertyInfo>();
 
         if (string.IsNullOrWhiteSpace(fields))
         {
-            var propertyInfos = typeof(TSource).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
-
+            PropertyInfo[] propertyInfos = typeof(TSource).GetProperties(BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance);
             propertyInfoList.AddRange(propertyInfos);
         }
         else
         {
-            var fieldsAfterSplit = fields.Split(',');
-
-            foreach (var field in fieldsAfterSplit)
+            string[] fieldsAfterSplit = fields.Split(',');
+            foreach (string field in fieldsAfterSplit)
             {
-                var propertyName = field.Trim();
-
-                var propertyInfo = typeof(TSource)
-                                      .GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) ??
-                                   throw new Exception($"Property {propertyName} wasn't found on {typeof(TSource)}");
-
+                string propertyName = field.Trim();
+                PropertyInfo propertyInfo = typeof(TSource)
+                                            .GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance) ??
+                                            throw new Exception($"Property {propertyName} wasn't found on {typeof(TSource)}");
                 propertyInfoList.Add(propertyInfo);
             }
         }
 
         foreach (TSource sourceObject in source)
         {
-            var dataShapedObject = new ExpandoObject();
-
+            ExpandoObject dataShapedObject = new ExpandoObject();
             propertyInfoList.ForEach(propertyInfo =>
             {
-                var propertyValue = propertyInfo.GetValue(sourceObject);
-
+                object? propertyValue = propertyInfo.GetValue(sourceObject);
                 (dataShapedObject as IDictionary<string, object>).Add(propertyInfo.Name, value: propertyValue ?? string.Empty);
             });
-
             expandoObjectList.Add(dataShapedObject);
         }
 

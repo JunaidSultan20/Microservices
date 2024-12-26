@@ -1,32 +1,38 @@
 ﻿namespace AdventureWorks.Common.Response;
 
+/// <summary>
+/// Represents the result of an API operation, including the status code, message, and success indicator.
+/// </summary>
 public class ApiResult
 {
     /// <summary>
-    /// Returns the status code of the request
+    /// Gets or sets the status code of the request.
     /// </summary>
     [JsonProperty(PropertyName = "statusCode", Order = 1)]
     public HttpStatusCode StatusCode { get; set; }
 
     /// <summary>
-    /// Message description
+    /// Gets or sets the message description for the result.
     /// </summary>
     [JsonProperty(PropertyName = "message", Order = 2)]
     public string? Message { get; set; }
 
     /// <summary>
-    /// Success/Fail indicator
+    /// Gets or sets a value indicating whether the request was successful.
     /// </summary>
     [JsonProperty(PropertyName = "isSuccessful", Order = 3)]
     public bool? IsSuccessful { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiResult"/> class.
+    /// </summary>
     public ApiResult() { }
 
     /// <summary>
-    /// Acts as a base method for response fields
+    /// Initializes a new instance of the <see cref="ApiResult"/> class with specified status code and message.
     /// </summary>
-    /// <param name="statusCode" example="200"></param>
-    /// <param name="message" example="Records retrieved successfully."></param>
+    /// <param name="statusCode">The HTTP status code. Example: <c>200</c>.</param>
+    /// <param name="message">The message description. Example: <c>Records retrieved successfully.</c>.</param>
     public ApiResult(HttpStatusCode statusCode, string? message)
     {
         StatusCode = statusCode;
@@ -41,8 +47,8 @@ public class ApiResult
 
         Message = message ?? statusCode switch
         {
-            HttpStatusCode.OK => "Records retrieved successfully.",
-            HttpStatusCode.Created => "Record added successfully.",
+            HttpStatusCode.OK => Messages.RecordsRetrievedSuccessfully,
+            HttpStatusCode.Created => Messages.RecordAddedSuccessfully,
             HttpStatusCode.NoContent => "Resource deleted successfully.",
             HttpStatusCode.BadRequest => "Invalid resource requested.",
             HttpStatusCode.Unauthorized => "Invalid authentication request.",

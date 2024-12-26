@@ -31,7 +31,6 @@
   <ItemGroup>
     <Folder Include="Features\DeleteCustomer\Request\" />
     <Folder Include="Features\GetCustomerById\Handler\" />
-    <Folder Include="Features\GetCustomerById\Request\" />
     <Folder Include="Features\GetCustomerById\Response\" />
     <Folder Include="Features\GetCustomers\Handler\" />
     <Folder Include="Features\GetCustomers\Request\" />

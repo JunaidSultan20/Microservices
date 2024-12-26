@@ -1,13 +1,8 @@
 ﻿namespace AdventureWorks.Identity.Application.Dto;
 
-public record RefreshTokenDto
-{
-    public string? Token { get; }
-    public string? RefreshToken { get; }
-
-    public RefreshTokenDto()
-    {
-    }
-
-    public RefreshTokenDto(string? token, string? refreshToken) => (Token, RefreshToken) = (token, refreshToken);
-}
+/// <summary>
+/// The refresh token data transfer object with properties to refresh the expired access token.
+/// </summary>
+/// <param name="Token" example="accesstoken"></param>
+/// <param name="RefreshToken" example="refreshtoken"></param>
+public record RefreshTokenDto(string? Token, string? RefreshToken);

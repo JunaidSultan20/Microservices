@@ -1,7 +1,7 @@
 ﻿namespace AdventureWorks.Common.Parameters;
 
 /// <summary>
-/// Represents the parameters for paginating data.
+/// Represents the parameters for pagination in API responses.
 /// </summary>
 public class PaginationParameters
 {
@@ -29,12 +29,7 @@ public class PaginationParameters
     /// <summary>
     /// Initializes a new instance of the <see cref="PaginationParameters"/> class with default values.
     /// </summary>
-    public PaginationParameters()
-    {
-        PageNumber = Constants.Constants.DefaultPageNumber;
-        PageSize = Constants.Constants.DefaultPageSize;
-        Fields = string.Empty;
-    }
+    public PaginationParameters() => (PageNumber, PageSize, Fields) = (Constants.Constants.DefaultPageNumber, Constants.Constants.DefaultPageSize, string.Empty);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PaginationParameters"/> class with specified values.
@@ -42,10 +37,5 @@ public class PaginationParameters
     /// <param name="pageNumber">The page number.</param>
     /// <param name="pageSize">The page size.</param>
     /// <param name="fields">The fields to include in the response.</param>
-    public PaginationParameters(int pageNumber, int pageSize, string? fields)
-    {
-        PageNumber = pageNumber;
-        PageSize = pageSize;
-        Fields = fields;
-    }
+    public PaginationParameters(int pageNumber, int pageSize, string? fields) => (PageNumber, PageSize, Fields) = (pageNumber, pageSize, fields);
 }

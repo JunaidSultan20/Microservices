@@ -1,4 +1,6 @@
-﻿namespace AdventureWorks.Sales.Api.Controllers;
+﻿using Microsoft.Extensions.Primitives;
+
+namespace AdventureWorks.Sales.Api.Controllers;
 
 /// <inheritdoc />
 [Route(template: "api")]
@@ -12,11 +14,11 @@ public class RootController(IHttpContextAccessor httpContextAccessor) : Controll
     [HttpGet(Name = "GetRoot")]
     public async Task<ActionResult<RootResponse>> GetRoot()
     {
-        var context = httpContextAccessor.HttpContext;
+        HttpContext? context = httpContextAccessor.HttpContext;
         string remoteIpAddress = string.Empty;
 
         if (context is not null &&
-            context.Request.Headers.TryGetValue(Constants.ForwardedFor, out var ipAddress))
+            context.Request.Headers.TryGetValue(Constants.ForwardedFor, out StringValues ipAddress))
             remoteIpAddress = ipAddress.ToString();
 
         return Ok(await Task.Run(function: () =>

@@ -1,10 +1,8 @@
 ﻿namespace AdventureWorks.Identity.Application.Dto;
 
 /// <summary>
-/// Parameterized constructor that takes two variables and assigns them to email and Password properties 
+/// The authentication data transfer object that contains properties to authenticate the user.
 /// </summary>
-/// <param name="Email"></param>
-/// <param name="Password"></param>
-public record AuthenticationDto(string? Email, string? Password)
-{
-}
+/// <param name="Email" example="jane.doe@xyz.com"></param>
+/// <param name="Password" example="janDoe@123"></param>
+public record AuthenticationDto(string? Email, string? Password);

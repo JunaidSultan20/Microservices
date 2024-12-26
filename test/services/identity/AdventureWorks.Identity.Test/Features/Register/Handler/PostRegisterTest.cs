@@ -26,7 +26,7 @@ public class PostRegisterTest : PostRegisterTestData
         PostRegisterRequest request = CreateRequest(username, email, password, role);
 
         // Act
-        PostRegisterResponse result = await sut.Handle(request, default);
+        PostRegisterResponse result = await sut.Handle(request, CancellationToken.None);
 
         // Assert
         result.Should().NotBeNull();
@@ -36,7 +36,7 @@ public class PostRegisterTest : PostRegisterTestData
         result.Message.Should().Be(Messages.UserCreatedSuccessfully);
         result.Result.Should().BeOfType<UserDto>();
         result.Result.Should().NotBeNull();
-        result.Result?.UserName.Should().Be(username);
+        result.Result?.Username.Should().Be(username);
         result.Result?.Email.Should().Be(email);
     }
 

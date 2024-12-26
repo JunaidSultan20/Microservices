@@ -15,7 +15,7 @@ public class RabbitMqBackgroundService : BackgroundService
 
     public RabbitMqBackgroundService(IOptions<RabbitMqOptions> options)
     {
-        var rabbitMqConfig = options.Value;
+        RabbitMqOptions rabbitMqConfig = options.Value;
         //var factory = new ConnectionFactory
         //{
         //    HostName = rabbitMqConfig.Hostname,
@@ -24,9 +24,7 @@ public class RabbitMqBackgroundService : BackgroundService
         //    Password = rabbitMqConfig.Password
         //};
         ConnectionFactory factory = new ConnectionFactory().CreateConnection(rabbitMqConfig);
-
         _connection = factory.CreateConnection();
-        
         _channel = _connection.CreateChannel();
         
         InitRabbitMq();
@@ -35,15 +33,8 @@ public class RabbitMqBackgroundService : BackgroundService
     private void InitRabbitMq()
     {
         _channel.ExchangeDeclare("SalesExchange", "direct");
-
-        _channel.QueueDeclare(queue: Constants.SalesQueue,
-                             durable: true,
-                             exclusive: false,
-                             autoDelete: false,
-                             arguments: null);
-
+        _channel.QueueDeclare(queue: Constants.SalesQueue, durable: true, exclusive: false, autoDelete: false, arguments: null);
         _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-
         _channel.QueueBind(queue: Constants.SalesQueue, exchange: "SalesExchange", "sales_route");
         _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
     }
@@ -56,14 +47,14 @@ public class RabbitMqBackgroundService : BackgroundService
         consumer.Received += (ch, ea) =>
         {
             // Received message
-            var content = System.Text.Encoding.UTF8.GetString(ea.Body.ToArray());
-
+            string content = System.Text.Encoding.UTF8.GetString(ea.Body.ToArray());
+            
             // Acknowledge the received message
             _channel.BasicAck(ea.DeliveryTag, false);
 
             // Deserialized Message
-            var message = Encoding.UTF8.GetString(ea.Body.ToArray());
-            var json = JsonConvert.DeserializeObject<object>(message);
+            string message = Encoding.UTF8.GetString(ea.Body.ToArray());
+            object? json = JsonConvert.DeserializeObject<object>(message);
             Console.WriteLine("Message From Queue");
             Console.WriteLine(json);
         };

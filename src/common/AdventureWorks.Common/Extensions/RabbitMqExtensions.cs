@@ -2,14 +2,17 @@
 
 namespace AdventureWorks.Common.Extensions;
 
+/// <summary>
+/// Provides extension methods for configuring RabbitMQ connection factories.
+/// </summary>
 public static class RabbitMqExtensions
 {
     /// <summary>
-    /// Connection factory extension method that takes RabbitMq configurations and returns the factory connection
+    /// Configures and creates a <see cref="ConnectionFactory"/> instance using the specified RabbitMQ options.
     /// </summary>
-    /// <param name="factory"></param>
-    /// <param name="options"></param>
-    /// <returns></returns>
+    /// <param name="factory">The <see cref="ConnectionFactory"/> instance to configure.</param>
+    /// <param name="options">The RabbitMQ configuration options to use for setting up the connection factory.</param>
+    /// <returns>The configured <see cref="ConnectionFactory"/> instance.</returns>
     public static ConnectionFactory CreateConnection(this ConnectionFactory factory, RabbitMqOptions options)
     {
         factory = new ConnectionFactory
