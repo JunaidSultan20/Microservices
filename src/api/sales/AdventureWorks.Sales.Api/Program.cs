@@ -13,6 +13,7 @@ using MongoDB.Driver;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 using AdventureWorks.Common.Options;
+using AdventureWorks.Middlewares.RequestId;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -115,6 +116,8 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 //builder.Services.AddConsul(configuration);
 
 var app = builder.Build();
+
+app.UseMiddleware<RequestIdMiddleware>();
 
 app.UseCors("AllowAllOrigins");
 
