@@ -41,7 +41,7 @@ public interface IGenericRepository<TEntity> where TEntity : class
     /// </summary>
     /// <param name="predicate">The filter expression to apply to the records (optional).</param>
     /// <param name="orderBy">The ordering function to apply to the records (optional).</param>
-    /// <param name="disableTracking">Specifies whether or not to disable entity tracking (default is true).</param>
+    /// <param name="disableTracking">Specifies whether to disable entity tracking (default is true).</param>
     /// <param name="includes">The related entities to include in the query (optional).</param>
     /// <returns>A task representing the asynchronous operation, containing the list of matching records.</returns>
     Task<List<TEntity>> GetAsync(Expression<Func<TEntity, bool>>? predicate = null,
