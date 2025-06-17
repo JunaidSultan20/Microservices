@@ -12,5 +12,5 @@ public class EmailConfirmedChanged(bool isConfirmed)
     /// <summary>
     /// Gets or sets whether the email address is confirmed.
     /// </summary>
-    public bool IsConfirmed { get; set; } = isConfirmed;
+    public bool IsConfirmed { get; private set; } = isConfirmed;
 }

@@ -12,5 +12,5 @@ public class LockoutEnabledChanged(bool lockoutChanged)
     /// <summary>
     /// Gets or sets whether the user's lockout status has been changed.
     /// </summary>
-    public bool LockoutChanged { get; set; } = lockoutChanged;
+    public bool LockoutChanged { get; private set; } = lockoutChanged;
 }

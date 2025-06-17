@@ -15,20 +15,20 @@ public record UserCreated(string username, string email, string password, string
     /// <summary>
     /// Gets or sets the username of the created user.
     /// </summary>
-    public string Username { get; set; } = username;
+    public string Username { get; private set; } = username;
 
     /// <summary>
     /// Gets or sets the email address of the created user.
     /// </summary>
-    public string Email { get; set; } = email;
+    public string Email { get; private set; } = email;
 
     /// <summary>
     /// Gets or sets the password of the created user.
     /// </summary>
-    public string Password { get; set; } = password;
+    public string Password { get; private set; } = password;
 
     /// <summary>
     /// Gets or sets the role assigned to the created user.
     /// </summary>
-    public string Role { get; set; } = role;
+    public string Role { get; private set; } = role;
 }

@@ -12,5 +12,5 @@ public class TwoFactorEnabledChanged(bool isConfirmed)
     /// <summary>
     /// Gets or sets whether two-factor authentication is confirmed.
     /// </summary>
-    public bool IsConfirmed { get; set; } = isConfirmed;
+    public bool IsConfirmed { get; private set; } = isConfirmed;
 }

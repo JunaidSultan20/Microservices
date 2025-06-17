@@ -18,5 +18,5 @@ public class EmailChanged(string oldEmail, string newEmail)
     /// <summary>
     /// Gets or sets the new email address.
     /// </summary>
-    public string NewEmail { get; set; } = newEmail;
+    public string NewEmail { get; private set; } = newEmail;
 }

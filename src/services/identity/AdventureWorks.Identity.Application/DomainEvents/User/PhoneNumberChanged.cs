@@ -18,5 +18,5 @@ public class PhoneNumberChanged(string oldPhoneNumber, string newPhoneNumber)
     /// <summary>
     /// Gets or sets the new phone number.
     /// </summary>
-    public string NewPhoneNumber { get; set; } = newPhoneNumber;
+    public string NewPhoneNumber { get; private set; } = newPhoneNumber;
 }

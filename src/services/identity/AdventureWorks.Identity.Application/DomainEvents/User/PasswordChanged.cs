@@ -18,5 +18,5 @@ public class PasswordChanged(string oldPasswordHash, string newPasswordHash)
     /// <summary>
     /// Gets or sets the hash of the new password.
     /// </summary>
-    public string NewPasswordHash { get; set; } = newPasswordHash;
+    public string NewPasswordHash { get; private set; } = newPasswordHash;
 }

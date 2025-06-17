@@ -18,5 +18,5 @@ public class LockoutEndChanged(DateTime? oldLockoutEnd, DateTime? newLockoutEnd)
     /// <summary>
     /// Gets or sets the new lockout end time, or null if the user's lockout has been removed.
     /// </summary>
-    public DateTime? NewLockoutEnd { get; set; } = newLockoutEnd;
+    public DateTime? NewLockoutEnd { get; private set; } = newLockoutEnd;
 }
