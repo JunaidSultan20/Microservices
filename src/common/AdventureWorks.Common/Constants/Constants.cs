@@ -19,6 +19,9 @@ public static class Constants
     public const string ForwardedFor = "X-Forwarded-For";
     public const string XPaginationKey = "X-Pagination";
     public const string RemoteIpAddress = "RemoteIpAddress";
+    public const string RequestId = "RequestId";
+    public const string Authorization = "Authorization";
+    public const string Cookie = "Cookie";
 
     public const string SelfRel = "self";
     public const string CustomerRel = "customer";

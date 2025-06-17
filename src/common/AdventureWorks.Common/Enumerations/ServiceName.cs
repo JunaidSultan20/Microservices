@@ -2,6 +2,7 @@
 
 public enum ServiceName
 {
-    Sales = 1,
+    Identity = 1,
+    Sales,
     Production
 }
