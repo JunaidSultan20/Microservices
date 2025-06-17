@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using AdventureWorks.Common.Enumerations;
 using MongoDB.Bson;
 
 namespace AdventureWorks.Middlewares.Test.Logging;
@@ -9,7 +10,7 @@ public class RequestLoggingMiddlewareTest : RequestLoggingMiddlewareTestData
     public async Task LogRequestAndInvokeNextMiddleware()
     {
         // Arrange
-        var sut = SetupMockClient().SetupMockOptions().Build();
+        var sut = SetupMockClient(ServiceName.Sales).SetupMockOptions().Build();
 
         var context = CreateContext();
         context.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes("{\"key\":\"value\"}"));

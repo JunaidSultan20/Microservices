@@ -1,4 +1,5 @@
-﻿using AdventureWorks.Common.Options;
+﻿using AdventureWorks.Common.Enumerations;
+using AdventureWorks.Common.Options;
 using AdventureWorks.Middlewares.Logging;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -13,6 +14,7 @@ public class RequestLoggingMiddlewareTestData
     private readonly Mock<IMongoDatabase> _mockDatabase;
     protected readonly Mock<IMongoCollection<BsonDocument>> _mockCollection;
     private readonly Mock<IOptionsMonitor<RequestLogOptions>> _mockOptions;
+    protected ServiceName MockServiceName;
 
     protected RequestLoggingMiddlewareTestData()
     {
@@ -23,7 +25,7 @@ public class RequestLoggingMiddlewareTestData
         _mockOptions = new Mock<IOptionsMonitor<RequestLogOptions>>();
     }
 
-    protected RequestLoggingMiddlewareTestData SetupMockClient()
+    protected RequestLoggingMiddlewareTestData SetupMockClient(ServiceName serviceName)
     {
         _mockClient.Setup(x => x.GetDatabase(It.IsAny<string>(), null))
                    .Returns(_mockDatabase.Object);
@@ -33,6 +35,8 @@ public class RequestLoggingMiddlewareTestData
 
         _mockCollection.Setup(x => x.InsertOneAsync(It.IsAny<BsonDocument>(), It.IsAny<InsertOneOptions>(), It.IsAny<CancellationToken>()))
                        .Returns(Task.CompletedTask);
+
+        MockServiceName = serviceName;
 
         return this;
     }
