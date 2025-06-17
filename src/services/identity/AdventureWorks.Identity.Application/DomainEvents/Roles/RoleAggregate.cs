@@ -39,7 +39,7 @@ public class RoleAggregate : Aggregate
     /// </summary>
     /// <param name="name">The name of the role to be created.</param>
     public void RoleCreatedEvent(string name) 
-        => Apply(new RoleCreated(name, name.ToUpper()));
+        => Apply(new RoleCreated(name));
 
     /// <summary>
     /// Updates the aggregate's state when a <see cref="RoleCreated"/> event is applied.
