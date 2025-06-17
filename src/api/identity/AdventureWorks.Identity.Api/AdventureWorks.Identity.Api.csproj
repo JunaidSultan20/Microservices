@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\common\AdventureWorks.Controllers\AdventureWorks.Controllers.csproj" />
     <ProjectReference Include="..\..\..\common\AdventureWorks.Events\AdventureWorks.Events.csproj" />
+    <ProjectReference Include="..\..\..\common\AdventureWorks.Middlewares\AdventureWorks.Middlewares.csproj" />
     <ProjectReference Include="..\..\..\services\identity\AdventureWorks.Identity.Application\AdventureWorks.Identity.Application.csproj" />
     <ProjectReference Include="..\..\..\services\identity\AdventureWorks.Identity.Infrastructure\AdventureWorks.Identity.Infrastructure.csproj" />
   </ItemGroup>

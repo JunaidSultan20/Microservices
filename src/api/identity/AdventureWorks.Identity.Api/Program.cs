@@ -5,8 +5,17 @@ using System.Reflection;
 using AdventureWorks.Events;
 using AdventureWorks.Identity.Application.Features.Login.Request;
 using AdventureWorks.Identity.Application.Features.Login.Response;
+using AdventureWorks.Middlewares.Logging;
+using AdventureWorks.Common.Options.Setup;
+using AdventureWorks.Common.Options;
+using AdventureWorks.Middlewares.RequestId;
+using Microsoft.Extensions.Options;
+using Consul;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
+
+IConfiguration configuration = builder.Configuration;
 
 builder.Services.AddCors(options =>
 {
@@ -24,11 +33,17 @@ builder.Services.AddCors(options =>
 
 //builder.Services.AddSingleton<JwtOptions>();
 
+builder.Services.ConfigureOptions<RequestLogOptionsSetup>();
+
+builder.Services.AddSingleton<IOptionsMonitor<RequestLogOptions>, OptionsMonitor<RequestLogOptions>>();
+
 builder.Services.AddIdentityApplicationLayer();
 
 builder.Services.AddIdentityInfrastructureLayer(builder.Configuration);
 
 builder.Services.AddEventStoreLayer();
+
+builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(configuration.GetValue<string>("RequestLogDbConfig:ServerUri")));
 
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
@@ -59,6 +74,8 @@ builder.Services.AddSwaggerExamplesFromAssemblyOf<PostLoginRequest>();
 
 var app = builder.Build();
 
+app.UseMiddleware<RequestIdMiddleware>();
+
 app.UseCors("AllowAllOrigins");
 
 // Configure the HTTP request pipeline.
@@ -69,6 +86,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<RequestLoggingMiddleware>(false);
 
 app.UseAuthentication();
 
