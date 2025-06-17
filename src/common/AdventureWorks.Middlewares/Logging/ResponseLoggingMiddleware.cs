@@ -2,9 +2,6 @@
 
 public class ResponseLoggingMiddleware(RequestDelegate next, IConfiguration configuration, ServiceName serviceName)
 {
-    private readonly IConfiguration _configuration = configuration;
-    private readonly ServiceName _serviceName = serviceName;
-
     public async Task InvokeAsync(HttpContext context)
     {
         // Log the response details
@@ -48,6 +45,7 @@ public class ResponseLoggingMiddleware(RequestDelegate next, IConfiguration conf
     {
         return serviceName switch
         {
+            ServiceName.Identity => "identity_logs",
             ServiceName.Sales => "sales_logs",
             ServiceName.Production => "production_logs",
             _ => string.Empty
