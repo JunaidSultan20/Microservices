@@ -9,20 +9,20 @@ public class RequestLogOptions
     /// Gets or sets the URI of the server where request logs are stored.
     /// This property is required and cannot be empty.
     /// </summary>
-    [Required(AllowEmptyStrings = false)]
+    [Required(AllowEmptyStrings = false, ErrorMessage = "ServerUri is required and cannot be empty.")]
     public string ServerUri { get; init; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the name of the database where request logs are stored.
     /// This property is required and cannot be empty.
     /// </summary>
-    [Required(AllowEmptyStrings = false)]
+    [Required(AllowEmptyStrings = false, ErrorMessage = "Database is required and cannot be empty.")]
     public string Database { get; init; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the name of the collection where request logs are stored.
     /// This property is required and cannot be empty.
     /// </summary>
-    [Required(AllowEmptyStrings = false)]
+    [Required(AllowEmptyStrings = false, ErrorMessage = "Collection is required and cannot be empty.")]
     public string Collection { get; init; } = string.Empty;
 }
