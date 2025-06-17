@@ -11,13 +11,13 @@ public record ValidationError
     /// <remarks>
     /// This property is optional and can be null.
     /// </remarks>
-    [JsonProperty(PropertyName = "field", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonProperty(PropertyName = "field", Order = 1, NullValueHandling = NullValueHandling.Ignore)]
     public string? Field { get; set; }
 
     /// <summary>
     /// Gets the message describing the validation error.
     /// </summary>
-    [JsonProperty(PropertyName = "message")]
+    [JsonProperty(PropertyName = "message", Order = 2)]
     public string? Message { get; }
 
     /// <summary>

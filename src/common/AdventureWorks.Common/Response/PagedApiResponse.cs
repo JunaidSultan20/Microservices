@@ -19,8 +19,7 @@ public class PagedApiResponse<TEntity> : ApiResponse<TEntity>
     /// }
     /// </code>
     /// </example>
-    [JsonPropertyOrder(5)]
-    [JsonProperty(propertyName: "paginationData")]
+    [JsonProperty(PropertyName = "PaginationData", Order = 5)]
     public PaginationData? PaginationData { get; set; }
 
     /// <summary>
@@ -33,6 +32,11 @@ public class PagedApiResponse<TEntity> : ApiResponse<TEntity>
     /// </summary>
     /// <param name="statusCode">The status code of the response.</param>
     /// <param name="message">The message describing the response.</param>
+    /// <example>
+    /// <code>
+    /// "PagedApiResponse response = new PagedApiResponse(HttpStatusCode.OK, "Request successful.");"
+    /// </code>
+    /// </example>
     public PagedApiResponse(HttpStatusCode statusCode, string? message) : base(statusCode, message) { }
 
     /// <summary>

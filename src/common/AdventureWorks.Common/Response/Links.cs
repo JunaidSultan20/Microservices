@@ -8,16 +8,19 @@ public record Links
     /// <summary>
     /// Gets or sets the URL of the link.
     /// </summary>
+    [JsonProperty(PropertyName = "href", Order = 1)]
     public string? Href { get; set; }
 
     /// <summary>
     /// Gets the relation type of the link, indicating the purpose of the link.
     /// </summary>
+    [JsonProperty(PropertyName = "rel", Order = 2)]
     public string? Rel { get; }
 
     /// <summary>
     /// Gets the HTTP method used to interact with the link.
     /// </summary>
+    [JsonProperty(PropertyName = "method", Order = 3)]
     public string? Method { get; }
 
     /// <summary>
@@ -31,9 +34,7 @@ public record Links
     /// <param name="href">The URL of the link.</param>
     /// <param name="rel">The relation type of the link.</param>
     /// <param name="method">The HTTP method for the link.</param>
-    public Links(string? href, 
-                 string? rel, 
-                 string? method) 
+    public Links(string? href, string? rel, string? method) 
         => (Href, Rel, Method) = (href, rel, method);
 
     /// <summary>

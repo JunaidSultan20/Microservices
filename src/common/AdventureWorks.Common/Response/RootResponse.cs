@@ -8,7 +8,7 @@ public class RootResponse : ApiResponse<IReadOnlyList<Links>>
     /// <summary>
     /// Initializes a new instance of the <see cref="RootResponse"/> class with default values.
     /// </summary>
-    public RootResponse()
+    public RootResponse() 
     {
     }
 
