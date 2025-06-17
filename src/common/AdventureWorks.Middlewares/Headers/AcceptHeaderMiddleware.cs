@@ -11,15 +11,10 @@ public class AcceptHeaderMiddleware(RequestDelegate next, ILogger<AcceptHeaderMi
         if (!isValid)
         {
             ApiResult result = new ApiResult(HttpStatusCode.BadRequest, message: Messages.InvalidMediaType);
-
             logger.LogError(message: JsonConvert.SerializeObject(result));
-
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
-
             context.Response.ContentType = Constants.ContentTypeJson;
-
             await context.Response.WriteAsync(text: JsonConvert.SerializeObject(result));
-
             return;
         }
 
