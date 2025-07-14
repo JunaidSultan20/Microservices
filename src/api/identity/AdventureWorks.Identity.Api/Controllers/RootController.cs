@@ -75,7 +75,6 @@ public class RootController(IServiceProvider serviceProvider) : BaseController<R
                                        .OfType<RouteNameMetadata>()
                                        .FirstOrDefault()?.RouteName ?? "Unnamed";
             string url = $"{context?.Request.Scheme}://{remoteIpAddress}{context?.Request.PathBase}{routePattern}";
-
             links.Add(new Links(href: url, rel: routeName, method: httpMethods));
         }
 
