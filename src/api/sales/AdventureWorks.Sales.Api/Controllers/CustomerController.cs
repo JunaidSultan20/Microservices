@@ -1,4 +1,5 @@
-﻿using AdventureWorks.Controllers;
+﻿using System.Text.Json.Serialization;
+using AdventureWorks.Controllers;
 using AdventureWorks.Sales.Customers.Dto;
 using AdventureWorks.Sales.Customers.Features.DeleteCustomer.Request;
 using AdventureWorks.Sales.Customers.Features.DeleteCustomer.Response;
@@ -108,9 +109,15 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
         if (response.StatusCode == HttpStatusCode.NotFound)
             return NotFound(value: response);
 
-        Response.Headers.Append(Constants.XPaginationKey, JsonSerializer.Serialize(paginationParameters));
+        Response.Headers.Append(Constants.XPaginationKey, 
+            JsonSerializer.Serialize(response.PaginationData, 
+                new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase, 
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                }));
 
-        if (mediaType.Contains("vnd.api.hateoas"))
+        if (mediaType.Contains(Constants.VndApiHateoas))
             response.Result?
                     .ToList()
                     .ForEach(item => item.Links = CreateCustomerLinks(id: item.CustomerId, fields: paginationParameters.Fields));
@@ -201,7 +208,7 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
             return NotFound(value: response);
 
         if (response.Result is not null && mediaType.Contains(Constants.VndApiHateoas))
-            response.Result.Links = CreateCustomerLinks(id: response.Result.CustomerId, fields: null);
+            response.Result.Links = CreateCustomerLinks(id: response.Result.CustomerId, fields: fields);
 
         if (!string.IsNullOrEmpty(fields))
         {
@@ -218,7 +225,7 @@ public class CustomerController(IServiceProvider serviceProvider) : BaseControll
     /// <remarks>
     /// This endpoint creates a new customer based on the provided data in the request body. 
     /// The customer information is validated and then stored in the database.
-    /// The endpoints also returns the newly created customer deatils in the response
+    /// The endpoints also returns the newly created customer details in the response
     /// </remarks>
     /// <param name="dto">Data Transfer Object containing customer details.</param>
     /// <param name="cancellationToken">Cancellation token to cancel the operation.</param>

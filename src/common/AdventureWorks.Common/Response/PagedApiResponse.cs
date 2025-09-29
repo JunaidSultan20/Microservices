@@ -19,7 +19,7 @@ public class PagedApiResponse<TEntity> : ApiResponse<TEntity>
     /// }
     /// </code>
     /// </example>
-    [JsonProperty(PropertyName = "PaginationData", Order = 5)]
+    [JsonProperty(PropertyName = "paginationData", Order = 5)]
     public PaginationData? PaginationData { get; set; }
 
     /// <summary>

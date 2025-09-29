@@ -1,4 +1,8 @@
-﻿namespace AdventureWorks.Common.Parameters;
+﻿using System.ComponentModel;
+using AdventureWorks.Common.Attributes;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace AdventureWorks.Common.Parameters;
 
 /// <summary>
 /// Represents the parameters for pagination in API responses.
@@ -9,6 +13,9 @@ public class PaginationParameters
     /// Gets or sets the page number.
     /// </summary>
     /// <example>1</example>
+    [SwaggerSchema("Page number of results to fetch.")]
+    [DefaultValue(1)]
+    [Required]
     [JsonProperty(PropertyName = "pageNumber")]
     public int PageNumber { get; set; }
 
@@ -16,6 +23,9 @@ public class PaginationParameters
     /// Gets or sets the page size.
     /// </summary>
     /// <example>10</example>
+    [SwaggerSchema("Page size of results to fetch.")]
+    [DefaultValue(10)]
+    [Required]
     [JsonProperty(PropertyName = "pageSize")]
     public int PageSize { get; set; }
 
@@ -23,6 +33,8 @@ public class PaginationParameters
     /// Gets or sets the fields to include in the response.
     /// </summary>
     /// <example>id, name</example>
+    [SwaggerSchema("Fields that need to be the part of the result set")]
+    [DefaultValue("customerId, accountNumber")]
     [JsonProperty(PropertyName = "fields")]
     public string? Fields { get; set; }
 
