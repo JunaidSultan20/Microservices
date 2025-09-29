@@ -11,7 +11,7 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly AdventureWorksSalesContext _context;
     private readonly Dictionary<Type, object?> _repositories;
-    private readonly IDbContextTransaction _transactionScope;
+    private IDbContextTransaction? _transaction;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UnitOfWork"/> class.
@@ -20,7 +20,7 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(AdventureWorksSalesContext context)
     {
         _context = context;
-        _transactionScope = _context.Database.BeginTransaction();
+        //_transaction = _context.Database.BeginTransaction();
         _repositories = new Dictionary<Type, object?>();
     }
 
@@ -54,21 +54,24 @@ public class UnitOfWork : IUnitOfWork
     /// </exception>
     public async Task<int> CommitAsync()
     {
-        List<Task> tasks = new List<Task>
-        {
-            _context.SaveChangesAsync(),
-            _transactionScope.CommitAsync()
-        };
+        if (_transaction == null)
+            _transaction = await _context.Database.BeginTransactionAsync();
 
         try
         {
-            await Task.WhenAll(tasks);
-            return 1;
+            var result = await _context.SaveChangesAsync();
+            await _transaction.CommitAsync();
+            return result;
         }
-        catch (Exception)
+        catch
         {
-            await _transactionScope.RollbackAsync();
+            await _transaction.RollbackAsync();
             throw;
+        }
+        finally
+        {
+            await _transaction.DisposeAsync();
+            _transaction = null;
         }
     }
 

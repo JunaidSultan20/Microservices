@@ -7,13 +7,11 @@ public static class ServiceExtension
         services.AddDbContext<AdventureWorksSalesContext>(options =>
                                                               options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                                                                           optionAction => optionAction.MigrationsAssembly(typeof(AdventureWorksSalesContext).Assembly.FullName))
-                                                                     .UseLazyLoadingProxies(), ServiceLifetime.Transient);
+                                                                     .UseLazyLoadingProxies(), ServiceLifetime.Scoped);
 
-        services.AddTransient<AdventureWorksSalesContext>();
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-        services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
-        services.AddTransient<IUnitOfWork, UnitOfWork.UnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 
         services.AddHealthChecks().AddDbContextCheck<AdventureWorksSalesContext>();
     }
