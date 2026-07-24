@@ -54,6 +54,8 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseUrls = true;
 });
 
+builder.Services.AddConsul(configuration);
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -92,6 +94,10 @@ app.UseMiddleware<RequestLoggingMiddleware>(false);
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.MapGet("/health", () => Results.Ok("Healthy"));
+
+app.UseConsul(app.Configuration);
 
 app.MapControllers();
 

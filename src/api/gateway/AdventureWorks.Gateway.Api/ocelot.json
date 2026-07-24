@@ -3,14 +3,12 @@
     {
       "DownstreamPathTemplate": "/api/customer?{everything}",
       "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "sales.api",
-          "Port": 8081
-        }
-      ],
       "UpstreamPathTemplate": "/api/customer?{everything}",
       "UpstreamHttpMethod": [ "GET" ],
+      "ServiceName": "sales.api",
+      "LoadBalancerOption": {
+        "Type": "RoundRobin"
+      },
       "DangerousAcceptAnyServerCertificateValidator": true,
       "UpstreamHeaderTransform": {
         "X-Forwarded-For": "{BaseUrl}"
@@ -52,14 +50,66 @@
         "Limit": 3
       },
       "RouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/register",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.api",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/register",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      },
+      "DownstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 10,
+        "Limit": 3
+      },
+      "RouteIsCaseSensitive": false
+    },
+    {
+      "DownstreamPathTemplate": "/api/role",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity.api",
+          "Port": 8081
+        }
+      ],
+      "UpstreamPathTemplate": "/api/role",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DangerousAcceptAnyServerCertificateValidator": true,
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      },
+      "DownstreamHeaderTransform": {
+        "X-Forwarded-For": "{BaseUrl}"
+      },
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "Period": "10s",
+        "PeriodTimespan": 10,
+        "Limit": 3
+      },
+      "RouteIsCaseSensitive": false
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "localhost:6002"
-    //"ServiceDiscoveryProvider": {
-    //  "Host": "consul",
-    //  "Port": 8500,
-    //  "Type": "Consul"
-    //}
+    "BaseUrl": "localhost:6002",
+    "ServiceDiscoveryProvider": {
+      "Host": "adventureworks.consul",
+      "Port": 8500,
+      "Type": "Consul"
+    }
   }
 }

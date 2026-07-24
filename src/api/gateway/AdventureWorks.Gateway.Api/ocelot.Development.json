@@ -3,14 +3,12 @@
     {
       "DownstreamPathTemplate": "/api/customer?{everything}",
       "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "sales.api",
-          "Port": 8081
-        }
-      ],
       "UpstreamPathTemplate": "/api/customer?{everything}",
       "UpstreamHttpMethod": [ "GET" ],
+      "ServiceName": "sales.api",
+      "LoadBalancerOption": {
+        "Type": "RoundRobin"
+      },
       "DangerousAcceptAnyServerCertificateValidator": true,
       "UpstreamHeaderTransform": {
         "X-Forwarded-For": "{BaseUrl}"
@@ -107,11 +105,11 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "localhost:6002"
-    //"ServiceDiscoveryProvider": {
-    //  "Host": "consul",
-    //  "Port": 8500,
-    //  "Type": "Consul"
-    //}
+    "BaseUrl": "localhost:6002",
+    "ServiceDiscoveryProvider": {
+      "Host": "adventureworks.consul",
+      "Port": 8500,
+      "Type": "Consul"
+    }
   }
 }

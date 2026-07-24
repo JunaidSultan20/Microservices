@@ -107,13 +107,13 @@ builder.Services.ConfigureForwardedHeaders();
 
 builder.Services.AddHostedService<RabbitMqBackgroundService>();
 
-builder.Services.AddCustomMediaTypes(new[] { "application/vnd.api.hateoas+json" });
+builder.Services.AddCustomMediaTypes(new[] { Constants.ContentTypeJsonHateoas });
 
 builder.Services.AddScoped<RequestHeaderFilter>();
 
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-//builder.Services.AddConsul(configuration);
+builder.Services.AddConsul(configuration);
 
 var app = builder.Build();
 
@@ -156,6 +156,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseForwardedHeaders();
+
+app.UseConsul(app.Configuration);
 
 app.MapControllers();
 

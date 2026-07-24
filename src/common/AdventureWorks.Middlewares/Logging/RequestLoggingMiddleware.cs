@@ -47,12 +47,12 @@ public class RequestLoggingMiddleware(RequestDelegate next,
                                            .ToArray())
                     : new BsonArray() },
             { "cookies", request.Cookies.Any()
-                    ? new BsonArray(request.Cookies
-                                           .Where(x => 
-                                                          !string.Equals(x.Key, Constants.BearerToken, StringComparison.OrdinalIgnoreCase))
-                                           .Select(x => new Pairs { Key = x.Key, Value = x.Value })
-                                           .ToArray())
-                    : new BsonArray() }, 
+    ? new BsonArray(
+        request.Cookies
+            .Where(x => !string.Equals(x.Key, Constants.BearerToken, StringComparison.OrdinalIgnoreCase))
+            .Select(x => string.Join(" = ", x.Key, x.Value))
+    )
+    : new BsonArray() }, 
             { "contentType", request.ContentType ?? string.Empty }, 
             { "remoteIpAddress", request.Headers?[Constants.ForwardedFor].ToString() ?? string.Empty }, 
             { "body", requestBody }, 

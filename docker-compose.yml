@@ -172,6 +172,15 @@ services:
             adventureworksnetwork:
                 ipv4_address: 172.10.2.2
 
+    #Service Discovery
+    adventureworks.consul:
+        image: consul:1.15.4
+        container_name: adventureworksconsul
+        restart: on-failure
+        networks:
+            adventureworksnetwork:
+                ipv4_address: 172.10.2.3
+
 volumes:
     identity-db:
     sales-db:

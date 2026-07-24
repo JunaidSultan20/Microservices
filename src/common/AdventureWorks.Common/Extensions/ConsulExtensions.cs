@@ -15,13 +15,11 @@ public static class ConsulExtensions
     /// <returns>The <see cref="IServiceCollection"/> with the added Consul services.</returns>
     public static IServiceCollection AddConsul(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
+        services.AddSingleton<IConsulClient, ConsulClient>(p =>
         {
             var host = configuration.GetValue<string>("ConsulConfig:ConsulHost");
-            consulConfig.Address = new Uri(host);
-        }));
-
-        //services.AddHostedService<ConsulHostedService>();
+            return new ConsulClient(cfg => cfg.Address = new Uri(host));
+        });
 
         return services;
     }
@@ -38,37 +36,57 @@ public static class ConsulExtensions
         ILogger logger = app.ApplicationServices.GetRequiredService<ILoggerFactory>().CreateLogger("AppExtensions");
         IHostApplicationLifetime lifetime = app.ApplicationServices.GetRequiredService<IHostApplicationLifetime>();
 
-        if (app.Properties["server.Features"] is not FeatureCollection features)
+        if (app.Properties["server.Features"] is not FeatureCollection)
         {
+            logger.LogWarning("Server features not available, skipping Consul registration.");
             return app;
         }
 
-        int servicePort = int.Parse(configuration.GetValue<string>("ConsulConfig:ServicePort"));
-        string serviceIp = "localhost"; // Optionally, this could be retrieved dynamically.
-        string serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
-        string serviceId = serviceName + "-" + Guid.NewGuid();
+        string? serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
+        int servicePort = configuration.GetValue<int>("ConsulConfig:ServicePort");
+        string? serviceAddress = configuration.GetValue<string>("ConsulConfig:ServiceAddress") ?? "host.docker.internal";
+        string? serviceId = $"{serviceName}-{Guid.NewGuid()}";
 
-        var registration = new AgentServiceRegistration()
+        AgentServiceRegistration? registration = new AgentServiceRegistration
         {
             ID = serviceId,
             Name = serviceName,
-            Address = serviceIp.ToString(),
+            Address = serviceAddress,
             Port = servicePort,
-            Check = new AgentCheckRegistration()
+            Check = new AgentServiceCheck
             {
-                HTTP = $"http://{serviceIp}:{servicePort}/health",
-                Interval = TimeSpan.FromSeconds(10)
+                HTTP = $"http://{serviceAddress}:{servicePort}/health",
+                Interval = TimeSpan.FromSeconds(10),
+                Timeout = TimeSpan.FromSeconds(5),
+                DeregisterCriticalServiceAfter = TimeSpan.FromSeconds(30)
             }
         };
 
-        logger.LogInformation("Registering with Consul");
-        consulClient.Agent.ServiceDeregister(registration.ID).ConfigureAwait(true);
-        consulClient.Agent.ServiceRegister(registration).ConfigureAwait(true);
-
-        lifetime.ApplicationStopping.Register(() =>
+        lifetime.ApplicationStarted.Register(async () =>
         {
-            logger.LogInformation("Unregistering from Consul");
-            consulClient.Agent.ServiceDeregister(registration.ID).ConfigureAwait(true);
+            try
+            {
+                logger.LogInformation("Registering {ServiceName} with Consul", serviceName);
+                await consulClient.Agent.ServiceDeregister(registration.ID); // cleanup in case of old instance
+                await consulClient.Agent.ServiceRegister(registration);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Consul registration failed");
+            }
+        });
+
+        lifetime.ApplicationStopping.Register(async () =>
+        {
+            try
+            {
+                logger.LogInformation("Unregistering {ServiceName} from Consul", serviceName);
+                await consulClient.Agent.ServiceDeregister(registration.ID);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Consul deregistration failed");
+            }
         });
 
         return app;

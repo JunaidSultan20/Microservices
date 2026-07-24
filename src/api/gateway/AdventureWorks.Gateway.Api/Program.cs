@@ -3,6 +3,7 @@ using AdventureWorks.Common.Options.Setup;
 using Microsoft.OpenApi.Models;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Consul;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Configuration.AddJsonFile(path: $"ocelot.{builder.Environment.Environmen
                                   optional: false,
                                   reloadOnChange: true);
 
-builder.Services.AddOcelot();
+builder.Services.AddOcelot().AddConsul();
 
 builder.Services.AddControllers();
 
