@@ -46,7 +46,7 @@ public class ApiException
     /// Initializes a new instance of the <see cref="ApiException"/> class with the specified message.
     /// </summary>
     /// <param name="message">The message describing the exception.</param>
-    public ApiException(string message) => (Id, Message) = (Id, message);
+    public ApiException(string message) => (Id, Message) = (Guid.NewGuid(), message);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiException"/> class with the specified message, details, inner exception, and stack trace.

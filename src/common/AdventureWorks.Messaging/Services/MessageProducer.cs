@@ -7,10 +7,8 @@ namespace AdventureWorks.Messaging.Services;
 /// Implements the <see cref="IMessageProducer"/> interface.
 /// </summary>
 /// <param name="options">The configuration options for RabbitMQ.</param>
-public class MessageProducer(IOptionsMonitor<RabbitMqOptions> options) : IMessageProducer
+public class MessageProducer(IConnectionFactory connectionFactory) : IMessageProducer
 {
-    private readonly RabbitMqOptions _options = options.CurrentValue;
-
     /// <summary>
     /// Asynchronously sends a message to the specified RabbitMQ queue using the provided exchange and routing details.
     /// </summary>
@@ -27,28 +25,39 @@ public class MessageProducer(IOptionsMonitor<RabbitMqOptions> options) : IMessag
                                           string routeKey, 
                                           T message)
     {
-        ConnectionFactory factory = new ConnectionFactory
-        {
-            HostName = _options.Hostname,
-            Port = _options.Port,
-            UserName = _options.Username,
-            Password = _options.Password
-        };
+        using IConnection connection = await connectionFactory.CreateConnectionAsync();
+        using IChannel channel = await connection.CreateChannelAsync();
 
-        using IConnection connection = await factory.CreateConnectionAsync();
-        using IChannel channel = connection.CreateChannel();
-        
-        await channel.ExchangeDeclareAsync(exchangeName, exchangeType);
-        await channel.QueueDeclareAsync(queue: queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
-        await channel.QueueBindAsync(queue: queue, exchange: exchangeName, routeKey);
-        
+        await channel.ExchangeDeclareAsync(exchange: exchangeName,
+                                            type: exchangeType,
+                                            durable: true,
+                                            autoDelete: false,
+                                            arguments: null);
+
+        await channel.QueueDeclareAsync(queue: queue,
+                                         durable: true,
+                                         exclusive: false,
+                                         autoDelete: false,
+                                         arguments: null);
+
+        await channel.QueueBindAsync(queue: queue,
+                                      exchange: exchangeName,
+                                      routingKey: routeKey,
+                                      arguments: null);
+
         string json = JsonConvert.SerializeObject(message);
         byte[] body = Encoding.UTF8.GetBytes(json);
 
-        // Uncomment and configure properties if needed
-        // var properties = channel.CreateBasicProperties();
-        // properties.Persistent = true;
+        BasicProperties properties = new()
+        {
+            Persistent = true,
+            ContentType = "application/json"
+        };
 
-        await channel.BasicPublishAsync(exchange: exchangeName, routingKey: routeKey, body: body);
+        await channel.BasicPublishAsync(exchange: exchangeName,
+                                         routingKey: routeKey,
+                                         mandatory: false,
+                                         basicProperties: properties,
+                                         body: body);
     }
 }

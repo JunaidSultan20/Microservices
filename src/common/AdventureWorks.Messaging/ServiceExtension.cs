@@ -12,6 +12,18 @@ public static class ServiceExtension
 
         services.AddSingleton<IOptionsMonitor<RabbitMqOptions>, OptionsMonitor<RabbitMqOptions>>();
 
+        services.AddSingleton<IConnectionFactory>(sp =>
+        {
+            var options = sp.GetRequiredService<IOptionsMonitor<RabbitMqOptions>>().CurrentValue;
+            return new ConnectionFactory
+            {
+                HostName = options.Hostname,
+                Port = options.Port,
+                UserName = options.Username,
+                Password = options.Password
+            };
+        });
+
         services.AddTransient<IMessageProducer, MessageProducer>();
 
         services.AddTransient<IMessageReceiver, MessageReceiver>();

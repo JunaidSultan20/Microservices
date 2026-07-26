@@ -21,6 +21,7 @@ public class RequestLoggingMiddlewareTest : RequestLoggingMiddlewareTestData
         context.Request.Path = "/test";
         context.Request.QueryString = new QueryString("?query=string");
         context.Request.Headers["Accept"] = Constants.ContentTypeJson;
+        context.Request.Headers["X-Forwarded-For"] = "127.0.0.1";
         context.Connection.RemoteIpAddress = IPAddress.Loopback;
 
         var responseBodyStream = new MemoryStream();
@@ -40,7 +41,7 @@ public class RequestLoggingMiddlewareTest : RequestLoggingMiddlewareTestData
                                 doc["method"] == context.Request.Method &&
                                 doc["query"] == context.Request.QueryString.ToString() && 
                                 doc["contentType"] == context.Request.ContentType &&
-                                doc["remoteIpAddress"] == context.Connection.RemoteIpAddress.ToString() &&
+                                doc["remoteIpAddress"] == context.Request.Headers["X-Forwarded-For"].ToString() &&
                                 doc["body"] == "{\"key\":\"value\"}"), 
                          null, default), Times.Once);
     }

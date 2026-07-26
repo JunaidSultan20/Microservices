@@ -13,7 +13,7 @@ public interface IMessageReceiver
     /// <param name="exchangeName">The name of the exchange that will route the message.</param>
     /// <param name="exchangeType">The type of the exchange (e.g., direct, topic, fan-out).</param>
     /// <param name="routeKey">The routing key used by the exchange to determine which queue(s) should receive the message.</param>
-    void ReceiveMessage<T>(string queue,
+    Task ReceiveMessage<T>(string queue,
                            string exchangeName,
                            string exchangeType,
                            string routeKey);

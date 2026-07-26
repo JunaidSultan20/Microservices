@@ -8,76 +8,84 @@ using Constants = AdventureWorks.Common.Constants.Constants;
 
 namespace AdventureWorks.Sales.Api.BackgroundServices;
 
-public class RabbitMqBackgroundService : BackgroundService
+public class RabbitMqBackgroundService(IOptions<RabbitMqOptions> options,
+                                        ILogger<RabbitMqBackgroundService> logger) : BackgroundService
 {
-    private readonly IConnection _connection;
-    private readonly IChannel _channel;
+    private IConnection? _connection;
+    private IChannel? _channel;
 
-    public RabbitMqBackgroundService(IOptions<RabbitMqOptions> options)
+    public override async Task StartAsync(CancellationToken cancellationToken)
     {
-        RabbitMqOptions rabbitMqConfig = options.Value;
-        //var factory = new ConnectionFactory
-        //{
-        //    HostName = rabbitMqConfig.Hostname,
-        //    Port = rabbitMqConfig.Port,
-        //    UserName = rabbitMqConfig.Username,
-        //    Password = rabbitMqConfig.Password
-        //};
-        ConnectionFactory factory = new ConnectionFactory().CreateConnection(rabbitMqConfig);
-        _connection = factory.CreateConnection();
-        _channel = _connection.CreateChannel();
-        
-        InitRabbitMq();
-    }
-
-    private void InitRabbitMq()
-    {
-        _channel.ExchangeDeclare("SalesExchange", "direct");
-        _channel.QueueDeclare(queue: Constants.SalesQueue, durable: true, exclusive: false, autoDelete: false, arguments: null);
-        _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
-        _channel.QueueBind(queue: Constants.SalesQueue, exchange: "SalesExchange", "sales_route");
-        _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
-    }
-
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        stoppingToken.ThrowIfCancellationRequested();
-
-        var consumer = new EventingBasicConsumer(_channel);
-        consumer.Received += (ch, ea) =>
+        RabbitMqOptions config = options.Value;
+        var factory = new ConnectionFactory
         {
-            // Received message
-            string content = System.Text.Encoding.UTF8.GetString(ea.Body.ToArray());
-            
-            // Acknowledge the received message
-            _channel.BasicAck(ea.DeliveryTag, false);
-
-            // Deserialized Message
-            string message = Encoding.UTF8.GetString(ea.Body.ToArray());
-            object? json = JsonConvert.DeserializeObject<object>(message);
-            Console.WriteLine("Message From Queue");
-            Console.WriteLine(json);
+            HostName = config.Hostname,
+            Port = config.Port,
+            UserName = config.Username,
+            Password = config.Password
         };
 
-        consumer.Shutdown += OnConsumerShutdown;
-        consumer.Registered += OnConsumerRegistered;
-        consumer.Unregistered += OnConsumerUnregistered;
-        consumer.ConsumerCancelled += OnConsumerConsumerCancelled;
+        _connection = await factory.CreateConnectionAsync(cancellationToken);
+        _channel = await _connection.CreateChannelAsync(cancellationToken: cancellationToken);
 
-        _channel.BasicConsume(Constants.SalesQueue, false, consumer);
+        await _channel.ExchangeDeclareAsync("SalesExchange", ExchangeType.Direct, cancellationToken: cancellationToken);
+        await _channel.QueueDeclareAsync(queue: Constants.SalesQueue,
+                                          durable: true,
+                                          exclusive: false,
+                                          autoDelete: false,
+                                          arguments: null,
+                                          cancellationToken: cancellationToken);
+        await _channel.BasicQosAsync(prefetchSize: 0, prefetchCount: 1, global: false, cancellationToken: cancellationToken);
+        await _channel.QueueBindAsync(queue: Constants.SalesQueue,
+                                       exchange: "SalesExchange",
+                                       routingKey: "sales_route",
+                                       cancellationToken: cancellationToken);
+
+        _connection.ConnectionShutdownAsync += RabbitMQ_ConnectionShutdown;
+
+        await base.StartAsync(cancellationToken);
+    }
+
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        var consumer = new AsyncEventingBasicConsumer(_channel!);
+
+        consumer.ReceivedAsync += async (ch, ea) =>
+        {
+            try
+            {
+                string message = Encoding.UTF8.GetString(ea.Body.ToArray());
+                object? json = JsonConvert.DeserializeObject<object>(message);
+
+                logger.LogInformation("Message from queue: {Message}", json);
+
+                // process the message here
+
+                await _channel!.BasicAckAsync(ea.DeliveryTag, multiple: false, cancellationToken: stoppingToken);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Failed to process message, requeueing");
+                await _channel!.BasicNackAsync(ea.DeliveryTag, multiple: false, requeue: true, cancellationToken: stoppingToken);
+            }
+        };
+
+        await _channel!.BasicConsumeAsync(Constants.SalesQueue, autoAck: false, consumer: consumer, cancellationToken: stoppingToken);
+
+        // Keep running until cancellation, since BasicConsumeAsync doesn't block
+        await Task.Delay(Timeout.Infinite, stoppingToken).ContinueWith(_ => { }, TaskScheduler.Default);
+    }
+
+    private Task RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e)
+    {
+        logger.LogWarning("RabbitMQ connection shut down: {Reason}", e.ReplyText);
         return Task.CompletedTask;
     }
 
-    private void OnConsumerConsumerCancelled(object sender, ConsumerEventArgs e) { }
-    private void OnConsumerUnregistered(object sender, ConsumerEventArgs e) { }
-    private void OnConsumerRegistered(object sender, ConsumerEventArgs e) { }
-    private void OnConsumerShutdown(object sender, ShutdownEventArgs e) { }
-    private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs e) { }
-
-    public override void Dispose()
+    public override async Task StopAsync(CancellationToken cancellationToken)
     {
-        _channel.Close();
-        _connection.Close();
-        base.Dispose();
+        if (_channel is not null) await _channel.CloseAsync(cancellationToken);
+        if (_connection is not null) await _connection.CloseAsync(cancellationToken);
+        await base.StopAsync(cancellationToken);
     }
 }
