@@ -6,9 +6,9 @@ using AdventureWorks.Common.Helpers;
 
 namespace AdventureWorks.Middlewares.Logging;
 
-public class RequestLoggingMiddleware(RequestDelegate next, 
-                                      IMongoClient client, 
-                                      IOptionsMonitor<RequestLogOptions> options, 
+public class RequestLoggingMiddleware(RequestDelegate next,
+                                      IMongoClient client,
+                                      IOptionsMonitor<RequestLogOptions> options,
                                       bool logBody = true)
 {
     public async Task InvokeAsync(HttpContext context)

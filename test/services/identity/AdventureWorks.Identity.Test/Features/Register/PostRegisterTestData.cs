@@ -25,7 +25,7 @@ public class PostRegisterTestData
                          normalizedUsername: "TOMCRUISE",
                          email: "tom.cruise@gmail.com",
                          normalizedEmail: "TOM.CRUISE@GMAIL.COM",
-                         emailConfirmed: true) { Id = 1 };
+                         emailConfirmed: true) { Id = Guid.Parse("9e1d366f-7c43-40b6-9a3a-1f9bbf4b6ba9") };
     }
 
     public PostRegisterTestData SetupMockFindByEmail(bool userExists)
@@ -59,7 +59,9 @@ public class PostRegisterTestData
     public PostRegisterTestData SetupMockFindRoleByName(string? roleName)
     {
         _mockRoleManager.Setup(x => x.FindByNameAsync(It.IsAny<string>()))
-                        .ReturnsAsync(!string.IsNullOrEmpty(roleName) ? new Role(name: "Test-Role", normalizedName: "TEST-ROLE") { Id = 1 } : null);
+                        .ReturnsAsync(!string.IsNullOrEmpty(roleName)
+                        ? new Role(name: "Test-Role", normalizedName: "TEST-ROLE") { Id = Guid.Parse("12a903fa-50ff-461a-9c71-c4f7079aee0a") }
+                        : null);
         return this;
     }
 
@@ -77,9 +79,8 @@ public class PostRegisterTestData
 
     public PostRegisterHandler Build()
     {
-        return new PostRegisterHandler(_mockUserManager.Object, 
-                                       _mockRoleManager.Object, 
-                                       _mockUserAggregate.Object, 
+        return new PostRegisterHandler(_mockUserManager.Object,
+                                       _mockRoleManager.Object,
                                        _mockEventStore.Object);
     }
 }

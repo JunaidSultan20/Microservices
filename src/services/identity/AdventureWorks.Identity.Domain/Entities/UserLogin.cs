@@ -1,5 +1,5 @@
 ﻿namespace AdventureWorks.Identity.Domain.Entities;
 
-public class UserLogin : IdentityUserLogin<int>
+public class UserLogin : IdentityUserLogin<Guid>
 {
 }

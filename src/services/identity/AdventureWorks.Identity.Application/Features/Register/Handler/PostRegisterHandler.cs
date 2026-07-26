@@ -8,7 +8,6 @@ namespace AdventureWorks.Identity.Application.Features.Register.Handler;
 
 public class PostRegisterHandler(UserManager<User> userManager, 
                                  RoleManager<Role> roleManager,
-                                 UserAggregate userAggregate,
                                  IEventStore eventStore) : IRequestHandler<PostRegisterRequest, PostRegisterResponse>
 {
     public async Task<PostRegisterResponse> Handle(PostRegisterRequest request,
@@ -42,6 +41,8 @@ public class PostRegisterHandler(UserManager<User> userManager,
 
         Role? role = await roleManager.FindByNameAsync(request.RegistrationDto.Role);
 
+        UserAggregate userAggregate = new UserAggregate { Id = user.Id };
+
         userAggregate.UserCreatedEvent(username: user.UserName ?? string.Empty, 
                                        email: user.Email ?? string.Empty, 
                                        password: user.PasswordHash ?? string.Empty, 
@@ -49,8 +50,6 @@ public class PostRegisterHandler(UserManager<User> userManager,
 
         if (role is not null)
         {
-            userAggregate.UserRoleChangedEvent(null, role.Id);
-
             await eventStore.SaveAsync(userAggregate, user.Id.ToString(), IdentityStreams.UserStream);
         }
 

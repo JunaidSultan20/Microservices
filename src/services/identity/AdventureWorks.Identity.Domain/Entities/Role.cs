@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Identity.Domain.Entities;
 
-public class Role : IdentityRole<int>
+public class Role : IdentityRole<Guid>
 {
     public Role()
     {

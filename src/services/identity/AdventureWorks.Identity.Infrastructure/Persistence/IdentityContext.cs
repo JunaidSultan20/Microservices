@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Identity.Infrastructure.Persistence;
 
-public class IdentityContext : IdentityDbContext<User, Role, int, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
+public class IdentityContext : IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken>
 {
     public IdentityContext()
     {

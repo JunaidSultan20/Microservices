@@ -24,8 +24,6 @@ public static class ServiceExtension
 
         services.AddScoped<RoleManager<Role>>();
 
-        services.AddScoped<UserAggregate>();
-
         services.AddScoped<RoleAggregate>();
 
         //services.AddScopedAggregates();

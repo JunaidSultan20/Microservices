@@ -1,6 +1,7 @@
 ﻿using AdventureWorks.Common.Events;
 using AdventureWorks.Common.Options;
 using AdventureWorks.Contracts.EventStreaming;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -14,7 +15,7 @@ namespace AdventureWorks.Events.Services;
 /// </summary>
 /// <param name="client">The MongoDB client used to connect to the MongoDB database.</param>
 /// <param name="options">The configuration options for the event store.</param>
-public class EventStore(IMongoClient client, 
+public class EventStore([FromKeyedServices("EventStore")] IMongoClient client, 
                         IOptionsMonitor<EventStoreOptions> options) : IEventStore
 {
     private readonly EventStoreOptions _options = options.CurrentValue;

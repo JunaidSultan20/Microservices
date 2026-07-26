@@ -20,7 +20,7 @@ public class PostLoginTestData
                          normalizedUsername: "TOMCRUISE",
                          email: "tom.cruise@gmail.com",
                          normalizedEmail: "TOM.CRUISE@GMAIL.COM",
-                         emailConfirmed: true) { Id = 1 };
+                         emailConfirmed: true) { Id = Guid.Parse("9e1d366f-7c43-40b6-9a3a-1f9bbf4b6ba9") };
     }
 
     public PostLoginTestData SetupMockFindByEmail(bool userExists)

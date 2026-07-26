@@ -15,12 +15,9 @@ public static class ServiceExtension
 
         services.AddSingleton<IOptionsMonitor<EventStoreOptions>, OptionsMonitor<EventStoreOptions>>();
 
-        services.AddSingleton<IMongoClient>(_ => 
-                                                new MongoClient(services
-                                                               .BuildServiceProvider()
-                                                               .GetRequiredService<IOptions<EventStoreOptions>>()
-                                                               .Value
-                                                               .ServerUri));
+        services.AddKeyedSingleton<IMongoClient>("EventStore", (_, __) =>
+            new MongoClient(services.BuildServiceProvider()
+            .GetRequiredService<IOptions<EventStoreOptions>>().Value.ServerUri));
 
         services.AddScoped<IEventStore, Services.EventStore>();
     }

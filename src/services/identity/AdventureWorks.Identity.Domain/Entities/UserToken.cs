@@ -1,5 +1,5 @@
 ﻿namespace AdventureWorks.Identity.Domain.Entities;
 
-public class UserToken : IdentityUserToken<int>
+public class UserToken : IdentityUserToken<Guid>
 {
 }

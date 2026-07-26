@@ -1,6 +1,6 @@
 ﻿namespace AdventureWorks.Identity.Domain.Entities;
 
-public class User : IdentityUser<int>
+public class User : IdentityUser<Guid>
 {
     public User()
     {
@@ -10,13 +10,17 @@ public class User : IdentityUser<int>
                 string? normalizedUsername,
                 string? email,
                 string? normalizedEmail,
-                bool emailConfirmed) => (UserName,
-                                         NormalizedUserName,
-                                         Email,
-                                         NormalizedEmail,
-                                         EmailConfirmed) = (username,
-                                                            normalizedUsername,
-                                                            email,
-                                                            normalizedEmail,
-                                                            emailConfirmed);
+                bool emailConfirmed
+    ) => (
+        UserName,
+        NormalizedUserName,
+        Email,
+        NormalizedEmail,
+        EmailConfirmed) = (
+        username,
+        normalizedUsername,
+        email,
+        normalizedEmail,
+        emailConfirmed
+    );
 }
