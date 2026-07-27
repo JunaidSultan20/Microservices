@@ -1,10 +1,10 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 COPY ["src/api/gateway/AdventureWorks.Gateway.Api/AdventureWorks.Gateway.Api.csproj", "src/api/gateway/AdventureWorks.Gateway.Api/"]
 COPY ["src/common/AdventureWorks.Common/AdventureWorks.Common.csproj", "src/common/AdventureWorks.Common/"]
