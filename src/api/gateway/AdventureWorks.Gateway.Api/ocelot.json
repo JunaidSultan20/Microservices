@@ -106,6 +106,9 @@
   ],
   "GlobalConfiguration": {
     "BaseUrl": "localhost:6002",
+    "RateLimitOptions": {
+      "ClientIdHeader": "X-Forwarded-For"
+    },
     "ServiceDiscoveryProvider": {
       "Host": "adventureworks.consul",
       "Port": 8500,

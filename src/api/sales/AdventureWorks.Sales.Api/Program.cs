@@ -64,7 +64,7 @@ builder.Services.AddControllerExtension("120SecondsCacheProfile");
 
 builder.Services.AddHealthChecks();
 
-builder.Services.AddHealthChecksUI().AddInMemoryStorage();
+//builder.Services.AddHealthChecksUI().AddInMemoryStorage();
 
 builder.Services.AddEndpointsApiExplorer();
 
