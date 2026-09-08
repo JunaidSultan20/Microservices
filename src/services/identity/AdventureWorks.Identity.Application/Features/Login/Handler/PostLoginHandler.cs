@@ -24,13 +24,13 @@ public class PostLoginHandler(UserManager<User> userManager,
     public async Task<PostLoginResponse> Handle(PostLoginRequest request, CancellationToken cancellationToken = default)
     {
         HttpContext? context = httpContextAccessor.HttpContext;
-        User? user = await userManager.FindByEmailAsync(request.AuthenticationDto?.Email ?? string.Empty);
+        User? user = await userManager.FindByEmailAsync(request.Email ?? string.Empty);
 
         if (user is null)
             return new PostUnauthorizedAttemptResponse();
 
         bool isAuthenticUser = await userManager.CheckPasswordAsync(user: user, 
-                                                                    password: request.AuthenticationDto?.Password ?? string.Empty);
+                                                                    password: request.Password ?? string.Empty);
 
         if (!isAuthenticUser)
             return new PostUnauthorizedAttemptResponse();

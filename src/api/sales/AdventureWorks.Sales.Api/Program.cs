@@ -71,6 +71,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.ExampleFilters();
+    string filePath = Path.Combine(AppContext.BaseDirectory, "AdventureWorks.Sales.Api.xml");
+    options.IncludeXmlComments(filePath);
 });
 
 builder.Services.AddSwaggerExamplesFromAssemblyOf<GetCustomersResponse>();

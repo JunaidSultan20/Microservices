@@ -15,5 +15,8 @@ public class PostLoginRequest(AuthenticationDto authenticationDto) : IRequest<Po
     /// <summary>
     /// Gets the authentication information for the login request.
     /// </summary>
-    public AuthenticationDto? AuthenticationDto { get; } = authenticationDto;
+    //public AuthenticationDto? AuthenticationDto { get; } = authenticationDto;
+
+    public string Email => authenticationDto.Email;
+    public string Password => authenticationDto.Password;
 }
